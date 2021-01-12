@@ -14,6 +14,16 @@ p {
 	top: 450px;
 	left: 20px;
 }
+.role::after {
+	content: 'Good luck!';
+	background: -webkit-linear-gradient(0deg, 
+		#F00, #FF970A, #FFED00, #00F, #0F0, #B432FF, #FF24EF);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	position: absolute;
+	top: 40px;
+	left: 0;
+}
 
 /* Set background */
 .main-wrapper {
@@ -106,7 +116,6 @@ main {
 .input-row .code-circle:active {
 	border: 2px solid black;
 }
-
 
 
 
