@@ -1,8 +1,39 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html, body, .main-wrapper {
+	padding: 0;
+	margin: 0;
+}
+p {
+	color: #FFF;
 }
 
-a {
-  color: #00B7FF;
+
+.main-wrapper {
+	background: linear-gradient(90deg, #000 0vw, #333 20vw, #888 33vw, #888 67vw, #333 80vw, #000 100vw);
+	width: 100vw;
+	height: 100vh;
 }
+
+
+aside, main {
+	width: 33vw;
+	height: 100vh;
+	float: left;
+}
+main {
+	width: 34vw;
+	border: #F00 solid;
+	border-width: 0 2px;
+	box-sizing: border-box;
+	box-shadow: 0 0 20px 5px #F00;
+}
+
+.right-side p {
+	text-align: right;
+}
+
+
+
+
+
+
+
