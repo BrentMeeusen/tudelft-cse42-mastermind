@@ -5,6 +5,14 @@ html, body, .main-wrapper {
 }
 p {
 	color: #FFF;
+	font: 24px Verdana;
+	margin: 5px 20px;
+}
+
+.role {
+	position: absolute;
+	top: 450px;
+	left: 20px;
 }
 
 /* Set background */
