@@ -9,6 +9,7 @@ p {
 	margin: 5px 20px;
 }
 
+/* Set styling for the role that the user has */
 .role {
 	position: absolute;
 	top: 450px;
@@ -24,6 +25,48 @@ p {
 	top: 40px;
 	left: 0;
 }
+
+/* Animation for random code, as we have not guessed it correctly  yet*/ 
+@keyframes random-colour {
+	
+	0%   { background: #F00; }
+	9%   { background: #F00; }
+	10%  { background: #00F; }
+	19%  { background: #00F; }
+	20%  { background: #00E0E0; }
+	29%  { background: #00E0E0; }
+	30%  { background: #FF970A; }
+	39%  { background: #FF970A; }
+	40%  { background: #0F0; }
+	49%  { background: #0F0; }
+	50%  { background: #FF24EF; }
+	59%  { background: #FF24EF; }
+	60%  { background: #FF970A; }
+	69%  { background: #FF970A; }
+	70%  { background: #F00; }
+	79%  { background: #F00; }
+	80%  { background: #B432FF; }
+	89%  { background: #B432FF; }
+	90%  { background: #FFED00; }
+	100% { background: #FFED00; }
+
+}
+
+/* Set the animation on the hidden code */
+.hidden-code-row .code-circle {
+	animation: random-colour 2s infinite;
+}
+.hidden-code-row .code-circle:nth-of-type(2) {
+	animation-delay: -0.75s;
+}
+.hidden-code-row .code-circle:nth-of-type(3) {
+	animation-delay: -1.77s;
+}
+.hidden-code-row .code-circle:nth-of-type(4) {
+	animation-delay: -0.32s;
+}
+
+
 
 /* Set background */
 .main-wrapper {
