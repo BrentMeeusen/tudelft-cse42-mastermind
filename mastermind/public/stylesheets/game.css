@@ -1,3 +1,4 @@
+/* Remove any margin and padding, and set the standard text colour to white */
 html, body, .main-wrapper {
 	padding: 0;
 	margin: 0;
@@ -6,19 +7,26 @@ p {
 	color: #FFF;
 }
 
-
+/* Set background */
 .main-wrapper {
-	background: linear-gradient(90deg, #000 0vw, #333 20vw, #888 33vw, #888 67vw, #333 80vw, #000 100vw);
+	background: linear-gradient(90deg, 
+					#000 0vw, 
+					#333 20vw, 
+					#888 33vw, 
+					#888 67vw, 
+					#333 80vw, 
+					#000 100vw);
 	width: 100vw;
 	height: 100vh;
 }
 
-
+/* Set asides widths */
 aside, main {
 	width: 33vw;
 	height: 100vh;
 	float: left;
 }
+/* Set width, and design borders */
 main {
 	display: grid;
 	width: 34vw;
@@ -28,6 +36,7 @@ main {
 	box-shadow: 0 0 20px 5px #F00;
 }
 
+/* Set text alignment for righthand side */
 .right-side p {
 	text-align: right;
 }
@@ -43,8 +52,8 @@ main {
 	box-sizing: border-box;
 }
 
-
-.code-circle {
+/* Styling for circle and basics of result circle */
+.code-circle, .result-circle {
 	float: left;
 	margin: 1.333333vh 5px;
 	width: 6vh;
@@ -54,18 +63,26 @@ main {
 	border: 1px solid;
 }
 
-
-.hidden-code-row {
-	background: #444;
-	
+/* Override previous styling for result circle */
+.result-circle {
+	width: 3vh;
+	height: 3vh;
+	margin: 2.8vh 2px;
+	border-color: #0F0;
 }
+
+/* Different background for input row and code row */
+.hidden-code-row, .input-row {
+	background: #444;
+}
+/* Set border colour and shadow for the circles in code row */
 .hidden-code-row .code-circle {
 	border-color: #FFF;
 	box-shadow: 0 0 6px 1px #FFF;
 }
 
 
-
+/* Remove padding from input row */
 .input-row {
 	padding: 0;
 }
@@ -82,7 +99,7 @@ main {
 
 
 
-/* Setting circle backgrounds */
+/* Set circle backgrounds */
 .red-circle {
 	background: #F00;
 	border-color: #000;
