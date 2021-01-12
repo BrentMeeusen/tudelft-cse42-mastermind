@@ -108,6 +108,10 @@ main {
 
 
 /* Set circle backgrounds */
+.white-circle {
+	background: #FFF;
+	border-color: #000;
+}
 .red-circle {
 	background: #F00;
 	border-color: #000;
