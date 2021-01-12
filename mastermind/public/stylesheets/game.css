@@ -95,6 +95,18 @@ main {
 	padding: 0;
 }
 
+/* Set hover effect for the clickable elements */
+.input-row .code-circle {
+	opacity: 0.6;
+	transition: 0.3s opacity;
+}
+.input-row .code-circle:hover {
+	opacity: 1;
+}
+.input-row .code-circle:active {
+	border: 2px solid black;
+}
+
 
 
 
