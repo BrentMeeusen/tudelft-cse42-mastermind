@@ -133,7 +133,7 @@ main {
 }
 
 /* Different background for input row and code row */
-.hidden-code-row, .input-row {
+.hidden-code-row, .color-input-row, .redwhite-input-row {
 	background: #444;
 }
 /* Set border colour and shadow for the circles in code row */
@@ -144,20 +144,25 @@ main {
 
 
 /* Remove padding from input row */
-.input-row {
+.color-input-row {
 	padding: 0;
 }
 
 /* Set hover effect for the clickable elements */
-.input-row .code-circle {
+.color-input-row .code-circle, .redwhite-input-row .code-circle {
 	opacity: 0.6;
 	transition: 0.3s opacity;
 }
-.input-row .code-circle:hover {
+.color-input-row .code-circle:hover, .redwhite-input-row .code-circle:hover {
 	opacity: 1;
 }
-.input-row .code-circle:active {
+.color-input-row .code-circle:active, .redwhite-input-row .code-circle:active {
 	border: 2px solid black;
+}
+
+/* Set redwhite input row to invisible as default (as we only need this as the code maker) */
+.redwhite-input-row {
+	display: none;
 }
 
 
