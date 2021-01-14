@@ -7,6 +7,10 @@
     <meta charset="utf-8">
     <title> The Mastermind Game </title>
     <link rel="stylesheet" type="text/css" href="stylesheets/splash.css"> 
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
+    </style>
+        
 
   </head>
 
@@ -20,52 +24,37 @@
     <div class="main-wrapper">
 
         <aside class="left-side">
-            <nav>
-                <ul>
-                    <li>
-                        <form action="/click" method="get">
-                            <button type="submit"> STATISTICS </button>
-                        </form>
-                    </li>
-                     <li>
-                        <form action="https://www.y8.com/" method="get">
-                            <button type="submit"> MORE GAMES </button>
-                          </form>
-                    </li>
-                </ul>
-            </nav>
+               
+                <p>
+                <a href="https://www.y8.com/" class="statistics"> STATISTICS </a>
+                </p>
+
+                <p>
+                    <a href="https://www.y8.com/" class="more"> MORE GAMES </a>
+                </p>
+
+                <p>
+                    <a href="/click" class="howto"> HOW TO PLAY </a>
+                </p>
+               
+            
         </aside>
       
-        <main class="middle">
-            <section id="middle">
-                <form action="/play" method="get">
-                    <button type="submit"> PLAY </button>
-                </form>
+        <main class="button">
+
+            <a href="https://www.y8.com/"> PLAY </a>
+         
         </main>
        
         <aside class="right-side">
-            <nav>
-                <ul>
-                    <li>
-                        <form action="/click" method="get">
-                            <button type="submit"> HOW TO PLAY </button>
-                        </form>
-                    </li>
-                     <li>
-                        <p>
-                            Florena Buse<br>
-                            Brent Meeusen<br>
-                        </p>
-                    </li>
-                </ul>
-            </nav>
+            
+                <p class="creators"> Florena Buse<br>
+                    Brent Meeusen<br>
+                </p>
+          
         </aside>
 
     </div>
-
-    <footer>
-        <p>©Copyright 2021 by TU Delft CSE. All rights reversed.</p>
-    </footer>
 
   </body>
 
