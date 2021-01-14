@@ -1,0 +1,9 @@
+html, body, .main-wrapper {
+	padding: 0;
+	margin: 0;
+}
+p {
+	color: #FFF;
+	font: 24px Verdana;
+	margin: 5px 20px;
+}
