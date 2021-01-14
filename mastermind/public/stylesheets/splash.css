@@ -1,9 +1,30 @@
 html, body, .main-wrapper {
-	padding: 0;
-	margin: 0;
+	height: 100%;
 }
+
+body {
+	background-image: url("file:///C:/Users/flore/Desktop/Web%201920%20%E2%80%93%201.png");
+	height: 100%;
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1 {
+	color: #F4F3F3;
+	font-family: Helvetica, sans-serif;
+	font-weight: 600;
+	font-size: 80px;
+	text-align: center;
+}
+
+h1:hover {
+	color: #FA2BDA;
+}
+
 p {
 	color: #FFF;
 	font: 24px Verdana;
 	margin: 5px 20px;
 }
+
