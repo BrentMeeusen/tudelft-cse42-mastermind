@@ -12,5 +12,17 @@ socket.onmessage = function(event) {
 	console.log("Raw object: ", event);
 }
 
+// When the socket closes
+socket.onclose = function(event) {
+	console.warn("Socket closed!");
+}
+
+
+
+setTimeout(function() {
+	socket.send("Joe");
+	console.info("Sent another message.");
+}, 4000);
+
 
 

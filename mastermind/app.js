@@ -17,16 +17,20 @@ const wss = new ws.Server({ server });
 
 
 wss.on("connection", function(ws) {
+
 	setTimeout(function() {
-		console.log("State: " + ws.readyState);
-		ws.send("Thanks for your message!");
-		ws.close();
-		console.log("State: " + ws.readyState);
+		ws.send("Connection acknowledged.");
+		// ws.close();
 	}, 2000);
 
 	wss.on("message", function incoming(message) {
 		console.log("[MSG] " + message);
 	});
+
+	wss.on("disconnect", function() {
+		console.log("User disconnected.");
+	});
+
 });
 server.listen(port);
 
