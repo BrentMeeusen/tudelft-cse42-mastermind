@@ -38,7 +38,7 @@ wss.on("connection", function(ws) {
 		console.log("[MSG] " + message);
 	});
 
-	ws.on("disconnect", function() {
+	ws.on("close", function() {
 		console.log("User disconnected.");
 	});
 
