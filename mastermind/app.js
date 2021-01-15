@@ -53,6 +53,9 @@ app.get("/game", function(req, res) {
 app.get("/*.js", function(req, res) {
 	res.sendFile(req.url, { root: "./" });
 });
+app.get("/*.png", function(req, res) {
+	res.sendFile(req.url, { root: "./" });
+});
 app.get("/*", function(req, res) {
 	res.sendFile("public/splash_screen.html", { root: "./" });
 });
