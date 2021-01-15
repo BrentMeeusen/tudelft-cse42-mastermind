@@ -5,6 +5,8 @@ var ws = require("ws");
 var port = process.argv[2] || 3000;
 var app = express();
 
+var Game = require("./game");
+
 
 app.use(express.static(__dirname + "/public"));
 http.createServer(app).listen(port);
