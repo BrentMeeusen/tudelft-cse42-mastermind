@@ -3,7 +3,7 @@ var express = require("express");
 var http = require("http");
 var ws = require("ws");
 
-// Start server
+// Server requirements
 var port = process.argv[2] || 3000;
 var app = express();
 
@@ -12,8 +12,24 @@ var Game = require("./game");
 
 // Websocket
 app.use(express.static(__dirname + "/public"));
-const server = http.createServer(app).listen(port);
-const wss = new websocket.Server({ server });
+const server = http.createServer(app);
+const wss = new ws.Server({ server });
+
+
+wss.on("connection", function(ws) {
+	setTimeout(function() {
+		console.log("State: " + ws.readyState);
+		ws.send("Thanks for your message!");
+		ws.close();
+		console.log("State: " + ws.readyState);
+	}, 2000);
+
+	wss.on("message", function incoming(message) {
+		console.log("[MSG] " + message);
+	});
+});
+server.listen(port);
+
 
 
 // EXAMPLE CODE
@@ -31,8 +47,7 @@ app.get("/game", function(req, res) {
 });
 
 app.get("/*.js", function(req, res) {
-	res.send("Umm,, javascript???");
-	console.log(req, res);
+	res.sendFile(req.url, { root: "./" });
 });
 app.get("/*", function(req, res) {
 	res.sendFile("public/splash_screen.html", { root: "./" });
