@@ -14,25 +14,35 @@ var Game = require("./game");
 app.use(express.static(__dirname + "/public"));
 const server = http.createServer(app);
 const wss = new ws.Server({ server });
+server.listen(port);
 
+// console.log(server);
 
 wss.on("connection", function(ws) {
 
 	setTimeout(function() {
 		ws.send("Connection acknowledged.");
+		console.log("Yay");
+
+		// console.log(ws);
 		// ws.close();
 	}, 2000);
 
-	wss.on("message", function incoming(message) {
+	setTimeout(function() {
+		ws.send("Message after 6000ms.");
+		console.log("Yay too");
+		// ws.close();
+	}, 6000);
+
+	ws.on("message", function incoming(message) {
 		console.log("[MSG] " + message);
 	});
 
-	wss.on("disconnect", function() {
+	ws.on("disconnect", function() {
 		console.log("User disconnected.");
 	});
 
 });
-server.listen(port);
 
 
 
@@ -40,6 +50,7 @@ server.listen(port);
 var Validation = require("./validation");
 var av = new Validation.valid();
 av.validate();
+
 
 
 // Redirects
