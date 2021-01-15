@@ -1,8 +1,62 @@
+// Node requires
 var express = require("express");
 var http = require("http");
+var ws = require("ws");
 
-var port = process.argv[2];
+// Server requirements
+var port = process.argv[2] || 3000;
 var app = express();
 
+// My requires
+var Game = require("./game");
+
+// Websocket
 app.use(express.static(__dirname + "/public"));
-http.createServer(app).listen(port);
+const server = http.createServer(app);
+const wss = new ws.Server({ server });
+
+
+wss.on("connection", function(ws) {
+
+	setTimeout(function() {
+		ws.send("Connection acknowledged.");
+		// ws.close();
+	}, 2000);
+
+	wss.on("message", function incoming(message) {
+		console.log("[MSG] " + message);
+	});
+
+	wss.on("disconnect", function() {
+		console.log("User disconnected.");
+	});
+
+});
+server.listen(port);
+
+
+
+// EXAMPLE CODE
+var Validation = require("./validation");
+var av = new Validation.valid();
+av.validate();
+
+
+// Redirects
+app.get("/", function(req, res) {
+	res.sendFile("public/splash_screen.html", { root: "./" });
+});
+app.get("/game", function(req, res) {
+	res.sendFile("public/game_guesser.html", { root: "./" });
+});
+
+app.get("/*.js", function(req, res) {
+	res.sendFile(req.url, { root: "./" });
+});
+app.get("/*", function(req, res) {
+	res.sendFile("public/splash_screen.html", { root: "./" });
+});
+
+
+
+
