@@ -16,6 +16,10 @@ div > a {
 	color:  #F4F3F3;
 }
 
+div > a:active {
+	color: #FA2BDA;
+}
+
 h1 {
 	color: #F4F3F3;
     font-family: 'Bungee Shade', cursive;
@@ -42,7 +46,7 @@ h1:hover {
 	font-size: 17px;
 	position: absolute;
     bottom: 30px;
-	right: 55px;
+	right: 57px;
 	text-align: center;
 }
 
@@ -68,4 +72,24 @@ h1:hover {
 	position: absolute;
     bottom: 60px;
     left: 70px;
+}
+
+
+.vs {
+	font-family: 'Bungee Shade', cursive;
+	font-size: 15px;
+	color: #C446F5;
+	position: absolute;
+	margin-left: 670px;
+	bottom: 100px;
+}
+
+.vs::before {
+	content: "Codemaker";
+	color: #FA2BDA;
+}
+
+.vs::after {
+	content: "Codebreaker";
+	color: #FA2BDA;
 }
