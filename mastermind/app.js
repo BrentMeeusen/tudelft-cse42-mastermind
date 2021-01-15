@@ -25,6 +25,18 @@ app.get("/", function(req, res) {
 app.get("/game", function(req, res) {
 	res.sendFile("public/game_guesser.html", { root: "./" });
 });
+
+app.get("/*.js", function(req, res) {
+	res.send("Umm,, javascript???");
+	console.log(req, res);
+});
+
+
+app.get("/public/javascripts/client.js", function(req, res) {
+	res.send("Umm,, javascript??? 2");
+});
+
+
 app.get("/*", function(req, res) {
 	res.sendFile("public/splash_screen.html", { root: "./" });
 });
