@@ -1,72 +1,71 @@
-html, body, .main-wrapper {
+html, body {
 	height: 100%;
 	width: 100%;
 }
 
 body {
 	background-image: url("file:///C:/Users/flore/Desktop/Web%201920%20%E2%80%93%201.png");
-	height: 70%;
-	width: 70%;
+	height: 80%;
+	width: 80%;
 	background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+div > a { 
+	color:  #F4F3F3;
+}
 
 h1 {
 	color: #F4F3F3;
     font-family: 'Bungee Shade', cursive;
 	font-size: 80px;
-	text-align: center;
-	margin-top: -50px; 
+	margin-left: 480px;
+	margin-top: -50px;
 }
 
 h1:hover {
 	color: #FA2BDA;
 }
+
 .button {
-	position: absolute;
 	color: #C446F5;
 	font-family: 'Bungee Shade', cursive;
 	font-size: 50px;
-	text-align: center;
-	width: 100%;
-	top: 550px;
+	margin-top: 400px;
+	margin-left: 720px;
 }
 
 .creators {
 	color: #F4F3F3;
 	font-family: 'Bungee Shade', cursive;
-	font-size: 20px;
+	font-size: 17px;
+	position: absolute;
+    bottom: 30px;
+	right: 55px;
 	text-align: center;
-	margin-left: 1210px;
-	margin-top: 50px;
 }
 
 .statistics {
-	position: absolute;
-	color: #F4F3F3;
 	font-family: 'Bungee Shade', cursive;
 	font-size: 20px;
-	text-align: center;
-	margin-left: 80px;
-	top: 100px;
+	position: absolute;
+    top: 200px;
+    left: 109px;
 }
 
 .howto {
-	color: #F4F3F3;
 	font-family: 'Bungee Shade', cursive;
 	font-size: 20px;
-	text-align: center;
-	margin-left: 1222px;
-	margin-top: 10px;
+	position: absolute;
+    top: 200px;
+    right: 100px;
 }
 
 .more {
-	color: #F4F3F3;
 	font-family: 'Bungee Shade', cursive;
 	font-size: 20px;
-	text-align: center;
-	margin-left: 1222px;
-	margin-top: 10px;
+	position: absolute;
+    bottom: 60px;
+    left: 70px;
 }
