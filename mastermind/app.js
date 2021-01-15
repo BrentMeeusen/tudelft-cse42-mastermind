@@ -20,10 +20,11 @@ av.validate();
 app.get("/", function(req, res) {
 	res.sendFile("public/splash_screen.html", { root: "./" });
 });
-
-
-app.get("/something", function(req, res) {
-	res.send("/splash_screen.html");
+app.get("/game", function(req, res) {
+	res.sendFile("public/game_guesser.html", { root: "./" });
+});
+app.get("/*", function(req, res) {
+	res.sendFile("public/splash_screen.html", { root: "./" });
 });
 
 
