@@ -16,14 +16,21 @@ socket.onmessage = function(event) {
 	let MSG = JSON.parse(event.data);
 
 	// DEBUGGING PURPOSES
-	console.info("Incoming message: ", MSG);
+	// MSG contains data and {code: "", message: ""}
+	console.log(MSG.message.code, "-", MSG.message.message);
 
 	// If it's the first message we receive, set global variable messages to the data
-	if(MSG.message == "MESSAGES") {
-		messages = message.data;
+	if(MSG.message.code === "MESSAGES") {
+		messages = MSG.data;
 	}
 
 	// If the game starts, show the correct input row
+	if(MSG.message.code == "GAME_STARTS_MAKECODE") {
+		
+		// Colour input is already displayed, wait for the user to input a code
+
+
+	}
 
 
 }
