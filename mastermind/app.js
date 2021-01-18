@@ -108,41 +108,36 @@ wss.on("connection", function(ws) {
 		} // if MSG === INPUT_CREATED_CODE
 
 
+
+		// CREATE METHOD IN GAME.JS WHICH RETURNS THE GAME WHERE THE PLAYER WITH ID (PARAM) IS IN
+
+
+
+
 	});
 	
 	// ================================================================
 	// When the user disconnects
 	ws.on("close", function() {
 
-		// Find the game the user took place in
-		for(let i = 0; i < games.length; i++) {
+		let game = Game.findGameOnPlayerID(thisID);
 
-			// If the game is found
-			if(games[i] && games[i].players.includes(thisID)) {
-
-				// If it has 2 players
-				if(games[i].players.length === 2) {
+		// If it exists and has 2 players
+		if(game && game.players.length === 2) {
 				
-					// Check which player we need to inform
-					var toInform = (games[i].PLAYER_1 === thisID ? games[i].PLAYER_2 : games[i].PLAYER_1);
+			// Check which player we need to inform
+			var toInform = (game.PLAYER_1 === thisID ? game.PLAYER_2 : game.PLAYER_1);
 				
-					// Send message and close the socket
-					var m = { message: messages.OPPONENT_DISCONNECTED, data: games[i] };
-					m = JSON.stringify(m);
-					users[toInform - 1].send(m);
-					users[toInform - 1].close();
+			// Send message and close the socket
+			var m = { message: messages.OPPONENT_DISCONNECTED, data: game };
+			m = JSON.stringify(m);
+			users[toInform - 1].send(m);
+			users[toInform - 1].close();
 
-					// Stop searching for games
-					break;
+		} // Game has two players
 
-					} // Game has two players
-
-					// Set game to null (if game has either 1 or 2 players)
-					games[i] = null;
-
-			} // If player is in the game
-
-		} // for i < games.length
+		// Set game to null (if game has either 1 or 2 players)
+		game = null;
 
 	});	// On close
 });	// WSServer
