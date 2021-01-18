@@ -8,7 +8,7 @@ var port = process.argv[2] || 3000;
 var app = express();
 
 // My requires
-var Game = require("./game");
+var Game = require("./game").game;
 const games = [];
 
 var Message = require("./messages");
@@ -50,7 +50,7 @@ wss.on("connection", function(ws) {
 	if(game == null || game.players.length === 2) {
 
 		// Create a game
-		games.push(new Game.game([thisID]));
+		games.push(new Game([thisID]));
 
 		// Tell the user we're waiting for players
 		var m = { message: messages.WAITING_FOR_PLAYERS, data: games[games.length - 1] };
