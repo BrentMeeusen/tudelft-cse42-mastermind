@@ -28,11 +28,14 @@ server.listen(port);
 // When a user connects
 wss.on("connection", function(ws) {
 
+	// Give this user an ID
+	let thisID = userID++;
+
 	// Send the user a message with all the messages it can send/receive and include its ID
 	let m = {
 		message: "MESSAGES",
 		data: messages,
-		ID: userID++
+		ID: thisID
 	};
 	m = JSON.stringify(m);
 	ws.send(m);
@@ -43,7 +46,7 @@ wss.on("connection", function(ws) {
 
 	// If there's no games at all, or if the last game is full: create a new game
 	if(g == null || g.players.length == 2) {
-		games.push(new Game.game([69]));
+		games.push(new Game.game([thisID])); // -1 because of the increment
 		console.log("Game created: ", games[games.length - 1]);
 	}
 
@@ -56,7 +59,7 @@ wss.on("connection", function(ws) {
 
 	// When the user disconnects
 	ws.on("close", function() {
-		console.log("User disconnected.");
+		console.log("User \"" + thisID + "\" disconnected.");
 	});
 
 });

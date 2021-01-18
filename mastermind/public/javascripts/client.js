@@ -1,6 +1,5 @@
 const socket = new WebSocket("ws://localhost:3000");
 let messages = {};
-let ID = 0;
 
 // When the socket opens
 socket.onopen = function() {
@@ -20,7 +19,6 @@ socket.onmessage = function(event) {
 	// If it's the first message we receive, set global variable messages to the data
 	if(message.message == "MESSAGES") {
 		messages = message.data;
-		ID = message.ID;
 	}
 
 
