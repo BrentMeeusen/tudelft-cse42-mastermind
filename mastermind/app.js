@@ -30,6 +30,11 @@ wss.on("connection", function(ws) {
 	};
 	m = JSON.stringify(m);
 	ws.send(m);
+
+
+	// Check whether there's a game waiting for a user
+
+
 	
 	// When we get a message
 	ws.on("message", function incoming(message) {
