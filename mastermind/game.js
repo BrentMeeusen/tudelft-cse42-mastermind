@@ -17,12 +17,11 @@ class Game {
 
 
 // Find a player with a player ID
-Game.findGameOnPlayerID = function(ID, games) {
-	for(let i = 0; i < games.length; i++) {
+Game.findIndexOnPlayerID = function(ID, games) {
 
-		// If the game is found
+	for(let i = 0; i < games.length; i++) {
 		if(games[i] && games[i].players.includes(ID)) {
-			return games[i];
+			return i;
 		}
 	}
 
