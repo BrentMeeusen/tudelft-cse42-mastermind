@@ -18,7 +18,10 @@ document.getElementById("remove-last").addEventListener("click", function() {
 		if(action === "GAME_STARTS_MAKECODE") {
 			codeCircles[currentInput.length - 1].classList.remove(color + "-circle");
 		}
-		else if(action === "OPPONENT_MOVED") {
+		else if(action === "OPPONENT_CREATED_CODE") {
+			let thisRow = rows[currentRow];
+			let circles = thisRow.getElementsByClassName("code-cricle");
+			circles[currentInput.length - 1].classList.remove(this.dataset.color + "-circle");
 
 		}
 
@@ -52,8 +55,10 @@ for(c of colorInputs) {
 					codeCircles[currentInput.length - 1].classList.add(this.dataset.color + "-circle");
 				}
 				// Else, if we're guessing the code, add it to the row we're working on
-				else if(action === "OPPONENT_MOVED") {
+				else if(action === "OPPONENT_CREATED_CODE") {
 					let thisRow = rows[currentRow];
+					let circles = thisRow.getElementsByClassName("code-cricle");
+					circles[currentInput.length - 1].classList.add(this.dataset.color + "-circle");
 				}
 
 				// If the input is full
@@ -64,9 +69,10 @@ for(c of colorInputs) {
 					m = JSON.stringify(m);
 					socket.send(m);
 
-					// ...and clear the input array
+					// ...clear the input array, and disable input
 					currentInput = [];
-
+					canHandleInput = false;
+					
 				}
 
 			}
@@ -76,7 +82,7 @@ for(c of colorInputs) {
 			}
 
 		} 
-		// Else (if !canHandleInput)
+		// Else (if input is not allowed)
 		else {
 			console.error("You cannot input anything right now!");
 		}
@@ -112,11 +118,17 @@ socket.onmessage = function(event) {
 	}
 
 	// If the game starts, show the correct input row
-	if(MSG.message.code == "GAME_STARTS_MAKECODE") {
+	else if(MSG.message.code === "GAME_STARTS_MAKECODE") {
 		
 		// Colour input is already displayed, wait for the user to input a code
 		canHandleInput = true;		// Enable input
 
+	}
+
+	// If it's time to make a guess as code guesser
+	else if(MSG.message.code === "OPPONENT_CREATED_CODE" && MSG.data.PLAYER_2 === MSG.data.ID) {
+		
+		canHandleInput = true;		// Enable input
 
 	}
 
