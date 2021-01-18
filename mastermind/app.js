@@ -27,22 +27,22 @@ const wss = new ws.Server({ server });
 server.listen(port);
 
 
+// ================================================================
 // When a user connects
 wss.on("connection", function(ws) {
 
+	// ================================================================
 	// Give this user an ID and push it to the users array
 	let thisID = userID++;
 	users.push(ws);
 
 	// Send the user a message with all the messages it can send/receive and include its ID
-	var m = {
-		message: "MESSAGES",
-		data: messages
-	};
+	var m = { message: "MESSAGES", data: messages };
 	m = JSON.stringify(m);
 	ws.send(m);
 
-
+	
+	// ================================================================
 	// Check whether there's a game waiting for a user
 	let g = games[games.length - 1];
 
@@ -75,13 +75,15 @@ wss.on("connection", function(ws) {
 
 	}
 
-	
+
+	// ================================================================
 	// When we get a message
 	ws.on("message", function incoming(message) {
 		// Do stuff with that message
 		console.log("[MSG] " + message);
 	});
-
+	
+	// ================================================================
 	// When the user disconnects
 	ws.on("close", function() {
 
@@ -108,13 +110,12 @@ wss.on("connection", function(ws) {
 
 		} // for i < games.length
 
-		console.log("User \"" + thisID + "\" disconnected.");
-	});
-
-});
+	});	// On close
+});	// WSServer
 
 
 
+// ================================================================
 // Redirects
 app.get("/", function(req, res) {
 	res.sendFile("public/splash_screen.html", { root: "./" });
