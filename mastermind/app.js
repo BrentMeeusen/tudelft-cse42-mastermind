@@ -81,8 +81,32 @@ wss.on("connection", function(ws) {
 	ws.on("message", function incoming(message) {
 		
 		// Do stuff with that message
-		message = JSON.parse(message);
-		console.log("[MSG] ", message);
+		MSG = JSON.parse(message);
+		
+		// DEBUGGING PURPOSES
+		console.log("[MSG] ", MSG);
+
+
+		// If user inputs a code
+		if(MSG.message.code === "INPUT_CREATED_CODE") {
+			
+			// If the code is invalid, send that to the user
+			if(!Game.isValidCode(MSG.data)) {
+
+				let m = { message: messages.ERRORS.INVALID_CODE, data: MSG.data };
+				m = JSON.stringify(m);
+				ws.send(m);
+
+			}
+			// Else (if code is valid)
+			else {
+				
+				// Place the code in the game object and update the other player
+
+			}
+
+		} // if MSG === INPUT_CREATED_CODE
+
 
 	});
 	
