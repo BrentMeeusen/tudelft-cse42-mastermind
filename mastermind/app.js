@@ -33,7 +33,13 @@ wss.on("connection", function(ws) {
 
 
 	// Check whether there's a game waiting for a user
+	let g = games[games.length - 1];
 
+	// If there's no games at all, or if there's a game that's full: create a new game
+	if(g == null || g.players.length == 2) {
+		games.push(new Game.game([69]));
+		console.log("Game created: ", games[games.length - 1]);
+	}
 
 	
 	// When we get a message
