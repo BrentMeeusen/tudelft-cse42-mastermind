@@ -15,9 +15,9 @@ var Message = require("./messages");
 var messages = Message.messages;
 
 
-// Keep track of users
+// Keep track of players
 let userID = 1;
-const users = [];
+const players = [];
 
 
 // Websocket
@@ -32,9 +32,10 @@ server.listen(port);
 wss.on("connection", function(ws) {
 
 	// ================================================================
-	// Give this user an ID and push it to the users array
+	// Give this user an ID and push it to the players array
 	let thisID = userID++;
-	users.push(ws);
+	let thisGameIndex = games.length;
+	players.push(ws);
 
 	// Send the user a message with all the messages they can send back to the server
 	var m = { message: { code: "MESSAGES" }, data: Message.clientMessages };
@@ -61,26 +62,29 @@ wss.on("connection", function(ws) {
 
 	// Else (so if there is a game waiting for a user)
 	else {
+
+		// Update thisGameIndex to match the actual index
+		thisGameIndex--;
+
 		game.players.push(thisID);		// Join the game
-		game.assignRoles();			// Assign the roles
+		game.assignRoles();				// Assign the roles
 
 		// Send a message to both players indicating the game has started and which role they have
 		var m = { message: messages.GAME_STARTS_MAKECODE, data: game }
 		m = JSON.stringify(m);
-		users[game.PLAYER_1 - 1].send(m);
+		players[game.PLAYER_1 - 1].send(m);
 
 		var m = { message: messages.GAME_STARTS_GUESSCODE, data: game }
 		m = JSON.stringify(m);
-		users[game.PLAYER_2 - 1].send(m);
+		players[game.PLAYER_2 - 1].send(m);
 
 	}
 
 
 	// ================================================================
-	// When we get a message
+	// When the server reveices a message
 	ws.on("message", function incoming(message) {
-		
-		// Do stuff with that message
+
 		MSG = JSON.parse(message);
 		
 		// DEBUGGING PURPOSES
@@ -93,7 +97,7 @@ wss.on("connection", function(ws) {
 			// If the code is invalid, send that to the user
 			if(!Game.isValidCode(MSG.data)) {
 
-				let m = { message: messages.ERRORS.INVALID_CODE, data: MSG.data };
+				var m = { message: messages.ERRORS.INVALID_CODE, data: MSG.data };
 				m = JSON.stringify(m);
 				ws.send(m);
 
@@ -103,42 +107,47 @@ wss.on("connection", function(ws) {
 				
 				// Place the code in the game object and update the other player
 
+				// TODO: UPDATE GAME OBJECT (!!!)
+
+				var game = games[thisGameIndex];
+
+				var playerIndex = (game.players[0] === thisID ? game.players[1] : game.players[0]);
+
+				var m = { message: messages.OPPONENT_CREATED_CODE, data: game };
+				m = JSON.stringify(m);
+				players[playerIndex - 1].send(m);
+
 			}
 
 		} // if MSG === INPUT_CREATED_CODE
 
 
 
-		// CREATE METHOD IN GAME.JS WHICH RETURNS THE GAME WHERE THE PLAYER WITH ID (PARAM) IS IN
-
-
-
-
 	});
 	
+
 	// ================================================================
 	// When the user disconnects
 	ws.on("close", function() {
 
-		let i = Game.findIndexOnPlayerID(thisID, games);
-		console.log(games[i]);
+		var game = games[thisGameIndex];
 
 		// If it exists and has 2 players
-		if(games[i] && games[i].players.length === 2) {
+		if(game && game.players.length === 2) {
 				
 			// Check which player we need to inform
-			var toInform = (games[i].PLAYER_1 === thisID ? games[i].PLAYER_2 : games[i].PLAYER_1);
+			var toInform = (game.PLAYER_1 === thisID ? game.PLAYER_2 : game.PLAYER_1);
 				
 			// Send message and close the socket
-			var m = { message: messages.OPPONENT_DISCONNECTED, data: games[i] };
+			var m = { message: messages.OPPONENT_DISCONNECTED, data: game };
 			m = JSON.stringify(m);
-			users[toInform - 1].send(m);
-			users[toInform - 1].close();
+			players[toInform - 1].send(m);
+			players[toInform - 1].close();
 
 		} // Game has two players
 
 		// Set game to null (if game has either 1 or 2 players)
-		games[i] = null;
+		games[thisGameIndex] = null;
 
 	});	// On close
 });	// WSServer
