@@ -12,7 +12,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
     </style>
-        
 
   </head>
 
@@ -29,18 +28,21 @@
       </div>
 
       <div class="more">
-        <a href="https://www.y8.com/"> MORE GAMES </a>
+        <a href="https://www.funnygames.org/game/mastermind_online.html"> MORE GAMES </a>
       </div>
 
-      <div class="howto">
-        <a href="https://www.y8.com/"> HOW TO PLAY </a>
+      <div class="howto" onclick="myFunction()"> HOW TO PLAY
+        <span class="popuptext" id="myPopup"> 
+          <p class="title"> HOW TO PLAY </p>
+          One player becomes the codemaker, the other the codebreaker. The codemaker chooses a pattern of four code pegs. Duplicates are allowed. Blank spaces are not allowed. The codebreaker tries to guess the pattern, in both order and color, within 10 turns. Each guess is made by placing a row of code pegs on the decoding board. Once placed, the codemaker provides feedback by placing from zero to four key pegs in the small holes of the row with the guess. A red key peg is placed for each code peg from the guess which is correct in both color and position. A white key peg indicates the existence of a correct color code peg placed in the wrong position. Once feedback is provided, another guess is made; guesses and feedback continue to alternate until either the codebreaker guesses correctly, or all rows of the decoding boards are full. 
+        </span>
       </div>
                
     </aside>
       
-    <main class="button">
+    <main>
 
-      <a href="/game"> PLAY </a>
+      <a href="game_guesser.html" id="play"> PLAY </a>
          
     </main>
        
@@ -56,6 +58,8 @@
       <div class="vs"> VS
       </div>
     </aside>
+
+  <script language="javascript" src="javascripts/splash.js"></script>  
 
   </body>
 

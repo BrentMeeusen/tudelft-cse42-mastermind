@@ -16,6 +16,10 @@ div > a {
 	color:  #F4F3F3;
 }
 
+div > a:hover { 
+	color: #FA2BDA;
+}
+
 div > a:active {
 	color: #FA2BDA;
 }
@@ -32,12 +36,17 @@ h1:hover {
 	color: #FA2BDA;
 }
 
-.button {
+#play {
 	color: #ab23e0;
 	font-family: 'Bungee Shade', cursive;
 	font-size: 50px;
-	margin-top: 335px;
-	margin-left: 640px;
+	position: absolute;
+	left: 650px;
+	bottom: 170px;
+}
+
+#play:hover {
+	color: #FA2BDA;
 }
 
 .creators {
@@ -63,8 +72,58 @@ h1:hover {
 	font-size: 20px;
 	position: absolute;
     top: 180px;
-    right: 80px;
+	right: 80px;
+	color: #F4F3F3;
 }
+
+.howto:hover {
+	color: #FA2BDA;
+}
+
+@-webkit-keyframes fadeIn {
+	from {opacity: 0;}
+	to {opacity: 1;}
+}
+  
+@keyframes fadeIn {
+	from {opacity: 0;}
+	to {opacity:1 ;}
+}
+
+.howto .popuptext {
+	visibility: hidden;
+	width: 900px;
+	background-color: #111111;
+	color: #F4F3F3;
+	font-size: 23px;
+	text-align: center;
+	border-radius: 6px;
+	text-align: center;
+	position: fixed; 
+	z-index: 1; 
+	left: 0;
+	top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto; 
+}
+
+.howto .title {
+	color: #ab23e0;
+	font-size: 30px;
+	text-align: center;
+}
+
+.howto .title:hover {
+	color: #FA2BDA;
+}
+
+.howto .show {
+	visibility: visible;
+	-webkit-animation: fadeIn 1s;
+	animation: fadeIn 1s
+}
+
 
 .more {
 	font-family: 'Bungee Shade', cursive;
