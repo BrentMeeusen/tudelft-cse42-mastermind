@@ -57,7 +57,7 @@ for(c of colorInputs) {
 				// Else, if we're guessing the code, add it to the row we're working on
 				else if(action === "OPPONENT_CREATED_CODE") {
 					let thisRow = rows[currentRow];
-					let circles = thisRow.getElementsByClassName("code-cricle");
+					let circles = thisRow.getElementsByClassName("code-circle");
 					circles[currentInput.length - 1].classList.add(this.dataset.color + "-circle");
 				}
 
