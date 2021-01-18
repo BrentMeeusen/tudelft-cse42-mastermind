@@ -1,5 +1,13 @@
+// Set variables
 const socket = new WebSocket("ws://localhost:3000");
 let messages = {};
+var canHandleInput = false;
+
+// ================================================================
+// Add click events to the inputs
+let colorInputs = document.getElementById("color-input").getElementsByClassName("code-circle");
+
+
 
 // ================================================================
 // When the socket opens
@@ -28,6 +36,7 @@ socket.onmessage = function(event) {
 	if(MSG.message.code == "GAME_STARTS_MAKECODE") {
 		
 		// Colour input is already displayed, wait for the user to input a code
+		canHandleInput = true;		// Enable input
 
 
 	}
