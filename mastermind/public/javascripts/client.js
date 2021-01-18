@@ -3,6 +3,10 @@ const socket = new WebSocket("ws://localhost:3000");
 let messages = {};
 let canHandleInput = false;
 let currentInput = [];
+let action = null;
+let rows = document.getElementsByClassName("game-row");
+let codeCircles = document.getElementById("answer-row").getElementsByClassName("code-circle");
+
 
 // ================================================================
 // Add click events to the color inputs
@@ -21,6 +25,15 @@ for(c of colorInputs) {
 			if(!currentInput.includes(this.dataset.color)) {
 
 				currentInput.push(this.dataset.color);
+
+				// If we're making the code, add it to the top
+				if(action === "GAME_STARTS_MAKECODE") {
+					codeCircles[currentInput.length - 1].classList.add(this.dataset.color + "-circle");
+				}
+				// Else, if we're guessing the code, add it to the row we're working on
+				else if(false) {
+
+				}
 
 				// If the input is full
 				if(currentInput.length >= 4) {
@@ -69,6 +82,8 @@ socket.onmessage = function(event) {
 	// DEBUGGING PURPOSES
 	// MSG contains data and {code: "", message: ""}
 	console.log(MSG.message.code, "-", MSG.message.message);
+
+	action = MSG.message.code;
 
 	// If it's the first message we receive, set global variable messages to the data
 	if(MSG.message.code === "MESSAGES") {
