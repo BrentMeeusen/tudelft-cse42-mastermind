@@ -86,8 +86,27 @@ wss.on("connection", function(ws) {
 	ws.on("close", function() {
 
 		// Find the game the user took place in
-			// Tell the other player that this player left
-			// Remove the game from the list
+		for(let i = 0; i < games.length; i++) {
+
+			// If the game is found
+			if(games[i].players.includes(thisID)) {
+
+				// Check which player we need to inform
+				var toInform = (games[i].PLAYER_1 === thisID ? games[i].PLAYER_2 : games[i].PLAYER_1);
+				
+				// Send message
+				var m = { message: USER_DISCONNECTED, data: games[i] };
+				m = JSON.stringify(m);
+				users[toInform - 1].send(m);
+
+				// Stop searching for games
+				break;
+
+			} // If player is in the game
+
+			// If the game is not found (because the other user left), do nothing
+
+		} // for i < games.length
 
 		console.log("User \"" + thisID + "\" disconnected.");
 	});
