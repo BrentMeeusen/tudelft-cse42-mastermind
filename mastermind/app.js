@@ -45,15 +45,17 @@ wss.on("connection", function(ws) {
 	let g = games[games.length - 1];
 
 	// If there's no games at all, or if the last game is full: create a new game
-	if(g == null || g.players.length == 2) {
+	if(g == null || g.players.length === 2) {
 		games.push(new Game.game([thisID])); // -1 because of the increment
 		console.log("Game created: ", games[games.length - 1]);
 	}
 	// Else (so if there IS a game waiting for a user), join that game
 	else {
-		g.players.push(thisID);
-		g.assignRoles();
-		console.log("Game altered: ", games[games.length - 1]);
+		g.players.push(thisID);		// Join the game
+		g.assignRoles();			// Assign the roles
+
+		// Send a message to both players indicating the game has started and which role they have
+
 	}
 
 	
