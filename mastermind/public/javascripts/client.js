@@ -19,7 +19,7 @@ document.getElementById("remove-last").addEventListener("click", function() {
 		if(action === "GAME_STARTS_MAKECODE" || action === "INVALID_CODE") {
 			codeCircles[currentInput.length - 1].classList.remove(color + "-circle");
 		}
-		else if(action === "OPPONENT_CREATED_CODE") {
+		else if(action === "OPPONENT_CREATED_CODE" || action === "OPPONENT_CORRECTED" || action === "INVALID_GUESS") {
 			let thisRow = rows[10 - currentRow];
 			let circles = thisRow.getElementsByClassName("code-circle");
 			circles[currentInput.length - 1].classList.remove(color + "-circle");
@@ -56,7 +56,7 @@ for(c of colorInputs) {
 					codeCircles[currentInput.length - 1].classList.add(this.dataset.color + "-circle");
 				}
 				// Else, if we're guessing the code, add it to the row we're working on
-				else if(action === "OPPONENT_CREATED_CODE") {
+				else if(action === "OPPONENT_CREATED_CODE" || action === "OPPONENT_CORRECTED" || action === "INVALID_GUESS") {
 					let thisRow = rows[10 - currentRow];
 					let circles = thisRow.getElementsByClassName("code-circle");
 					circles[currentInput.length - 1].classList.add(this.dataset.color + "-circle");
@@ -68,7 +68,7 @@ for(c of colorInputs) {
 					// Send input to the server...
 					var m = { message: messages.INPUT_CREATED_CODE, data: currentInput };
 					
-					if(action === "OPPONENT_CREATED_CODE") {
+					if(action === "OPPONENT_CREATED_CODE" || action === "OPPONENT_CORRECTED" || action === "INVALID_GUESS") {
 						m.message = messages.INPUT_GUESS;
 					}
 					
@@ -185,6 +185,7 @@ socket.onmessage = function(event) {
 		document.getElementById("color-input").style.display = "block";
 		document.getElementById("redwhite-input").style.display = "none";
 
+		// Clear code row
 		for(let i = 0; i < 4; i++) {
 			for(let j = 0; j < COLORS.length; j++) {
 				codeCircles[i].classList.remove(COLORS[j] + "-circle");
@@ -193,15 +194,26 @@ socket.onmessage = function(event) {
 
 	}
 
-	// If it's time to make a guess as code guesser
-	else if(MSG.message.code === "OPPONENT_CREATED_CODE" && MSG.data.PLAYER_2 === MSG.ID) {
+	// If it's time to make a guess as code guesser or if the previous guess was invalid
+	else if((MSG.message.code === "OPPONENT_CREATED_CODE" || MSG.message.code === "INVALID_GUESS") && MSG.data.PLAYER_2 === MSG.ID) {
 		
 		canHandleInput = true;		// Enable input
+
+		// Clear game row
+		let thisRow = rows[10 - currentRow];
+		let circles = thisRow.getElementsByClassName("code-circle");
+
+		for(let i = 0; i < 4; i++) {
+			for(let j = 0; j < COLORS.length; j++) {
+				circles[i].classList.remove(COLORS[j] + "-circle");
+			}
+		}
+
 
 	}
 
 	// If the other player made a guess 
-	else if(MSG.message.code === "OPPONENT_MADE_GUESS") {
+	else if(MSG.message.code === "OPPONENT_MADE_GUESS" || MSG.message.code === "INVALID_CHECK") {
 
 		// Enable input
 		canHandleInput = true;
