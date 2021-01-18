@@ -181,39 +181,39 @@ main {
 
 /* Set circle backgrounds */
 .white-circle {
-	background: #FFF;
+	background: #FFF !important;
 	border-color: #000;
 }
 .red-circle {
-	background: #F00;
+	background: #F00 !important;
 	border-color: #000;
 }
 .orange-circle {
-	background: #FF970A;
+	background: #FF970A !important;
 	border-color: #000;
 }
 .yellow-circle {
-	background: #FFED00;
+	background: #FFED00 !important;
 	border-color: #000;
 }
 .green-circle {
-	background: #00F;
+	background: #00F !important;
 	border-color: #000;
 }
 .cyan-circle {
-	background: #00E0E0;
+	background: #00E0E0 !important;
 	border-color: #000;
 }
 .blue-circle {
-	background: #0F0;
+	background: #0F0 !important;
 	border-color: #000;
 }
 .purple-circle {
-	background: #B432FF;
+	background: #B432FF !important;
 	border-color: #000;
 }
 .pink-circle {
-	background: #FF24EF;
+	background: #FF24EF !important;
 	border-color: #000;
 }
 
