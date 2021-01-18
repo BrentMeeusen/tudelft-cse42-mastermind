@@ -16,5 +16,28 @@ class Game {
 }
 
 
+// Validate the given code
+Game.isValidCode = function(input) {
+
+		// If the code doesn't contain 4 items, return false
+		if(input.length !== 4) {
+			return false;
+		}
+
+		// If there is a duplicate, return false
+		for(let i = 0; i < 3; i++) {
+			for(let j = i + 1; j < 4; j++) {
+				if(input[i] === input[j]) {
+					return false;
+				}
+			}
+		}
+
+		// Otherwise, return true
+		return true;
+	}
+
+
+
 
 exports.game = Game;
