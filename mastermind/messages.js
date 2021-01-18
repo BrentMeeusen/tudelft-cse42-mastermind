@@ -14,6 +14,7 @@ const messages = {
 	
 	ERRORS: {
 		INVALID_CODE: { code: "INVALID_CODE", message: "Your code is invalid, please try again." },
+		INVALID_GUESS: { code: "INVALID_GUESS", message: "Your guess is invalid, please try again." },
 		INVALID_CHECK: { code: "INVALID_CHECK", message: "Your check is invalid/incorrect, please try again." },
 
 	}
