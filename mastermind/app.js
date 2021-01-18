@@ -95,7 +95,7 @@ wss.on("connection", function(ws) {
 				var toInform = (games[i].PLAYER_1 === thisID ? games[i].PLAYER_2 : games[i].PLAYER_1);
 				
 				// Send message
-				var m = { message: messages.USER_DISCONNECTED, data: games[i] };
+				var m = { message: messages.OPPONENT_DISCONNECTED, data: games[i] };
 				m = JSON.stringify(m);
 				users[toInform - 1].send(m);
 
