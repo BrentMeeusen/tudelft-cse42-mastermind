@@ -16,28 +16,16 @@ const server = http.createServer(app);
 const wss = new ws.Server({ server });
 server.listen(port);
 
-// console.log(server);
-
+// When a user connects
 wss.on("connection", function(ws) {
-
-	setTimeout(function() {
-		ws.send("Connection acknowledged.");
-		console.log("Yay");
-
-		// console.log(ws);
-		// ws.close();
-	}, 2000);
-
-	setTimeout(function() {
-		ws.send("Message after 6000ms.");
-		console.log("Yay too");
-		// ws.close();
-	}, 6000);
-
+	
+	// When we get a message
 	ws.on("message", function incoming(message) {
+		// Do stuff with that message
 		console.log("[MSG] " + message);
 	});
 
+	// When the user disconnects
 	ws.on("close", function() {
 		console.log("User disconnected.");
 	});
