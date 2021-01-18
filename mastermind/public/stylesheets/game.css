@@ -11,6 +11,11 @@ p {
 	font: 24px Verdana;
 	margin: 5px 20px;
 }
+#status {
+	line-height: 36px;
+	font-size: 20px;
+	margin-top: 50px;
+}
 
 /* Set styling for the role that the user has */
 .role {
