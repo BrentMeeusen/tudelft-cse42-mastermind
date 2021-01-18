@@ -97,6 +97,66 @@ for(c of colorInputs) {
 }
 
 
+
+
+
+// ================================================================
+// Add click events to the red/white inputs
+let redwhiteInputs = document.getElementById("redwhite-input").getElementsByClassName("code-circle");
+
+	// For all color inputs
+	for(c of redwhiteInputs) {
+
+	// When clicked...
+	c.addEventListener("click", function() {
+		
+		// If input is allowed
+		if(canHandleInput) {
+
+			currentInput.push(this.dataset.color);
+
+			// Add the color to the circle
+			var thisRow = rows[10 - currentRow];
+			var circles = thisRow.getElementsByClassName("result-circle");
+
+			for(let i = 0; i < 4; i++) {
+				circles[i].classList.add(currentInput[i] + "-circle");
+			}
+
+
+
+			// If the input is full
+			if(currentInput.length >= 4) {
+
+				// Send input to the server...
+				var m = { message: messages.INPUT_CREATED_CODE, data: currentInput };
+					
+				if(action === "OPPONENT_CREATED_CODE") {
+					m.message = messages.INPUT_GUESS;
+				}
+					
+				m = JSON.stringify(m);
+				socket.send(m);
+
+				// ...clear the input array, and disable input
+				currentInput = [];
+				canHandleInput = false;
+
+			}
+
+		}
+		// Else (if input is not allowed)
+		else {
+			console.error("You cannot input anything right now!");
+		}
+
+	}); // AddEventListener click
+
+}
+
+
+
+
 // ================================================================
 // When the socket opens
 socket.onopen = function() {
