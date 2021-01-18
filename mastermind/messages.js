@@ -12,4 +12,4 @@ const clientMessages = {
 }
 
 exports.messages = messages;
-exports.clientMessages = messages;
+exports.clientMessages = clientMessages;
