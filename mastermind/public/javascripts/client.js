@@ -1,5 +1,5 @@
 const socket = new WebSocket("ws://localhost:3000");
-const messages = {};
+let messages = {};
 
 // When the socket opens
 socket.onopen = function() {
@@ -10,8 +10,19 @@ socket.onopen = function() {
 
 // When the socket receives a message
 socket.onmessage = function(event) {
-	// Do stuff with that message
-	console.info("Incoming message: ", JSON.parse(event.data));
+
+	let message = JSON.parse(event.data);
+
+	// DEBUGGING PURPOSES
+	console.info("Incoming message: ", message);
+
+	// If it's the first message we receive, set global variable messages to the data
+	if(message.message == "MESSAGES") {
+		messages = message.data;
+	}
+	
+
+
 }
 
 // When the socket closes
