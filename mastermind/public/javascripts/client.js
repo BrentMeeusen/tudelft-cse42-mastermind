@@ -116,6 +116,8 @@ socket.onmessage = function(event) {
 	console.log(MSG.message.code, "-", MSG.message.message);
 	console.log(MSG);
 
+	document.getElementById("status").innerHTML = MSG.message.message;
+
 	action = MSG.message.code;
 	
 
