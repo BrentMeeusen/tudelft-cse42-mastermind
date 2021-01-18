@@ -138,6 +138,8 @@ let redwhiteInputs = document.getElementById("redwhite-input").getElementsByClas
 // Add click event to the checkmark button
 document.getElementById("send-checks").addEventListener("click", function() {
 
+	if(!canHandleInput) { return false; }
+
 	// Send input to the server...
 	var m = { message: messages.INPUT_CHECKS, data: currentInput };
 	m = JSON.stringify(m);
