@@ -16,8 +16,8 @@ class Message {
 
 
 const messages = {
-	USER_CONNECTED: "User connected."
-	USER_DISCONNECTED: "User disconnected."
+	USER_CONNECTED: "User connected.",
+	USER_DISCONNECTED: "User disconnected.",
 }
 
 
