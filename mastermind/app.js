@@ -55,7 +55,7 @@ wss.on("connection", function(ws) {
 		// Tell the user we're waiting for players
 		var m = { message: messages.WAITING_FOR_PLAYERS, data: games[games.length - 1] };
 		m = JSON.stringify(m);
-		ws.send();
+		ws.send(m);
 
 	}
 
@@ -65,11 +65,11 @@ wss.on("connection", function(ws) {
 		g.assignRoles();			// Assign the roles
 
 		// Send a message to both players indicating the game has started and which role they have
-		var m = { message: messages.GAME_START_MAKECODE, data: g }
+		var m = { message: messages.GAME_STARTS_MAKECODE, data: g }
 		m = JSON.stringify(m);
 		users[g.PLAYER_1 - 1].send(m);
 
-		var m = { message: messages.GAME_START_GUESSCODE, data: g }
+		var m = { message: messages.GAME_STARTS_GUESSCODE, data: g }
 		m = JSON.stringify(m);
 		users[g.PLAYER_2 - 1].send(m);
 
