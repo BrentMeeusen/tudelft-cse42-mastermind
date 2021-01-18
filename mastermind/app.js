@@ -22,6 +22,10 @@ server.listen(port);
 
 // When a user connects
 wss.on("connection", function(ws) {
+
+	// Send the user a message with all the messages it can send/receive
+	let m = new Message.Message("MESSAGES", messages);
+	ws.send(m);
 	
 	// When we get a message
 	ws.on("message", function incoming(message) {
