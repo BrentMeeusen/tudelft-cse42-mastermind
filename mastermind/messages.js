@@ -7,8 +7,11 @@ const messages = {
 	GAME_STARTS_GUESSCODE: { code: "GAME_STARTS_GUESSCODE", message: "The game has begun! Wait for the other player to make a code..." },
 	OPPONENT_CREATED_CODE: { code: "OPPONENT_CREATED_CODE", message: "Your opponent created the code. Time to make a guess!" },
 	OPPONENT_MADE_GUESS: { code: "OPPONENT_MADE_GUESS", message: "Your opponent made a guess. Let's see how they did!" },
+	OPPONENT_CORRECTED: { code: "OPPONENT_CORRECTED", message: "Your opponent corrected your guess. Make another guess!" },
 
 
+
+	
 	ERRORS: {
 		INVALID_CODE: { code: "INVALID_CODE", message: "Your code is invalid, please try again." },
 		INVALID_CHECK: { code: "INVALID_CHECK", message: "Your check is invalid/incorrect, please try again." },
