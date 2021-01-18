@@ -6,6 +6,7 @@ class Game {
 		this.PLAYER_1 = undefined;		// Player who makes and checks the code
 		this.PLAYER_2 = undefined;		// Player who guesses the code
 		this.guesses = [];				// Empty guess array
+		this.results = [];				// Empty result array
 	}
 
 	// Randomly assign roles to players
@@ -22,6 +23,11 @@ class Game {
 	// Add guess to the guess array
 	addGuess(guess) {
 		this.guesses.push(guess);
+	}
+
+	// Add result to the results array
+	addResult(result) {
+		this.results.push(result);
 	}
 
 }
