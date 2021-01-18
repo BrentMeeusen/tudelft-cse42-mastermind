@@ -14,6 +14,11 @@ const games = [];
 var Message = require("./messages");
 var messages = Message.messages;
 
+
+// Keep track of users
+let userID = 1;
+
+
 // Websocket
 app.use(express.static(__dirname + "/public"));
 const server = http.createServer(app);
@@ -23,10 +28,11 @@ server.listen(port);
 // When a user connects
 wss.on("connection", function(ws) {
 
-	// Send the user a message with all the messages it can send/receive
+	// Send the user a message with all the messages it can send/receive and include its ID
 	let m = {
 		message: "MESSAGES",
-		data: messages
+		data: messages,
+		ID: userID++
 	};
 	m = JSON.stringify(m);
 	ws.send(m);
