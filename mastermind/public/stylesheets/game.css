@@ -71,6 +71,7 @@ p {
 
 
 
+
 /* Set background */
 .main-wrapper {
 	background: linear-gradient(90deg, 
@@ -143,6 +144,17 @@ main {
 .hidden-code-row .code-circle {
 	border-color: #FFF;
 	box-shadow: 0 0 6px 1px #FFF;
+}
+/* Set delete button style */
+#remove-last {
+	animation: none;
+	text-align: center;
+	font-size: 32px;
+	color: #FFF;
+	line-height: 40px;
+	margin-left: 69px;
+	box-shadow: 0 0 6px 1px #FFF,
+		  inset 0 0 6px 1px #FFF;
 }
 
 
