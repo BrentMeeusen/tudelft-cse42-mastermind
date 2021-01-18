@@ -7,4 +7,9 @@ const messages = {
 	GAME_STARTS_GUESSCODE: { code: "GAME_STARTS_GUESSCODE", message: "The game has begun! Wait for the other player to make a code..." },
 }
 
+const clientMessages = {
+	INPUT: { code: "INPUT", message: "User submitted input." },
+}
+
 exports.messages = messages;
+exports.clientMessages = messages;

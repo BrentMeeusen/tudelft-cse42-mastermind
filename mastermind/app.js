@@ -36,8 +36,8 @@ wss.on("connection", function(ws) {
 	let thisID = userID++;
 	users.push(ws);
 
-	// Send the user a message with all the messages it can send/receive and include its ID
-	var m = { message: { code: "MESSAGES" }, data: messages };
+	// Send the user a message with all the messages they can send back to the server
+	var m = { message: { code: "MESSAGES" }, data: Message.clientMessages };
 	m = JSON.stringify(m);
 	ws.send(m);
 
