@@ -9,6 +9,16 @@ var app = express();
 
 // My requires
 var Game = require("./game");
+const games = [];
+
+var Message = require("./messages");
+var messages = Message.messages;
+
+
+// Keep track of users
+let userID = 1;
+const users = [];
+
 
 // Websocket
 app.use(express.static(__dirname + "/public"));
@@ -16,40 +26,92 @@ const server = http.createServer(app);
 const wss = new ws.Server({ server });
 server.listen(port);
 
-// console.log(server);
 
+// When a user connects
 wss.on("connection", function(ws) {
 
-	setTimeout(function() {
-		ws.send("Connection acknowledged.");
-		console.log("Yay");
+	// Give this user an ID and push it to the users array
+	let thisID = userID++;
+	users.push(ws);
 
-		// console.log(ws);
-		// ws.close();
-	}, 2000);
+	// Send the user a message with all the messages it can send/receive and include its ID
+	var m = {
+		message: "MESSAGES",
+		data: messages
+	};
+	m = JSON.stringify(m);
+	ws.send(m);
 
-	setTimeout(function() {
-		ws.send("Message after 6000ms.");
-		console.log("Yay too");
-		// ws.close();
-	}, 6000);
 
+	// Check whether there's a game waiting for a user
+	let g = games[games.length - 1];
+
+	// If there's no games at all, or if the last game is full
+	if(g == null || g.players.length === 2) {
+
+		// Create a game
+		games.push(new Game.game([thisID]));
+
+		// Tell the user we're waiting for players
+		var m = { message: messages.WAITING_FOR_PLAYERS, data: games[games.length - 1] };
+		m = JSON.stringify(m);
+		ws.send(m);
+
+	}
+
+	// Else (so if there is a game waiting for a user)
+	else {
+		g.players.push(thisID);		// Join the game
+		g.assignRoles();			// Assign the roles
+
+		// Send a message to both players indicating the game has started and which role they have
+		var m = { message: messages.GAME_STARTS_MAKECODE, data: g }
+		m = JSON.stringify(m);
+		users[g.PLAYER_1 - 1].send(m);
+
+		var m = { message: messages.GAME_STARTS_GUESSCODE, data: g }
+		m = JSON.stringify(m);
+		users[g.PLAYER_2 - 1].send(m);
+
+	}
+
+	
+	// When we get a message
 	ws.on("message", function incoming(message) {
+		// Do stuff with that message
 		console.log("[MSG] " + message);
 	});
 
+	// When the user disconnects
 	ws.on("close", function() {
-		console.log("User disconnected.");
+
+		// Find the game the user took place in
+		for(let i = 0; i < games.length; i++) {
+
+			// If the game is found
+			if(games[i].players.includes(thisID)) {
+
+				// Check which player we need to inform
+				var toInform = (games[i].PLAYER_1 === thisID ? games[i].PLAYER_2 : games[i].PLAYER_1);
+				
+				// Send message
+				var m = { message: messages.OPPONENT_DISCONNECTED, data: games[i] };
+				m = JSON.stringify(m);
+				users[toInform - 1].send(m);
+
+				// Stop searching for games
+				break;
+
+			} // If player is in the game
+
+			// If the game is not found (because the other user left), do nothing
+
+		} // for i < games.length
+
+		console.log("User \"" + thisID + "\" disconnected.");
 	});
 
 });
-
-
-
-// EXAMPLE CODE
-var Validation = require("./validation");
-var av = new Validation.valid();
-av.validate();
 
 
 
