@@ -96,10 +96,11 @@ wss.on("connection", function(ws) {
 				// Check which player we need to inform
 				var toInform = (games[i].PLAYER_1 === thisID ? games[i].PLAYER_2 : games[i].PLAYER_1);
 				
-				// Send message
+				// Send message and close the socket
 				var m = { message: messages.OPPONENT_DISCONNECTED, data: games[i] };
 				m = JSON.stringify(m);
 				users[toInform - 1].send(m);
+				users[toInform - 1].close();
 
 				// Stop searching for games
 				break;
