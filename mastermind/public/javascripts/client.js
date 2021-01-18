@@ -246,6 +246,27 @@ socket.onmessage = function(event) {
 		}
 	}
 
+	// ----------------------------------------------------------------
+	// If it's time to make a guess as code guesser or if the previous guess was invalid
+	else if(MSG.message.code === "OPPONENT_CORRECTED") {
+		
+		canHandleInput = true;		// Enable input
+
+		// Clear game row
+		let thisRow = rows[10 - currentRow];
+		let circles = thisRow.getElementsByClassName("result-circle");
+
+		// Show latest correction
+		let correction = MSG.data.results[MSG.data.results.length - 1];
+
+		for(let i = 0; i < 4; i++) {
+			circles[i].classList.add((correction[i] ? (correction[i] + "-circle") : ""));
+		}
+
+
+	}
+
+
 
 }
 
