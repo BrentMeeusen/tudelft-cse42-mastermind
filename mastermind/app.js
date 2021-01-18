@@ -160,7 +160,7 @@ wss.on("connection", function(ws) {
 			// If the code is invalid, send that to the user
 			if(!Game.isValidCheck(game, MSG.data)) {
 
-				var m = { message: messages.ERRORS.INVALID_CHECK, data: MSG.data };
+				var m = { message: messages.ERRORS.INVALID_CHECK, data: game };
 				m = JSON.stringify(m);
 				ws.send(m);
 

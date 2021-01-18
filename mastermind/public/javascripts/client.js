@@ -21,12 +21,12 @@ document.getElementById("remove-last").addEventListener("click", function() {
 		}
 		else if(action === "OPPONENT_CREATED_CODE" || action === "OPPONENT_CORRECTED" || action === "INVALID_GUESS") {
 			let thisRow = rows[10 - currentRow];
-			let circles = thisRow.getElementsByClassName("result-circle");
+			let circles = thisRow.getElementsByClassName("code-circle");
 			circles[currentInput.length - 1].classList.remove(color + "-circle");
 		}
 		else if(action === "OPPONENT_MADE_GUESS" || action === "INVALID_CHECK") {
 			let thisRow = rows[10 - currentRow];
-			let circles = thisRow.getElementsByClassName("code-circle");
+			let circles = thisRow.getElementsByClassName("result-circle");
 			circles[currentInput.length - 1].classList.remove(color + "-circle");
 		}
 
@@ -123,12 +123,9 @@ let redwhiteInputs = document.getElementById("redwhite-input").getElementsByClas
 			currentInput.push(this.dataset.color);
 
 			// Add the color to the circle
-			var thisRow = rows[10 - currentRow];
-			var circles = thisRow.getElementsByClassName("result-circle");
-
-			for(let i = 0; i < 4; i++) {
-				circles[i].classList.add(currentInput[i] + "-circle");
-			}
+			let thisRow = rows[10 - currentRow];
+			let circles = thisRow.getElementsByClassName("result-circle");
+			circles[currentInput.length - 1].classList.add(currentInput[currentInput.length - 1] + "-circle");
 
 		}
 		// Else (if input is not allowed)
@@ -152,9 +149,12 @@ document.getElementById("send-checks").addEventListener("click", function() {
 	m = JSON.stringify(m);
 	socket.send(m);
 
-	// ...clear the input array, and disable input
+	// ...clear the input array, disable input, and display message
 	currentInput = [];
 	canHandleInput = false;
+
+	document.getElementById("status").innerHTML = "Your correction has been saved. Now wait for the other player to guess!";
+
 
 });
 
@@ -216,7 +216,7 @@ socket.onmessage = function(event) {
 
 	}
 
-	// If the other player made a guess 
+	// If the other player made a guess or the check was invalid
 	else if(MSG.message.code === "OPPONENT_MADE_GUESS" || MSG.message.code === "INVALID_CHECK") {
 
 		// Enable input
@@ -231,6 +231,14 @@ socket.onmessage = function(event) {
 
 		for(let i = 0; i < 4; i++) {
 			circles[i].classList.add(latestGuess[i] + "-circle");
+		}
+
+		// Clear game row
+		let resultCircles = thisRow.getElementsByClassName("result-circle");
+
+		for(let i = 0; i < 4; i++) {
+			resultCircles[i].classList.remove("red-circle");
+			resultCircles[i].classList.remove("white-circle");
 		}
 	}
 
