@@ -105,12 +105,11 @@ wss.on("connection", function(ws) {
 			// Else (if code is valid)
 			else {
 				
-				// Place the code in the game object and update the other player
-
-				// TODO: UPDATE GAME OBJECT (!!!)
-
+				// Place the code in the game object
 				var game = games[thisGameIndex];
-
+				// TODO: UPDATE GAME OBJECT (!!!)
+				
+				// Update other player
 				var playerID = (game.players[0] === thisID ? game.players[1] : game.players[0]);
 
 				var m = { message: messages.OPPONENT_CREATED_CODE, data: game, ID: playerID };
@@ -120,6 +119,35 @@ wss.on("connection", function(ws) {
 			}
 
 		} // if MSG === INPUT_CREATED_CODE
+
+		// If user inputs a guess
+		else if(MSG.message.code === "INPUT_GUESS") {
+
+			// If the code is invalid, send that to the user
+			if(!Game.isValidCode(MSG.data)) {
+
+				var m = { message: messages.ERRORS.INVALID_CODE, data: MSG.data };
+				m = JSON.stringify(m);
+				ws.send(m);
+
+			}
+			// Else (if code is valid)
+			else {
+				
+				// Place the guess in the game object and update the other player
+				var game = games[thisGameIndex];
+				// TODO: UPDATE GAME OBJECT (!!!)
+				
+				// Update other player
+				var playerID = (game.players[0] === thisID ? game.players[1] : game.players[0]);
+
+				var m = { message: messages.OPPONENT_MADE_GUESS, data: game, ID: playerID };
+				m = JSON.stringify(m);
+				players[playerID - 1].send(m);
+
+			}
+
+		}
 
 
 
