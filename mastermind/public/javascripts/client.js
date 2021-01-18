@@ -5,21 +5,24 @@ let canHandleInput = false;
 let currentInput = [];
 let action = null;
 let rows = document.getElementsByClassName("game-row");
+let currentRow = 1;
 let codeCircles = document.getElementById("answer-row").getElementsByClassName("code-circle");
 
 
 // ================================================================
 // Add functionality to RemoveLast button
-document.getElementById("remove-last").AddEventListener("click", function() {
+document.getElementById("remove-last").addEventListener("click", function() {
 	if(currentInput.length > 0) {
 		var color = currentInput[currentInput.length - 1];
 
 		if(action === "GAME_STARTS_MAKECODE") {
-			codeCircles.classList.remove(color + "-circle");
+			codeCircles[currentInput.length - 1].classList.remove(color + "-circle");
 		}
-		else if(action === "") {
+		else if(action === "OPPONENT_MOVED") {
 
 		}
+
+		currentInput.splice(currentInput.length - 1, 1);
 	}
 });
 
@@ -49,8 +52,8 @@ for(c of colorInputs) {
 					codeCircles[currentInput.length - 1].classList.add(this.dataset.color + "-circle");
 				}
 				// Else, if we're guessing the code, add it to the row we're working on
-				else if(false) {
-
+				else if(action === "OPPONENT_MOVED") {
+					let thisRow = rows[currentRow];
 				}
 
 				// If the input is full
