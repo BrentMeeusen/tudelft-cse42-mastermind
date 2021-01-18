@@ -8,7 +8,9 @@ const messages = {
 }
 
 const clientMessages = {
-	INPUT: { code: "INPUT", message: "User submitted input." },
+	INPUT_CREATED_CODE: { code: "INPUT_CREATED_CODE", message: "User created a code." },
+	INPUT_GUESS: { code: "INPUT", message: "User submitted a guess." },
+	INPUT_CHECKS: { code: "INPUT", message: "User submitted the red/white to the guess." },
 }
 
 exports.messages = messages;
