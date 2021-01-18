@@ -26,7 +26,7 @@ for(c of colorInputs) {
 				if(currentInput.length === 4) {
 
 					// Send input to the server
-					var m = { message: INPUT, data: currentInput };
+					var m = { message: messages.INPUT, data: currentInput };
 					m = JSON.stringify(m);
 					socket.send(m);
 
