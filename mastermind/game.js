@@ -16,26 +16,43 @@ class Game {
 }
 
 
+// Find a player with a player ID
+Game.findGameOnPlayerID = function(ID) {
+	for(let i = 0; i < games.length; i++) {
+
+		// If the game is found
+		if(games[i] && games[i].players.includes(ID)) {
+			return games[i];
+		}
+	}
+
+	return null;
+}
+
+
 // Validate the given code
 Game.isValidCode = function(input) {
 
-		// If the code doesn't contain 4 items, return false
-		if(input.length !== 4) {
-			return false;
-		}
+	// If the code doesn't contain 4 items, return false
+	if(input.length !== 4) {
+		return false;
+	}
 
-		// If there is a duplicate, return false
-		for(let i = 0; i < 3; i++) {
-			for(let j = i + 1; j < 4; j++) {
-				if(input[i] === input[j]) {
-					return false;
-				}
+	// If there is a duplicate, return false
+	for(let i = 0; i < 3; i++) {
+		for(let j = i + 1; j < 4; j++) {
+			if(input[i] === input[j]) {
+				return false;
 			}
 		}
-
-		// Otherwise, return true
-		return true;
 	}
+
+	// Otherwise, return true
+	return true;
+}
+
+
+
 
 
 
