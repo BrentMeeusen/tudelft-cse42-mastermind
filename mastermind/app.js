@@ -44,10 +44,10 @@ wss.on("connection", function(ws) {
 	
 	// ================================================================
 	// Check whether there's a game waiting for a user
-	let g = games[games.length - 1];
+	let game = games[games.length - 1];
 
 	// If there's no games at all, or if the last game is full
-	if(g == null || g.players.length === 2) {
+	if(game == null || game.players.length === 2) {
 
 		// Create a game
 		games.push(new Game.game([thisID]));
@@ -61,17 +61,17 @@ wss.on("connection", function(ws) {
 
 	// Else (so if there is a game waiting for a user)
 	else {
-		g.players.push(thisID);		// Join the game
-		g.assignRoles();			// Assign the roles
+		game.players.push(thisID);		// Join the game
+		game.assignRoles();			// Assign the roles
 
 		// Send a message to both players indicating the game has started and which role they have
-		var m = { message: messages.GAME_STARTS_MAKECODE, data: g }
+		var m = { message: messages.GAME_STARTS_MAKECODE, data: game }
 		m = JSON.stringify(m);
-		users[g.PLAYER_1 - 1].send(m);
+		users[game.PLAYER_1 - 1].send(m);
 
-		var m = { message: messages.GAME_STARTS_GUESSCODE, data: g }
+		var m = { message: messages.GAME_STARTS_GUESSCODE, data: game }
 		m = JSON.stringify(m);
-		users[g.PLAYER_2 - 1].send(m);
+		users[game.PLAYER_2 - 1].send(m);
 
 	}
 
