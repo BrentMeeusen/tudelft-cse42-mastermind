@@ -177,11 +177,13 @@ socket.onmessage = function(event) {
 	action = MSG.message.code;
 	
 
+	// ----------------------------------------------------------------
 	// If it's the first message we receive, set global variable messages to the data
 	if(MSG.message.code === "MESSAGES") {
 		messages = MSG.data;
 	}
 
+	// ----------------------------------------------------------------
 	// If the game starts or the previous code was incorrect, show the correct input row
 	else if(MSG.message.code === "GAME_STARTS_MAKECODE" || MSG.message.code === "INVALID_CODE") {
 		
@@ -198,6 +200,7 @@ socket.onmessage = function(event) {
 
 	}
 
+	// ----------------------------------------------------------------
 	// If it's time to make a guess as code guesser or if the previous guess was invalid
 	else if((MSG.message.code === "OPPONENT_CREATED_CODE" || MSG.message.code === "INVALID_GUESS") && MSG.data.PLAYER_2 === MSG.ID) {
 		
@@ -216,6 +219,7 @@ socket.onmessage = function(event) {
 
 	}
 
+	// ----------------------------------------------------------------
 	// If the other player made a guess or the check was invalid
 	else if(MSG.message.code === "OPPONENT_MADE_GUESS" || MSG.message.code === "INVALID_CHECK") {
 
