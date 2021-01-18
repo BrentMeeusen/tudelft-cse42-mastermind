@@ -99,7 +99,7 @@ Game.isValidCheck = function(game, input) {
 		if(game.code[i] === latestGuess[i]) {
 			redsNeeded++;
 		}
-		else if(game.code.contains(latestGuess[i])) {
+		else if(game.code.includes(latestGuess[i])) {
 			whitesNeeded++;
 		}
 	}
