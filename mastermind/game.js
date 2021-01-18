@@ -17,7 +17,7 @@ class Game {
 
 
 // Find a player with a player ID
-Game.findGameOnPlayerID = function(ID) {
+Game.findGameOnPlayerID = function(ID, games) {
 	for(let i = 0; i < games.length; i++) {
 
 		// If the game is found
