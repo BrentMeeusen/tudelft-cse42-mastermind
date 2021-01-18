@@ -91,23 +91,29 @@ wss.on("connection", function(ws) {
 		for(let i = 0; i < games.length; i++) {
 
 			// If the game is found
-			if(games[i].players.includes(thisID)) {
+			if(games[i] && games[i].players.includes(thisID)) {
 
-				// Check which player we need to inform
-				var toInform = (games[i].PLAYER_1 === thisID ? games[i].PLAYER_2 : games[i].PLAYER_1);
+				// If it has 2 players
+				if(games[i].players.length === 2) {
 				
-				// Send message and close the socket
-				var m = { message: messages.OPPONENT_DISCONNECTED, data: games[i] };
-				m = JSON.stringify(m);
-				users[toInform - 1].send(m);
-				users[toInform - 1].close();
+					// Check which player we need to inform
+					var toInform = (games[i].PLAYER_1 === thisID ? games[i].PLAYER_2 : games[i].PLAYER_1);
+				
+					// Send message and close the socket
+					var m = { message: messages.OPPONENT_DISCONNECTED, data: games[i] };
+					m = JSON.stringify(m);
+					users[toInform - 1].send(m);
+					users[toInform - 1].close();
 
-				// Stop searching for games
-				break;
+					// Stop searching for games
+					break;
+
+					} // Game has two players
+
+					// Set game to null (if game has either 1 or 2 players)
+					games[i] = null;
 
 			} // If player is in the game
-
-			// If the game is not found (because the other user left), do nothing
 
 		} // for i < games.length
 
