@@ -7,6 +7,7 @@ class Game {
 		this.PLAYER_2 = undefined;		// Player who guesses the code
 		this.guesses = [];				// Empty guess array
 		this.results = [];				// Empty result array
+		this.currentRow = 1;			// Current row
 	}
 
 	// Randomly assign roles to players
@@ -28,6 +29,11 @@ class Game {
 	// Add result to the results array
 	addResult(result) {
 		this.results.push(result);
+	}
+
+	// Increment current row
+	incrementRow() {
+		this.currentRow++;
 	}
 
 }
