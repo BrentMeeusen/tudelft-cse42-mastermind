@@ -9,6 +9,10 @@ var app = express();
 
 // My requires
 var Game = require("./game");
+const games = [];
+
+var Message = require("./messages");
+var messages = Message.messages;
 
 // Websocket
 app.use(express.static(__dirname + "/public"));
