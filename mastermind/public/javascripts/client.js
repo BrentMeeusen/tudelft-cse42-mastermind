@@ -129,8 +129,9 @@ socket.onmessage = function(event) {
 	// If the game starts, show the correct input row
 	else if(MSG.message.code === "GAME_STARTS_MAKECODE") {
 		
-		// Colour input is already displayed, wait for the user to input a code
 		canHandleInput = true;		// Enable input
+		document.getElementById("color-input").style.display = "block";
+		document.getElementById("redwhite-input").style.display = "none";
 
 	}
 
@@ -139,6 +140,24 @@ socket.onmessage = function(event) {
 		
 		canHandleInput = true;		// Enable input
 
+	}
+
+	// If the other player made a guess 
+	else if(MSG.message.code === "OPPONENT_MADE_GUESS") {
+
+		// Enable input
+		canHandleInput = true;
+		document.getElementById("color-input").style.display = "none";
+		document.getElementById("redwhite-input").style.display = "block";
+
+		// Show the latest guess
+		let latestGuess = MSG.data.guesses[MSG.data.guesses.length - 1];
+		var thisRow = rows[10 - currentRow];
+		var circles = thisRow.getElementsByClassName("code-circle");
+
+		for(let i = 0; i < 4; i++) {
+			circles[i].classList.add(latestGuess[i] + "-circle");
+		}
 	}
 
 
