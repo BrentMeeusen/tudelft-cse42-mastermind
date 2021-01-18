@@ -79,8 +79,11 @@ wss.on("connection", function(ws) {
 	// ================================================================
 	// When we get a message
 	ws.on("message", function incoming(message) {
+		
 		// Do stuff with that message
-		console.log("[MSG] " + message);
+		message = JSON.parse(message);
+		console.log("[MSG] ", message);
+
 	});
 	
 	// ================================================================
