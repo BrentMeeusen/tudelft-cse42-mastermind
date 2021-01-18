@@ -5,7 +5,7 @@ const messages = {
 	WAITING_FOR_PLAYERS: { code: "WAITING_FOR_PLAYERS", message: "We're waiting for one other player to begin the game..." },
 	GAME_STARTS_MAKECODE: { code: "GAME_STARTS_MAKECODE", message: "The game has begun! Make your code..." },
 	GAME_STARTS_GUESSCODE: { code: "GAME_STARTS_GUESSCODE", message: "The game has begun! Wait for the other player to make a code..." },
-	OPPONENT_CREATED_CODE: { code: "OPPONENT_MOVED", message: "Your opponent created the code. Time to make a guess!" },
+	OPPONENT_CREATED_CODE: { code: "OPPONENT_CREATED_CODE", message: "Your opponent created the code. Time to make a guess!" },
 
 
 	ERRORS: {
