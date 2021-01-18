@@ -92,7 +92,7 @@ for(c of colorInputs) {
 			console.error("You cannot input anything right now!");
 		}
 
-	}); // AddEventListener click
+	}); // addEventListener click
 
 }
 
@@ -123,37 +123,31 @@ let redwhiteInputs = document.getElementById("redwhite-input").getElementsByClas
 				circles[i].classList.add(currentInput[i] + "-circle");
 			}
 
-
-
-			// If the input is full
-			if(currentInput.length >= 4) {
-
-				// Send input to the server...
-				var m = { message: messages.INPUT_CREATED_CODE, data: currentInput };
-					
-				if(action === "OPPONENT_CREATED_CODE") {
-					m.message = messages.INPUT_GUESS;
-				}
-					
-				m = JSON.stringify(m);
-				socket.send(m);
-
-				// ...clear the input array, and disable input
-				currentInput = [];
-				canHandleInput = false;
-
-			}
-
 		}
 		// Else (if input is not allowed)
 		else {
 			console.error("You cannot input anything right now!");
 		}
 
-	}); // AddEventListener click
+	}); // addEventListener click
 
 }
 
+
+// ================================================================
+// Add click event to the checkmark button
+document.getElementById("send-checks").addEventListener("click", function() {
+
+	// Send input to the server...
+	var m = { message: messages.INPUT_CHECKS, data: currentInput };
+	m = JSON.stringify(m);
+	socket.send(m);
+
+	// ...clear the input array, and disable input
+	currentInput = [];
+	canHandleInput = false;
+
+});
 
 
 
