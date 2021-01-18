@@ -25,6 +25,7 @@ const server = http.createServer(app);
 const wss = new ws.Server({ server });
 server.listen(port);
 
+
 // When a user connects
 wss.on("connection", function(ws) {
 
@@ -34,8 +35,7 @@ wss.on("connection", function(ws) {
 	// Send the user a message with all the messages it can send/receive and include its ID
 	let m = {
 		message: "MESSAGES",
-		data: messages,
-		ID: thisID
+		data: messages
 	};
 	m = JSON.stringify(m);
 	ws.send(m);
@@ -48,6 +48,12 @@ wss.on("connection", function(ws) {
 	if(g == null || g.players.length == 2) {
 		games.push(new Game.game([thisID])); // -1 because of the increment
 		console.log("Game created: ", games[games.length - 1]);
+	}
+	// Else (so if there IS a game waiting for a user), join that game
+	else {
+		g.players.push(thisID);
+		g.assignRoles();
+		console.log("Game altered: ", games[games.length - 1]);
 	}
 
 	
