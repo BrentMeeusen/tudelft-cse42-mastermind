@@ -4,9 +4,10 @@ let messages = {};
 let canHandleInput = false;
 let currentInput = [];
 let action = null;
-let rows = document.getElementsByClassName("game-row");
 let currentRow = 1;
-let codeCircles = document.getElementById("answer-row").getElementsByClassName("code-circle");
+const rows = document.getElementsByClassName("game-row");
+const codeCircles = document.getElementById("answer-row").getElementsByClassName("code-circle");
+const COLORS = ["red", "orange", "yellow", "blue", "cyan", "green", "purple", "pink"];
 
 
 // ================================================================
@@ -15,7 +16,7 @@ document.getElementById("remove-last").addEventListener("click", function() {
 	if(currentInput.length > 0) {
 		var color = currentInput[currentInput.length - 1];
 
-		if(action === "GAME_STARTS_MAKECODE") {
+		if(action === "GAME_STARTS_MAKECODE" || action === "INVALID_CODE") {
 			codeCircles[currentInput.length - 1].classList.remove(color + "-circle");
 		}
 		else if(action === "OPPONENT_CREATED_CODE") {
@@ -51,7 +52,7 @@ for(c of colorInputs) {
 				currentInput.push(this.dataset.color);
 
 				// If we're making the code, add it to the top
-				if(action === "GAME_STARTS_MAKECODE") {
+				if(action === "GAME_STARTS_MAKECODE" || action === "INVALID_CODE") {
 					codeCircles[currentInput.length - 1].classList.add(this.dataset.color + "-circle");
 				}
 				// Else, if we're guessing the code, add it to the row we're working on
@@ -74,9 +75,11 @@ for(c of colorInputs) {
 					m = JSON.stringify(m);
 					socket.send(m);
 
-					// ...clear the input array, and disable input
+					// ...clear the input array, disable input, and display message
 					currentInput = [];
 					canHandleInput = false;
+					document.getElementById("status").innerHTML = "Your code has been saved. Now wait for the other player to guess!";
+
 					
 				}
 
@@ -153,13 +156,6 @@ document.getElementById("send-checks").addEventListener("click", function() {
 
 
 
-// ================================================================
-// When the socket opens
-socket.onopen = function() {
-	// Tell the server we connected
-	// socket.send("Client joined a game...");
-	// console.info("Sending a message to the server...");
-}
 
 // ================================================================
 // When the socket receives a message
@@ -182,12 +178,18 @@ socket.onmessage = function(event) {
 		messages = MSG.data;
 	}
 
-	// If the game starts, show the correct input row
-	else if(MSG.message.code === "GAME_STARTS_MAKECODE") {
+	// If the game starts or the previous code was incorrect, show the correct input row
+	else if(MSG.message.code === "GAME_STARTS_MAKECODE" || MSG.message.code === "INVALID_CODE") {
 		
 		canHandleInput = true;		// Enable input
 		document.getElementById("color-input").style.display = "block";
 		document.getElementById("redwhite-input").style.display = "none";
+
+		for(let i = 0; i < 4; i++) {
+			for(let j = 0; j < COLORS.length; j++) {
+				codeCircles[i].classList.remove(COLORS[j] + "-circle");
+			}
+		}
 
 	}
 
