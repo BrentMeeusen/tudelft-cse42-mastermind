@@ -120,16 +120,17 @@ wss.on("connection", function(ws) {
 	// When the user disconnects
 	ws.on("close", function() {
 
-		let game = Game.findGameOnPlayerID(thisID);
+		let i = Game.findIndexOnPlayerID(thisID, games);
+		console.log(games[i]);
 
 		// If it exists and has 2 players
-		if(game && game.players.length === 2) {
+		if(games[i] && games[i].players.length === 2) {
 				
 			// Check which player we need to inform
-			var toInform = (game.PLAYER_1 === thisID ? game.PLAYER_2 : game.PLAYER_1);
+			var toInform = (games[i].PLAYER_1 === thisID ? games[i].PLAYER_2 : games[i].PLAYER_1);
 				
 			// Send message and close the socket
-			var m = { message: messages.OPPONENT_DISCONNECTED, data: game };
+			var m = { message: messages.OPPONENT_DISCONNECTED, data: games[i] };
 			m = JSON.stringify(m);
 			users[toInform - 1].send(m);
 			users[toInform - 1].close();
@@ -137,7 +138,7 @@ wss.on("connection", function(ws) {
 		} // Game has two players
 
 		// Set game to null (if game has either 1 or 2 players)
-		game = null;
+		games[i] = null;
 
 	});	// On close
 });	// WSServer
