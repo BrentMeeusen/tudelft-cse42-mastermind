@@ -9,7 +9,6 @@ socket.onopen = function() {
 // When the socket receives a message
 socket.onmessage = function(event) {
 	console.info("Incoming message: ", event.data);
-	console.log("Raw object: ", event);
 }
 
 // When the socket closes
@@ -20,9 +19,16 @@ socket.onclose = function(event) {
 
 
 setTimeout(function() {
+	console.info(socket.readyState);
 	socket.send("Joe");
 	console.info("Sent another message.");
+
+	console.info(socket.readyState);
+
 }, 4000);
+
+
+
 
 
 
