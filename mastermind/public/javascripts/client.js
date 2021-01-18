@@ -19,9 +19,9 @@ document.getElementById("remove-last").addEventListener("click", function() {
 			codeCircles[currentInput.length - 1].classList.remove(color + "-circle");
 		}
 		else if(action === "OPPONENT_CREATED_CODE") {
-			let thisRow = rows[currentRow];
-			let circles = thisRow.getElementsByClassName("code-cricle");
-			circles[currentInput.length - 1].classList.remove(this.dataset.color + "-circle");
+			let thisRow = rows[10 - currentRow];
+			let circles = thisRow.getElementsByClassName("code-circle");
+			circles[currentInput.length - 1].classList.remove(color + "-circle");
 
 		}
 
@@ -56,7 +56,7 @@ for(c of colorInputs) {
 				}
 				// Else, if we're guessing the code, add it to the row we're working on
 				else if(action === "OPPONENT_CREATED_CODE") {
-					let thisRow = rows[currentRow];
+					let thisRow = rows[10 - currentRow];
 					let circles = thisRow.getElementsByClassName("code-circle");
 					circles[currentInput.length - 1].classList.add(this.dataset.color + "-circle");
 				}
@@ -66,6 +66,11 @@ for(c of colorInputs) {
 
 					// Send input to the server...
 					var m = { message: messages.INPUT_CREATED_CODE, data: currentInput };
+					
+					if(action === "OPPONENT_CREATED_CODE") {
+						m.message = messages.INPUT_GUESS;
+					}
+					
 					m = JSON.stringify(m);
 					socket.send(m);
 
