@@ -17,6 +17,7 @@ var messages = Message.messages;
 
 // Keep track of users
 let userID = 1;
+const users = [];
 
 
 // Websocket
@@ -29,11 +30,12 @@ server.listen(port);
 // When a user connects
 wss.on("connection", function(ws) {
 
-	// Give this user an ID
+	// Give this user an ID and push it to the users array
 	let thisID = userID++;
+	users.push(ws);
 
 	// Send the user a message with all the messages it can send/receive and include its ID
-	let m = {
+	var m = {
 		message: "MESSAGES",
 		data: messages
 	};
@@ -44,16 +46,32 @@ wss.on("connection", function(ws) {
 	// Check whether there's a game waiting for a user
 	let g = games[games.length - 1];
 
-	// If there's no games at all, or if the last game is full: create a new game
+	// If there's no games at all, or if the last game is full
 	if(g == null || g.players.length === 2) {
+
+		// Create a game
 		games.push(new Game.game([thisID]));
+
+		// Tell the user we're waiting for players
+		var m = { message: messages.WAITING_FOR_PLAYERS, data: games[games.length - 1] };
+		m = JSON.stringify(m);
+		ws.send();
+
 	}
-	// Else (so if there IS a game waiting for a user): join that game
+
+	// Else (so if there is a game waiting for a user)
 	else {
 		g.players.push(thisID);		// Join the game
 		g.assignRoles();			// Assign the roles
 
 		// Send a message to both players indicating the game has started and which role they have
+		var m = { message: messages.GAME_START_MAKECODE, data: g }
+		m = JSON.stringify(m);
+		users[g.PLAYER_1 - 1].send(m);
+
+		var m = { message: messages.GAME_START_GUESSCODE, data: g }
+		m = JSON.stringify(m);
+		users[g.PLAYER_2 - 1].send(m);
 
 	}
 
@@ -66,6 +84,11 @@ wss.on("connection", function(ws) {
 
 	// When the user disconnects
 	ws.on("close", function() {
+
+		// Find the game the user took place in
+			// Tell the other player that this player left
+			// Remove the game from the list
+
 		console.log("User \"" + thisID + "\" disconnected.");
 	});
 
