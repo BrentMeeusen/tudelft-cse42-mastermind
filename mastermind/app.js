@@ -113,7 +113,7 @@ wss.on("connection", function(ws) {
 
 				var playerIndex = (game.players[0] === thisID ? game.players[1] : game.players[0]);
 
-				var m = { message: messages.OPPONENT_CREATED_CODE, data: game };
+				var m = { message: messages.OPPONENT_CREATED_CODE, data: game, ID: thisID };
 				m = JSON.stringify(m);
 				players[playerIndex - 1].send(m);
 
