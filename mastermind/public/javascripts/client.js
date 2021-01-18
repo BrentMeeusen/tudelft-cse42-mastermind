@@ -9,6 +9,24 @@ let codeCircles = document.getElementById("answer-row").getElementsByClassName("
 
 
 // ================================================================
+// Add functionality to RemoveLast button
+document.getElementById("remove-last").AddEventListener("click", function() {
+	if(currentInput.length > 0) {
+		var color = currentInput[currentInput.length - 1];
+
+		if(action === "GAME_STARTS_MAKECODE") {
+			codeCircles.classList.remove(color + "-circle");
+		}
+		else if(action === "") {
+
+		}
+	}
+});
+
+
+
+
+// ================================================================
 // Add click events to the color inputs
 let colorInputs = document.getElementById("color-input").getElementsByClassName("code-circle");
 
