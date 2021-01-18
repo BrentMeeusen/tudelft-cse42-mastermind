@@ -1,12 +1,55 @@
 // Set variables
 const socket = new WebSocket("ws://localhost:3000");
 let messages = {};
-var canHandleInput = false;
+let canHandleInput = false;
+let currentInput = [];
 
 // ================================================================
-// Add click events to the inputs
+// Add click events to the color inputs
 let colorInputs = document.getElementById("color-input").getElementsByClassName("code-circle");
 
+// For all color inputs
+for(c of colorInputs) {
+
+	// When clicked...
+	c.addEventListener("click", function() {
+		
+		// If input is allowed
+		if(canHandleInput) {
+
+			// If the color is unique, add it to the input
+			if(!currentInput.includes(this.dataset.color)) {
+
+				currentInput.push(this.dataset.color);
+
+				// If the input is full
+				if(currentInput.length >= 4) {
+
+					// Send input to the server...
+					var m = { message: messages.INPUT_CREATED_CODE, data: currentInput };
+					m = JSON.stringify(m);
+					socket.send(m);
+
+					// ...and clear the input array
+					currentInput = [];
+
+				}
+
+			}
+			// Else (if color is not unique)
+			else {
+				console.error("This colour is already selected!");
+			}
+
+		} 
+		// Else (if !canHandleInput)
+		else {
+			console.error("You cannot input anything right now!");
+		}
+
+	}); // AddEventListener click
+
+}
 
 
 // ================================================================
