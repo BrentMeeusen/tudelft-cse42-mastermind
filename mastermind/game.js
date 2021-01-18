@@ -68,6 +68,46 @@ Game.isValidCode = function(input) {
 }
 
 
+// Validate the given check, and compare to latest guess to see if it is a correct check
+Game.isValidCheck = function(game, input) {
+
+	// If the check has more than 4 items, return false
+	if(input.length > 4) {
+		return false;
+	}
+
+	var reds = 0;
+	var whites = 0;
+
+	// For all check colours
+	for(let i = 0; i < input.length; i++) {
+		
+		// Find out how many reds and whites are inputted, if anything else is inputted, it's not valid
+		if(input[i] === "red") { reds++; }
+		else if(input[i] === "white") { whites++; }
+		else { return false; }
+
+	}
+
+	
+	// Check the code against the latest guess
+	var redsNeeded = 0;
+	var whitesNeeded = 0;
+	let latestGuess = game.guesses[game.guesses.length - 1];
+
+	for(let i = 0; i < 4; i++) {
+		if(game.code[i] === latestGuess[i]) {
+			redsNeeded++;
+		}
+		else if(game.code.contains(latestGuess[i])) {
+			whitesNeeded++;
+		}
+	}
+
+	return reds === redsNeeded && whites === whitesNeeded;
+}
+
+
 
 
 
