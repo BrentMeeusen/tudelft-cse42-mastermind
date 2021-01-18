@@ -107,7 +107,7 @@ wss.on("connection", function(ws) {
 				
 				// Place the code in the game object
 				var game = games[thisGameIndex];
-				// TODO: UPDATE GAME OBJECT (!!!)
+				game.setCode(MSG.data);
 				
 				// Update other player
 				var playerID = (game.players[0] === thisID ? game.players[1] : game.players[0]);
@@ -136,7 +136,7 @@ wss.on("connection", function(ws) {
 				
 				// Place the guess in the game object and update the other player
 				var game = games[thisGameIndex];
-				// TODO: UPDATE GAME OBJECT (!!!)
+				game.addGuess(MSG.data);
 				
 				// Update other player
 				var playerID = (game.players[0] === thisID ? game.players[1] : game.players[0]);
