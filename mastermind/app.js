@@ -90,7 +90,8 @@ wss.on("connection", function(ws) {
 		// DEBUGGING PURPOSES
 		console.log("[MSG] ", MSG);
 
-
+		
+		// ----------------------------------------------------------------
 		// If user inputs a code
 		if(MSG.message.code === "INPUT_CREATED_CODE") {
 			
@@ -120,6 +121,7 @@ wss.on("connection", function(ws) {
 
 		} // if MSG === INPUT_CREATED_CODE
 
+		// ----------------------------------------------------------------
 		// If user inputs a guess
 		else if(MSG.message.code === "INPUT_GUESS") {
 
@@ -146,6 +148,40 @@ wss.on("connection", function(ws) {
 				players[playerID - 1].send(m);
 
 			}
+
+		}
+
+		// ----------------------------------------------------------------
+		// If user inputs a check to a guess
+		else if(MSG.message.code === "INPUT_CHECKS") {
+
+			var game = games[thisGameIndex];
+
+			// If the code is invalid, send that to the user
+			if(!Game.isValidCheck(game, MSG.data)) {
+
+				var m = { message: messages.ERRORS.INVALID_CHECK, data: MSG.data };
+				m = JSON.stringify(m);
+				ws.send(m);
+
+			}
+
+			// Else (if the check is valid)
+			else {
+
+				var game = games[thisGameIndex];
+				game.addResult(MSG.data);
+
+				// Update other player
+				var playerID = (game.players[0] === thisID ? game.players[1] : game.players[0]);
+
+				var m = { message: messages.OPPONENT_CORRECTED, data: game, ID: playerID };
+				m = JSON.stringify(m);
+				players[playerID - 1].send(m);
+
+			}
+
+
 
 		}
 
