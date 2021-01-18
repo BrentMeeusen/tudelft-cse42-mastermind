@@ -227,6 +227,9 @@ socket.onmessage = function(event) {
 		canHandleInput = true;
 		document.getElementById("color-input").style.display = "none";
 		document.getElementById("redwhite-input").style.display = "block";
+		
+		// Update latest row
+		currentRow = MSG.data.currentRow;
 
 		// Show the latest guess
 		let latestGuess = MSG.data.guesses[MSG.data.guesses.length - 1];
@@ -260,8 +263,11 @@ socket.onmessage = function(event) {
 		let correction = MSG.data.results[MSG.data.results.length - 1];
 
 		for(let i = 0; i < 4; i++) {
-			circles[i].classList.add((correction[i] ? (correction[i] + "-circle") : ""));
+			if(correction[i]) { circles[i].classList.add(correction[i] + "-circle"); }
 		}
+
+		// Update current row
+		currentRow = MSG.data.currentRow;
 
 
 	}

@@ -171,6 +171,7 @@ wss.on("connection", function(ws) {
 
 				var game = games[thisGameIndex];
 				game.addResult(MSG.data);
+				game.incrementRow();
 
 				// Update other player
 				var playerID = (game.players[0] === thisID ? game.players[1] : game.players[0]);
