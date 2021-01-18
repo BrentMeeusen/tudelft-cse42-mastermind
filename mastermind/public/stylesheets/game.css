@@ -123,7 +123,7 @@ main {
 }
 
 /* Styling for circle and basics of result circle */
-.code-circle, .result-circle {
+.code-circle, .result-circle, .code-circle-disabled {
 	float: left;
 	margin: 1.333333vh 5px;
 	width: 6vh;
@@ -150,8 +150,8 @@ main {
 	border-color: #FFF;
 	box-shadow: 0 0 6px 1px #FFF;
 }
-/* Set delete button style */
-#remove-last {
+/* Set delete and send checks button style */
+#remove-last, #send-checks {
 	animation: none;
 	text-align: center;
 	font-size: 32px;
