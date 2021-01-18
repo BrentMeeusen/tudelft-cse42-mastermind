@@ -21,9 +21,13 @@ document.getElementById("remove-last").addEventListener("click", function() {
 		}
 		else if(action === "OPPONENT_CREATED_CODE" || action === "OPPONENT_CORRECTED" || action === "INVALID_GUESS") {
 			let thisRow = rows[10 - currentRow];
+			let circles = thisRow.getElementsByClassName("result-circle");
+			circles[currentInput.length - 1].classList.remove(color + "-circle");
+		}
+		else if(action === "OPPONENT_MADE_GUESS" || action === "INVALID_CHECK") {
+			let thisRow = rows[10 - currentRow];
 			let circles = thisRow.getElementsByClassName("code-circle");
 			circles[currentInput.length - 1].classList.remove(color + "-circle");
-
 		}
 
 		currentInput.splice(currentInput.length - 1, 1);
@@ -78,9 +82,9 @@ for(c of colorInputs) {
 					// ...clear the input array, disable input, and display message
 					currentInput = [];
 					canHandleInput = false;
-					document.getElementById("status").innerHTML = "Your code has been saved. Now wait for the other player to guess!";
+					var type = ((action === "GAME_STARTS_MAKECODE" || action === "INVALID_CODE") ? "code" : "guess");
+					document.getElementById("status").innerHTML = "Your " + type + " has been saved. Now wait for the other player to guess!";
 
-					
 				}
 
 			}
