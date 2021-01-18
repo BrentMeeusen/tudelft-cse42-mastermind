@@ -11,7 +11,7 @@ socket.onopen = function() {
 // When the socket receives a message
 socket.onmessage = function(event) {
 	// Do stuff with that message
-	console.info("Incoming message: ", event.data);
+	console.info("Incoming message: ", JSON.parse(event.data));
 }
 
 // When the socket closes

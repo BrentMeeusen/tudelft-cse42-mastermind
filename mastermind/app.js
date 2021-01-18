@@ -24,7 +24,11 @@ server.listen(port);
 wss.on("connection", function(ws) {
 
 	// Send the user a message with all the messages it can send/receive
-	let m = new Message.Message("MESSAGES", messages);
+	let m = {
+		message: "MESSAGES",
+		data: messages
+	};
+	m = JSON.stringify(m);
 	ws.send(m);
 	
 	// When we get a message
@@ -39,13 +43,6 @@ wss.on("connection", function(ws) {
 	});
 
 });
-
-
-
-// EXAMPLE CODE
-var Validation = require("./validation");
-var av = new Validation.valid();
-av.validate();
 
 
 
