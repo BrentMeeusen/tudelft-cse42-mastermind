@@ -109,8 +109,10 @@ socket.onmessage = function(event) {
 	// DEBUGGING PURPOSES
 	// MSG contains data and {code: "", message: ""}
 	console.log(MSG.message.code, "-", MSG.message.message);
+	console.log(MSG);
 
 	action = MSG.message.code;
+	
 
 	// If it's the first message we receive, set global variable messages to the data
 	if(MSG.message.code === "MESSAGES") {
@@ -126,7 +128,7 @@ socket.onmessage = function(event) {
 	}
 
 	// If it's time to make a guess as code guesser
-	else if(MSG.message.code === "OPPONENT_CREATED_CODE" && MSG.data.PLAYER_2 === MSG.data.ID) {
+	else if(MSG.message.code === "OPPONENT_CREATED_CODE" && MSG.data.PLAYER_2 === MSG.ID) {
 		
 		canHandleInput = true;		// Enable input
 
