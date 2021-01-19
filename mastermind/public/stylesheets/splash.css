@@ -35,8 +35,14 @@ body {
 	background-image: url('../../public/images/background.png');
 	background-repeat: no-repeat;
 	background-size: cover;
+	position: fixed;
 	background-attachment: fixed;
 	background-position: center;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
 }
 
 
@@ -69,8 +75,8 @@ h1:hover {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 50px;
 	position: absolute;
-	left: 685px;
-	bottom: 155px;
+	left: 677px;
+	bottom: 160px;
 }
 
 #play:hover {
@@ -82,8 +88,8 @@ h1:hover {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 17px;
 	position: absolute;
-    bottom: 32px;
-	right: 48px;
+    bottom: 38px;
+	right: 57px;
 	grid-row: 3;
 	grid-column: 3;
 	text-align: center;
@@ -96,8 +102,8 @@ h1:hover {
 	position: absolute;
 	grid-column: 3;
 	grid-row: 1;
-	top: 128px;
-	right: 90px;
+	top: 124px;
+	right: 100px;
 	color: #F4F3F3;
 }
 
@@ -148,8 +154,8 @@ h1:hover {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 20px;
 	position: absolute;
-    bottom: 51px;
-	left: 52px;
+    bottom: 60px;
+	left: 46px;
 	grid-row: 3;
 	grid-column: 1;
 }
@@ -178,8 +184,8 @@ h1:hover {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 20px;
 	position: absolute;
-    top: 128px;
-	left: 85px;
+    top: 124px;
+	left: 80px;
 	grid-row: 1;
 	grid-column: 1;
 	color: #F4F3F3;
