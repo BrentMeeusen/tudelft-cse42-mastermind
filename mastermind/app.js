@@ -355,9 +355,7 @@ wss.on("connection", function(ws) {
 
 		// Remove player from array if it was in a game
 		if(!isInSplash) {
-			console.log(players.length);
 			players.splice(findPlayerIndexOnID(thisID), 1);
-			console.log(players.length);
 		}
 
 	});	// On close
