@@ -5,12 +5,35 @@ class Game {
 		this.players = players;
 		this.PLAYER_1 = undefined;		// Player who makes and checks the code
 		this.PLAYER_2 = undefined;		// Player who guesses the code
+		this.guesses = [];				// Empty guess array
+		this.results = [];				// Empty result array
+		this.currentRow = 1;			// Current row
 	}
 
 	// Randomly assign roles to players
 	assignRoles() {
 		this.PLAYER_1 = (Math.random() > 0.5 ? this.players[0] : this.players[1]);
 		this.PLAYER_2 = (this.PLAYER_1 == this.players[0] ? this.players[1] : this.players[0]);
+	}
+
+	// Set the code inputted by the code maker
+	setCode(code) {
+		this.code = code;
+	}
+
+	// Add guess to the guess array
+	addGuess(guess) {
+		this.guesses.push(guess);
+	}
+
+	// Add result to the results array
+	addResult(result) {
+		this.results.push(result);
+	}
+
+	// Increment current row
+	incrementRow() {
+		this.currentRow++;
 	}
 
 }
@@ -49,6 +72,65 @@ Game.isValidCode = function(input) {
 	// Otherwise, return true
 	return true;
 }
+
+
+// Validate the given check, and compare to latest guess to see if it is a correct check
+Game.isValidCheck = function(game, input) {
+
+	// If the check has more than 4 items, return false
+	if(input.length > 4) {
+		return false;
+	}
+
+	var reds = 0;
+	var whites = 0;
+
+	// For all check colours
+	for(let i = 0; i < input.length; i++) {
+		
+		// Find out how many reds and whites are inputted, if anything else is inputted, it's not valid
+		if(input[i] === "red") { reds++; }
+		else if(input[i] === "white") { whites++; }
+		else { return false; }
+
+	}
+
+	
+	// Check the code against the latest guess
+	var redsNeeded = 0;
+	var whitesNeeded = 0;
+	let latestGuess = game.guesses[game.guesses.length - 1];
+
+	for(let i = 0; i < 4; i++) {
+		if(game.code[i] === latestGuess[i]) {
+			redsNeeded++;
+		}
+		else if(game.code.includes(latestGuess[i])) {
+			whitesNeeded++;
+		}
+	}
+
+	return reds === redsNeeded && whites === whitesNeeded;
+}
+
+// Sort the check 
+Game.sortCheck = function(input) {
+
+	var reds = 0;
+	var whites = 0;
+	var result = [];
+
+	for(let i = 0; i < input.length; i++) {
+		if(input[i] === "red") { reds++; }
+		else if(input[i] === "white") { whites++; }
+	}
+	for(let i = 0; i < reds; i++) { result.push("red"); }
+	for(let i = 0; i < whites; i++) { result.push("white"); }
+
+	return result;
+
+}
+
 
 
 

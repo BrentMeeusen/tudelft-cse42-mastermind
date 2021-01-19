@@ -2,6 +2,8 @@
 html, body, .main-wrapper {
 	padding: 0;
 	margin: 0;
+	height: 100vh;
+	overflow: hidden;
 }
 .main-wrapper * {
 	font-family: "Bungee Shade";
@@ -9,7 +11,12 @@ html, body, .main-wrapper {
 p {
 	color: #FFF;
 	font: 24px Verdana;
-	margin: 5px 20px;
+	margin: 20px;
+	line-height: 36px;
+}
+#status {
+	font-size: 20px;
+	margin-top: 50px;
 }
 
 /* Set styling for the role that the user has */
@@ -71,6 +78,7 @@ p {
 
 
 
+
 /* Set background */
 .main-wrapper {
 	background: linear-gradient(90deg, 
@@ -117,7 +125,7 @@ main {
 }
 
 /* Styling for circle and basics of result circle */
-.code-circle, .result-circle {
+.code-circle, .result-circle, .code-circle-disabled {
 	float: left;
 	margin: 1.333333vh 5px;
 	width: 6vh;
@@ -143,6 +151,17 @@ main {
 .hidden-code-row .code-circle {
 	border-color: #FFF;
 	box-shadow: 0 0 6px 1px #FFF;
+}
+/* Set delete and send checks button style */
+#remove-last, #send-checks {
+	animation: none;
+	text-align: center;
+	font-size: 32px;
+	color: #FFF;
+	line-height: 40px;
+	margin-left: 69px;
+	box-shadow: 0 0 6px 1px #FFF,
+		  inset 0 0 6px 1px #FFF;
 }
 
 
@@ -181,39 +200,39 @@ main {
 
 /* Set circle backgrounds */
 .white-circle {
-	background: #FFF;
+	background: #FFF !important;
 	border-color: #000;
 }
 .red-circle {
-	background: #F00;
+	background: #F00 !important;
 	border-color: #000;
 }
 .orange-circle {
-	background: #FF970A;
+	background: #FF970A !important;
 	border-color: #000;
 }
 .yellow-circle {
-	background: #FFED00;
+	background: #FFED00 !important;
 	border-color: #000;
 }
 .green-circle {
-	background: #00F;
+	background: #0F0 !important;
 	border-color: #000;
 }
 .cyan-circle {
-	background: #00E0E0;
+	background: #00E0E0 !important;
 	border-color: #000;
 }
 .blue-circle {
-	background: #0F0;
+	background: #00F !important;
 	border-color: #000;
 }
 .purple-circle {
-	background: #B432FF;
+	background: #B432FF !important;
 	border-color: #000;
 }
 .pink-circle {
-	background: #FF24EF;
+	background: #FF24EF !important;
 	border-color: #000;
 }
 

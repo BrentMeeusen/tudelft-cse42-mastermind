@@ -14,8 +14,8 @@
 
 			<aside class="left-side">
 
-				<p>Game duration</p>
-				<p id="game-dur">0:00</p>
+				<p>Game duration<br>
+				<span id="game-dur">0:00</span></p>
 
 				<p class="role">Try to guess the code!</p>
 				
@@ -25,11 +25,13 @@
 			<main class="board">
 
 				<!-- Top row; the hidden code -->
-				<div class="row hidden-code-row">
+				<div class="row hidden-code-row" id="answer-row">
 					<div class="code-circle"></div>
 					<div class="code-circle"></div>
 					<div class="code-circle"></div>
 					<div class="code-circle"></div>
+
+					<div id="remove-last" class="code-circle">&times;</div>
 				</div>
 
 				<!-- 10 game rows; the guessed codes and its results -->
@@ -160,8 +162,10 @@
 				
 				<!-- Correct/incorrect input row -->
 				<div id="redwhite-input" class="row redwhite-input-row">
-					<div class="code-circle red-circle"></div>
-					<div class="code-circle white-circle"></div>
+					<div data-color="red" class="code-circle red-circle"></div>
+					<div data-color="white" class="code-circle white-circle"></div>
+					
+					<div id="send-checks" class="code-circle-disabled">&check;</div>
 				</div>
 
 			</main>
@@ -170,6 +174,8 @@
 			<aside class="right-side">
 
 				<p>Number of guesses left: <span id="guesses-left">10</span></p>
+				<p id="status"></p>
+				<p>Remember: red is correct and in the correct position, white is correct but in the wrong position.</p>
 
 			</aside>
 

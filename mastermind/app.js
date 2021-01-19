@@ -1,9 +1,36 @@
+/*
+
+TODO
+=========
+- Fix winning/losing conditions
+- Clean up console.logs on client side
+- Make minimum screen size requirements
+- Keep track of statistics
+	- Games playing right now
+	- Players online
+	- Players in-game
+
+- Clean up code
+	- Add comments
+	- Split over files
+		- Redirects
+		- WebSocket
+	- Find and resolve code duplication
+
+- Fix front-end
+- Test in multiple browsers
+
+*/
+
+
+
+
 // Node requires
 var express = require("express");
 var http = require("http");
 var ws = require("ws");
 
-// Server requirements
+// Server requires
 var port = process.argv[2] || 3000;
 var app = express();
 
@@ -90,7 +117,8 @@ wss.on("connection", function(ws) {
 		// DEBUGGING PURPOSES
 		console.log("[MSG] ", MSG);
 
-
+		
+		// ----------------------------------------------------------------
 		// If user inputs a code
 		if(MSG.message.code === "INPUT_CREATED_CODE") {
 			
@@ -105,21 +133,90 @@ wss.on("connection", function(ws) {
 			// Else (if code is valid)
 			else {
 				
-				// Place the code in the game object and update the other player
-
-				// TODO: UPDATE GAME OBJECT (!!!)
-
+				// Place the code in the game object
 				var game = games[thisGameIndex];
+				game.setCode(MSG.data);
+				
+				// Update other player
+				var playerID = (game.players[0] === thisID ? game.players[1] : game.players[0]);
 
-				var playerIndex = (game.players[0] === thisID ? game.players[1] : game.players[0]);
-
-				var m = { message: messages.OPPONENT_CREATED_CODE, data: game };
+				var m = { message: messages.OPPONENT_CREATED_CODE, data: game, ID: playerID };
 				m = JSON.stringify(m);
-				players[playerIndex - 1].send(m);
+				players[playerID - 1].send(m);
 
 			}
 
 		} // if MSG === INPUT_CREATED_CODE
+
+		// ----------------------------------------------------------------
+		// If user inputs a guess
+		else if(MSG.message.code === "INPUT_GUESS") {
+
+			// If the guess is invalid, send that to the user
+			if(!Game.isValidCode(MSG.data)) {
+
+				var m = { message: messages.ERRORS.INVALID_GUESS, data: MSG.data };
+				m = JSON.stringify(m);
+				ws.send(m);
+
+			}
+			// Else (if guess is valid)
+			else {
+				
+				// Place the guess in the game object and update the other player
+				var game = games[thisGameIndex];
+				game.addGuess(MSG.data);
+				
+				// Update other player
+				var playerID = (game.players[0] === thisID ? game.players[1] : game.players[0]);
+
+				var m = { message: messages.OPPONENT_MADE_GUESS, data: game, ID: playerID };
+				m = JSON.stringify(m);
+				players[playerID - 1].send(m);
+
+			}
+
+		}
+
+		// ----------------------------------------------------------------
+		// If user inputs a check to a guess
+		else if(MSG.message.code === "INPUT_CHECKS") {
+
+			var game = games[thisGameIndex];
+
+			// If the code is invalid, send that to the user
+			if(!Game.isValidCheck(game, MSG.data)) {
+
+				var m = { message: messages.ERRORS.INVALID_CHECK, data: game };
+				m = JSON.stringify(m);
+				ws.send(m);
+
+			}
+
+			// Else (if the check is valid)
+			else {
+
+				var game = games[thisGameIndex];
+				game.addResult(Game.sortCheck(MSG.data));
+				game.incrementRow();
+
+				// Update this player on the new order
+				var m = { message: messages.CORRECTED_ORDER, data: game }
+				m = JSON.stringify(m);
+				ws.send(m);
+
+				// Update other player
+				var playerID = (game.players[0] === thisID ? game.players[1] : game.players[0]);
+
+				var m = { message: messages.OPPONENT_CORRECTED, data: game, ID: playerID };
+				m = JSON.stringify(m);
+				players[playerID - 1].send(m);
+
+			}
+
+
+
+		}
 
 
 
