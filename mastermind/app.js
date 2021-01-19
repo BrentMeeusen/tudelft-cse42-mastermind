@@ -42,6 +42,7 @@ var messages = Message.messages;
 // Keep track of players
 let userID = 1;
 const players = [];
+let playerArrayOffset = 1;
 
 
 // Websocket
@@ -96,11 +97,11 @@ wss.on("connection", function(ws) {
 		// Send a message to both players indicating the game has started and which role they have
 		var m = { message: messages.GAME_STARTS_MAKECODE, data: game }
 		m = JSON.stringify(m);
-		players[game.PLAYER_1 - 1].send(m);
+		players[game.PLAYER_1 - playerArrayOffset].send(m);
 
 		var m = { message: messages.GAME_STARTS_GUESSCODE, data: game }
 		m = JSON.stringify(m);
-		players[game.PLAYER_2 - 1].send(m);
+		players[game.PLAYER_2 - playerArrayOffset].send(m);
 
 	}
 
@@ -139,7 +140,7 @@ wss.on("connection", function(ws) {
 
 				var m = { message: messages.OPPONENT_CREATED_CODE, data: game, ID: playerID };
 				m = JSON.stringify(m);
-				players[playerID - 1].send(m);
+				players[playerID - playerArrayOffset].send(m);
 
 			}
 
@@ -169,7 +170,7 @@ wss.on("connection", function(ws) {
 
 				var m = { message: messages.OPPONENT_MADE_GUESS, data: game, ID: playerID };
 				m = JSON.stringify(m);
-				players[playerID - 1].send(m);
+				players[playerID - playerArrayOffset].send(m);
 
 			}
 
@@ -211,7 +212,7 @@ wss.on("connection", function(ws) {
 					
 					var m = { message: messages.GUESSER_WINS, data: game };
 					m = JSON.stringify(m);
-					players[playerID - 1].send(m);
+					players[playerID - playerArrayOffset].send(m);
 
 					var m = { message: messages.MAKER_LOSES, data: game };
 					m = JSON.stringify(m);
@@ -225,7 +226,7 @@ wss.on("connection", function(ws) {
 
 					var m = { message: messages.GUESSER_LOSES, data: game };
 					m = JSON.stringify(m);
-					players[playerID - 1].send(m);
+					players[playerID - playerArrayOffset].send(m);
 
 					var m = { message: messages.MAKER_WINS, data: game };
 					m = JSON.stringify(m);
@@ -237,7 +238,7 @@ wss.on("connection", function(ws) {
 				else {
 					var m = { message: messages.OPPONENT_CORRECTED, data: game, ID: playerID };
 					m = JSON.stringify(m);
-					players[playerID - 1].send(m);
+					players[playerID - playerArrayOffset].send(m);
 				}
 
 			}
@@ -266,13 +267,19 @@ wss.on("connection", function(ws) {
 			// Send message and close the socket
 			var m = { message: messages.OPPONENT_DISCONNECTED, data: game };
 			m = JSON.stringify(m);
-			players[toInform - 1].send(m);
-			players[toInform - 1].close();
+			players[toInform - playerArrayOffset].send(m);
+			players[toInform - playerArrayOffset].close();
 
 		} // Game has two players
 
-		// Set game to null (if game has either 1 or 2 players)
-		games[thisGameIndex] = null;
+		// Remove game from array
+		games.splice(thisGameIndex, 1);
+
+		// Remove player from array
+		console.log(players.length);
+		players.splice(thisID - playerArrayOffset, 1);
+		console.log(players.length);
+		playerArrayOffset++;
 
 	});	// On close
 });	// WSServer
