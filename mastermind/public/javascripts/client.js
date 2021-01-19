@@ -353,8 +353,8 @@ socket.onmessage = function(event) {
 		canHandleInput = false;
 		clearInterval(timeInterval);
 
-		// If guesser wins
-		if(MSG.message.code === "GUESSER_WINS") {
+		// If guesser wins or loses
+		if(MSG.message.code.includes("GUESSER")) {
 
 			// Update the result circles
 			let thisRow = rows[10 - currentRow];
@@ -372,8 +372,6 @@ socket.onmessage = function(event) {
 			}
 
 		} // if guesser wins
-
-
 
 	} // win condition
 } // onmessage
