@@ -344,8 +344,8 @@ wss.on("connection", function(ws) {
 			// Send message and close the socket
 			var m = { message: messages.OPPONENT_DISCONNECTED, data: game };
 			m = JSON.stringify(m);
-			players[findPlayerIndexOnID(playerID)].socket.send(m);
-			players[findPlayerIndexOnID(playerID)].socket.close();
+			players[findPlayerIndexOnID(toInform)].socket.send(m);
+			players[findPlayerIndexOnID(toInform)].socket.close();
 
 			// Update statistics (do it here so it only runs once)
 			STATS.removePlayerInGame();
