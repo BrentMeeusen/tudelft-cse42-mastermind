@@ -7,6 +7,15 @@ class Stats {
 		this.totalGamesPlayed = 0;
 	}
 
+	addOnlinePlayer() { this.playersOnline++; }
+	removeOnlinePlayer() { this.playersOnline--; }
+	addPlayerInGame() { this.playersInGame++; }
+	removePlayerInGame() { this.playersInGame--; }
+	addGameInProgress() { this.gamesInProgress++; }
+	removeGameInProgress() { this.gamesInProgress--; }
+	addTotalGamesPlayed() { this.totalGamesPlayed++; }
+	removeTotalGamesPlayed() { this.totalGamesPlayed--; }
+
 }
 
 
