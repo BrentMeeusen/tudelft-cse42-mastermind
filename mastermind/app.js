@@ -2,8 +2,6 @@
 
 TODO
 =========
-- Clean up console.logs on client side		(1m)
-- Make minimum screen size requirements		(1m)
 - Keep track of statistics					(30m)
 	- Games playing right now
 	- Players online

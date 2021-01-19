@@ -182,17 +182,10 @@ document.getElementById("send-checks").addEventListener("click", function() {
 socket.onmessage = function(event) {
 
 	let MSG = JSON.parse(event.data);
-
-	// DEBUGGING PURPOSES
-	// MSG contains data and {code: "", message: ""}
-	console.log(MSG.message.code, "-", MSG.message.message);
-	console.log(MSG);
-
 	document.getElementById("status").innerHTML = MSG.message.message;
-
 	action = MSG.message.code;
 	
-	
+
 	// ----------------------------------------------------------------
 	// If it's the first message we receive, set global variable messages to the data
 	if(MSG.message.code === "MESSAGES") {
