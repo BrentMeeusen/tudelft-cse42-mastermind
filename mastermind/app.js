@@ -38,6 +38,8 @@ const games = [];
 var Message = require("./messages");
 var messages = Message.messages;
 
+var STATS = new require("./stats").stats();
+
 
 // Keep track of players
 let userID = 1;
