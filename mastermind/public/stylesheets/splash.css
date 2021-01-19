@@ -52,7 +52,7 @@ h1:hover {
 }
 
 .creators {
-	color: #F4F3F3;
+	color: #F4F3F3 !important;
 	font-family: 'Bungee Shade', cursive;
 	font-size: 17px;
 	position: absolute;
