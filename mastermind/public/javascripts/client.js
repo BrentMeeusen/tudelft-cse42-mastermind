@@ -268,6 +268,8 @@ socket.onmessage = function(event) {
 		
 		// Update latest row
 		currentRow = MSG.data.currentRow;
+		document.getElementById("guesses-left").innerHTML = 11 - currentRow;
+
 
 		// Show the latest guess
 		let latestGuess = MSG.data.guesses[MSG.data.guesses.length - 1];
@@ -306,6 +308,7 @@ socket.onmessage = function(event) {
 
 		// Update current row
 		currentRow = MSG.data.currentRow;
+		document.getElementById("guesses-left").innerHTML = 11 - currentRow;
 
 
 	}
