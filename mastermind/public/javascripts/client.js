@@ -312,6 +312,24 @@ socket.onmessage = function(event) {
 
 
 	}
+	
+	// ----------------------------------------------------------------
+	// If it's time to make a guess as code guesser or if the previous guess was invalid
+	else if(MSG.message.code === "CORRECTED_ORDER") {
+
+		// Clear game row
+		let thisRow = rows[10 - currentRow];
+		let circles = thisRow.getElementsByClassName("result-circle");
+		let correction = MSG.data.results[MSG.data.results.length - 1];
+
+		// Update the result circles
+		for(let i = 0; i < 4; i++) {
+			circles[i].classList.remove("red-circle");
+			circles[i].classList.remove("white-circle");
+			if(correction[i]) { circles[i].classList.add(correction[i] + "-circle"); }
+		}
+
+	}
 
 
 

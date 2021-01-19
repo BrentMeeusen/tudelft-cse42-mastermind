@@ -170,8 +170,13 @@ wss.on("connection", function(ws) {
 			else {
 
 				var game = games[thisGameIndex];
-				game.addResult(MSG.data);
+				game.addResult(Game.sortCheck(MSG.data));
 				game.incrementRow();
+
+				// Update this player on the new order
+				var m = { message: messages.CORRECTED_ORDER, data: game }
+				m = JSON.stringify(m);
+				ws.send(m);
 
 				// Update other player
 				var playerID = (game.players[0] === thisID ? game.players[1] : game.players[0]);

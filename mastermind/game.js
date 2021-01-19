@@ -113,6 +113,25 @@ Game.isValidCheck = function(game, input) {
 	return reds === redsNeeded && whites === whitesNeeded;
 }
 
+// Sort the check 
+Game.sortCheck = function(input) {
+
+	var reds = 0;
+	var whites = 0;
+	var result = [];
+
+	for(let i = 0; i < input.length; i++) {
+		if(input[i] === "red") { reds++; }
+		else if(input[i] === "white") { whites++; }
+	}
+	for(let i = 0; i < reds; i++) { result.push("red"); }
+	for(let i = 0; i < whites; i++) { result.push("white"); }
+
+	return result;
+
+}
+
+
 
 
 
