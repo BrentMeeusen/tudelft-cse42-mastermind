@@ -66,18 +66,25 @@ p {
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+
 .waiting-for-player-overlay h1 {
 	color: #F4F3F3;
 	font-size: 40px;
-    margin-left: 380px;
-	margin-top: -10px;
+	left: 27vw;
+	top: -5vh;
+	position: absolute;
 }
+
+.waiting-for-player-overlay h1:hover {
+	color: #FA2BDA;
+}
+
 .waiting-for-player-overlay p {
 	color: #AB23E0;
-	font-size: 25px;
+	font-size: 24px;
 	position: absolute;
-	margin-left: 620px;
-	bottom: 150px;
+	left: 42.5vw;
+	bottom: 22vh;
 }
 
 
