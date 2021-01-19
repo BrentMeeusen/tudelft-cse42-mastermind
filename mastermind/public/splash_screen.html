@@ -23,13 +23,15 @@
 
     <aside class="left-side">
 
-      <div class="statistics" onclick="myFunctionFirst()"> STATISTICS
-        <div class="popuptextFirst" id="myPopupFirst"> 
+      <div class="statistics"><span onclick="toggleStats(true);"> STATISTICS</span>
+        <div class="popuptextFirst stats-popup" id="stats"> 
           <p class="titleFirst"> STATISTICS </p>
           <p id="id1"> PLAYERS ONLINE: X </p>
           <p id="id2"> PLAYERS IN TOTAL: Y </p>
           <p id="id3"> GAMES ONGOING: Z </p>
           <p id="id4"> GAMES IN TOTAL: W </p>
+
+          <div class="close-btn" id="close-stats-popup">&times;</div>
         </div>
       </div>
 

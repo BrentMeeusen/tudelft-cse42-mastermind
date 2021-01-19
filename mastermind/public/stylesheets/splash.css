@@ -224,6 +224,37 @@ h1:hover {
 	to {opacity: 1;}
 }
 
+.stats-popup {
+	position: absolute;
+	top: 45px;
+	right: 70px;
+	visibility: none;
+	-webkit-animation: fadeIn 1s;
+	animation: fadeIn 1s;
+}
+
+.close-btn {
+	display: none;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 50px;
+	height: 50px;
+	color: #000;
+	line-height: 50px;
+	background: #FFF;
+	border: #AB23E0 solid 10px;
+	border-radius: 50%;
+}
+
+
+.stats-popup.active {
+	visibility: visible;
+}
+.stats-popup.active .close-btn {
+	display: block;
+}
+
 .statistics .show {
 	visibility: visible;
 	-webkit-animation: fadeIn 1s;

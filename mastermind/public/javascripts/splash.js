@@ -1,42 +1,15 @@
 //@ts-check
-function myFunction() {
-    var popup = document.getElementById("myPopup");
-    popup.classList.add("show");
-    var closeButton = document.createElement('button');
-    closeButton.textContent = 'X';
-    closeButton.style.background = 'white';
-    closeButton.style.fontFamily = 'Bungee Shade';
-    closeButton.style.borderColor = '#AB23E0';
-    closeButton.style.borderWidth = "10px";
-    closeButton.style.borderRadius = '50%';
-    closeButton.style.position = 'absolute';
-    closeButton.style.right = '70px';
-    closeButton.style.top = '45px';
-    popup.appendChild(closeButton);
-    closeButton.onclick = function() {
-        popup.remove();
-    }
+
+document.getElementById("close-stats-popup").addEventListener("click", function() {
+    toggleStats(false);
+});
+
+
+function toggleStats(forceOpen) {
+    console.log("Wheee")
+    document.getElementById("stats").classList.toggle("active", forceOpen);
 }
 
-function myFunctionFirst() {
-    var popup = document.getElementById("myPopupFirst");
-    popup.classList.add("show");
-    var closeButton = document.createElement('button');
-    closeButton.textContent = 'X';
-    closeButton.style.background = 'white';
-    closeButton.style.fontFamily = 'Bungee Shade';
-    closeButton.style.borderColor = '#AB23E0';
-    closeButton.style.borderWidth = "10px";
-    closeButton.style.borderRadius = '50%';
-    closeButton.style.position = 'absolute';
-    closeButton.style.right = '70px';
-    closeButton.style.top = '45px';
-    popup.appendChild(closeButton);
-    var popup1 = popup;
-    closeButton.onclick = function() {
-        popup.remove();
-    }
-}
 
 
 /*
