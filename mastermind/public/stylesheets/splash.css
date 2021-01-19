@@ -14,6 +14,7 @@
 	background: #222;
 	display: none;
 }
+
 .too-small-overlay h1 {
 	color: #FFF;
 	margin-left: 20%;
@@ -31,10 +32,11 @@ html, body {
 }
 
 body {
-	background-image: url('../../public/images/Web\ 1920\ –\ 1.png');
+	background-image: url('../../public/images/background.png');
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-position: right left;
+	background-attachment: fixed;
+	background-position: center bottom 0px top -20px;
 }
 
 
@@ -54,8 +56,8 @@ h1 {
 	color: #F4F3F3;
     font-family: 'Bungee Shade', cursive;
 	font-size: 80px;
-	margin-left: 400px;
-	margin-top: -50px;
+	margin-left: 425px;
+	margin-top: -70px;
 }
 
 h1:hover {
