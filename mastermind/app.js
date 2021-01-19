@@ -1,9 +1,36 @@
+/*
+
+TODO
+=========
+- Fix winning/losing conditions
+- Clean up console.logs on client side
+- Make minimum screen size requirements
+- Keep track of statistics
+	- Games playing right now
+	- Players online
+	- Players in-game
+
+- Clean up code
+	- Add comments
+	- Split over files
+		- Redirects
+		- WebSocket
+	- Find and resolve code duplication
+
+- Fix front-end
+- Test in multiple browsers
+
+*/
+
+
+
+
 // Node requires
 var express = require("express");
 var http = require("http");
 var ws = require("ws");
 
-// Server requirements
+// Server requires
 var port = process.argv[2] || 3000;
 var app = express();
 
