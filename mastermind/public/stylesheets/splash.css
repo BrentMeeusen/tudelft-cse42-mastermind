@@ -1,6 +1,8 @@
 html, body {
 	height: 100%;
 	width: 100%;
+	display: grid;
+	grid-gap: 10px 10px;
 }
 
 body {
@@ -56,6 +58,8 @@ h1:hover {
 	position: absolute;
     bottom: 28px;
 	right: 48px;
+	grid-row: 3;
+	grid-column: 3;
 	text-align: center;
 }
 
@@ -64,7 +68,9 @@ h1:hover {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 20px;
 	position: absolute;
-    top: 180px;
+	grid-column: 3;
+	grid-row: 1;
+	top: 180px;
 	right: 80px;
 	color: #F4F3F3;
 }
@@ -102,7 +108,7 @@ h1:hover {
 }
 
 .howto .title {
-	color: #ab23e0;
+	color: #AB23E0;
 	font-size: 35px;
 	text-align: center;
 }
@@ -123,7 +129,9 @@ h1:hover {
 	font-size: 20px;
 	position: absolute;
     bottom: 49px;
-    left: 52px;
+	left: 52px;
+	grid-row: 3;
+	grid-column: 1;
 }
 
 
@@ -152,6 +160,8 @@ h1:hover {
 	position: absolute;
     top: 180px;
 	left: 90px;
+	grid-row: 1;
+	grid-column: 1;
 	color: #F4F3F3;
 }
 

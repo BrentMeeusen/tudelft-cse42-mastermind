@@ -172,7 +172,3 @@ app.get("/*.png", function(req, res) {
 app.get("/*", function(req, res) {
 	res.sendFile("public/splash_screen.html", { root: "./" });
 });
-
-
-
-
