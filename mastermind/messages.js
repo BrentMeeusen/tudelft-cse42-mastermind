@@ -15,7 +15,7 @@ const messages = {
 	MAKER_WINS: { code: "MAKER_WINS", message: "Your code was so strong that they couldn't guess it. Well done!" },
 	MAKER_LOSES: { code: "MAKER_LOSES", message: "The guesser got the code... Let's try that again, I'm sure you can fool them!" },
 
-	STATS: { code: "STATS", message: "Current statistics" }
+	STATS: { code: "STATS", message: "Current statistics" },
 
 	ERRORS: {
 		INVALID_CODE: { code: "INVALID_CODE", message: "Your code is invalid, please try again." },
