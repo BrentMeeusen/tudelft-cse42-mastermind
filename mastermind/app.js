@@ -271,8 +271,11 @@ wss.on("connection", function(ws) {
 
 		} // Game has two players
 
-		// Set game to null (if game has either 1 or 2 players)
-		games[thisGameIndex] = null;
+		// Remove game from array
+		games.splice(thisGameIndex, 1);
+
+		// Remove player from array
+		players.splice(thisID, 1);
 
 	});	// On close
 });	// WSServer
