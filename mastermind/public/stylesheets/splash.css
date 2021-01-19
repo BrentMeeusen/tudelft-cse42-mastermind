@@ -128,23 +128,31 @@ h1:hover {
 	width: 900px;
 	background-color: #111111;
 	color: #F4F3F3;
-	font-size: 23px;
-	text-align: center;
 	border-radius: 6px;
-	text-align: center;
-	position: fixed; 
+	position: fixed;
 	z-index: 1; 
 	left: 0;
 	top: 0;
     width: 100%;
     height: 100%; 
-    overflow: auto; 
+    overflow: auto;
 }
 
 .howto .title {
 	color: #AB23E0;
-	font-size: 35px;
+	font-size: 40px;
+	line-height: 50px;
+	padding: 10px 50px;
 	text-align: center;
+	box-sizing: border-box;
+}
+
+.howto .text {
+	font-size: 22px;
+	line-height: 28px;
+	padding: 10px 50px;
+	text-align: center;
+	box-sizing: border-box;
 }
 
 .howto .title:hover {
@@ -270,6 +278,7 @@ h1:hover {
 	background: #FFF;
 	border: #AB23E0 solid 10px;
 	border-radius: 50%;
+	text-align: center;
 }
 
 .stats-popup.active {
