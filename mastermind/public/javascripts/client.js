@@ -211,6 +211,8 @@ socket.onmessage = function(event) {
 				updateTime();
 			}, 1000);
 
+			document.getElementById("waiting-overlay").style.display = "none";
+
 		}
 
 		canHandleInput = true;		// Enable input
@@ -234,6 +236,8 @@ socket.onmessage = function(event) {
 		timeInterval = setInterval(function() {
 			updateTime();
 		}, 1000);
+		
+		document.getElementById("waiting-overlay").style.display = "none";
 
 	}
 

@@ -5,12 +5,12 @@ html, body, .main-wrapper {
 	height: 100vh;
 	overflow: hidden;
 }
-.main-wrapper * {
+* {
 	font-family: "Bungee Shade";
 }
 p {
 	color: #FFF;
-	font: 24px Verdana;
+	font: 24px;
 	margin: 20px;
 	line-height: 36px;
 }
@@ -18,6 +18,43 @@ p {
 	font-size: 20px;
 	margin-top: 50px;
 }
+
+
+
+/****
+***** STYLE FOR WAITING OVERLAY
+****/
+.waiting-for-player-overlay {
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-image: url("/public/images/find_player_background.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.waiting-for-player-overlay h1 {
+	color: #F4F3F3;
+	font-size: 40px;
+    margin-left: 380px;
+	margin-top: -10px;
+}
+.waiting-for-player-overlay p {
+	color: #AB23E0;
+	font-size: 25px;
+	position: absolute;
+	margin-left: 620px;
+	bottom: 150px;
+}
+
+
+
+
+
+
 
 /* Set styling for the role that the user has */
 .role {

@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\public",
-    "\\public\\images",
-    "\\public\\javascripts",
-    "\\public\\stylesheets"
+    "\\public\\javascripts"
   ],
+  "SelectedNode": "\\game.js",
   "PreviewInSolutionExplorer": false
 }
