@@ -117,12 +117,6 @@ h1:hover {
 	color: #FA2BDA;
 }
 
-.howto .show {
-	visibility: visible;
-	-webkit-animation: fadeIn 1s;
-	animation: fadeIn 1s;
-}
-
 
 .more {
 	font-family: 'Bungee Shade', cursive;
@@ -256,6 +250,29 @@ h1:hover {
 }
 
 .statistics .show {
+	visibility: visible;
+	-webkit-animation: fadeIn 1s;
+	animation: fadeIn 1s;
+}
+
+.howto-popup {
+	position: absolute;
+	top: 45px;
+	right: 70px;
+	visibility: none;
+	-webkit-animation: fadeIn 1s;
+	animation: fadeIn 1s;
+}
+
+
+.howto-popup.active {
+	visibility: visible;
+}
+.howto-popup.active .close-btn {
+	display: block;
+}
+
+.howto .show {
 	visibility: visible;
 	-webkit-animation: fadeIn 1s;
 	animation: fadeIn 1s;
