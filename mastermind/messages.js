@@ -30,6 +30,7 @@ const clientMessages = {
 	INPUT_GUESS: { code: "INPUT_GUESS", message: "User submitted a guess." },
 	INPUT_CHECKS: { code: "INPUT_CHECKS", message: "User submitted the red/white to the guess." },
 	USER_ENTERS_SPLASH: { code: "USER_ENTERS_SPLASH", message: "User is in splash screen" }
+	REQUEST_STATS: { code: "REQUEST_STATS", message: "User requested statistics." }
 }
 
 
