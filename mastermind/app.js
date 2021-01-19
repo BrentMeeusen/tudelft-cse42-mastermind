@@ -121,6 +121,8 @@ wss.on("connection", function(ws) {
 
 
 
+
+
 		// ----------------------------------------------------------------
 		// If user enters splash screen
 		if(MSG.message.code === "USER_ENTERS_SPLASH") {
@@ -130,8 +132,24 @@ wss.on("connection", function(ws) {
 			STATS.addOnlinePlayer();
 			
 		}
-		
+
 		// ----------------------------------------------------------------
+		// If user requests the statistics
+		if(MSG.message.code === "REQUEST_STATS") {
+
+			var m = { message: messages.STATS, data: STATS };
+			m = JSON.stringify(m);
+			ws.send(m);
+
+		}
+
+
+
+
+
+		// ================================================================
+		// GAME MESSAGES
+		// ================================================================
 		// If user inputs a code
 		if(MSG.message.code === "INPUT_CREATED_CODE") {
 			

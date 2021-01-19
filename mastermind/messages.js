@@ -15,6 +15,7 @@ const messages = {
 	MAKER_WINS: { code: "MAKER_WINS", message: "Your code was so strong that they couldn't guess it. Well done!" },
 	MAKER_LOSES: { code: "MAKER_LOSES", message: "The guesser got the code... Let's try that again, I'm sure you can fool them!" },
 
+	STATS: { code: "STATS", message: "Current statistics" },
 
 	ERRORS: {
 		INVALID_CODE: { code: "INVALID_CODE", message: "Your code is invalid, please try again." },
@@ -30,6 +31,7 @@ const clientMessages = {
 	INPUT_GUESS: { code: "INPUT_GUESS", message: "User submitted a guess." },
 	INPUT_CHECKS: { code: "INPUT_CHECKS", message: "User submitted the red/white to the guess." },
 	USER_ENTERS_SPLASH: { code: "USER_ENTERS_SPLASH", message: "User is in splash screen" }
+	REQUEST_STATS: { code: "REQUEST_STATS", message: "User requested statistics." }
 }
 
 
