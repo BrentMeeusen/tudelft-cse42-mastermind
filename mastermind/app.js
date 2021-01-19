@@ -71,6 +71,9 @@ wss.on("connection", function(ws) {
 	m = JSON.stringify(m);
 	ws.send(m);
 
+	STATS.addOnlinePlayer();
+
+
 	
 	// ================================================================
 	// Check whether there's a game waiting for a user
@@ -106,6 +109,12 @@ wss.on("connection", function(ws) {
 		var m = { message: messages.GAME_STARTS_GUESSCODE, data: game }
 		m = JSON.stringify(m);
 		players[game.PLAYER_2 - playerArrayOffset].send(m);
+		
+		// Add players and game to statistics
+		STATS.addPlayerInGame();
+		STATS.addPlayerInGame();
+		STATS.addGamesInProgress();
+		STATS.addTotalGamesPlayed();
 
 	}
 
@@ -129,7 +138,6 @@ wss.on("connection", function(ws) {
 			
 			console.log("User entered splash screen", thisID);
 			isInSplash = true;
-			STATS.addOnlinePlayer();
 			
 		}
 
@@ -288,12 +296,12 @@ wss.on("connection", function(ws) {
 	// ================================================================
 	// When the user disconnects
 	ws.on("close", function() {
-
+	
+		STATS.removeOnlinePlayer();
 
 		if(isInSplash) {
 			
 			console.log("User left splash");
-			STATS.removeOnlinePlayer();
 			return;
 
 		}
@@ -313,6 +321,11 @@ wss.on("connection", function(ws) {
 			players[toInform - playerArrayOffset].send(m);
 			players[toInform - playerArrayOffset].close();
 
+			// Update statistics (do it here so it only runs once)
+			STATS.removePlayerInGame();
+			STATS.removePlayerInGame();
+			STATS.removeGamesInProgress();
+
 		} // Game has two players
 
 		// Remove game from array
@@ -323,6 +336,7 @@ wss.on("connection", function(ws) {
 		players.splice(thisID - playerArrayOffset, 1);
 		console.log(players.length);
 		playerArrayOffset++;
+
 
 	});	// On close
 });	// WSServer
