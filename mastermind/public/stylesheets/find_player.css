@@ -1,0 +1,36 @@
+html, body {
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-gap: 10px 10px;
+}
+
+body {
+	background-image: url(../../public/images/find_player_background.png);
+	height: 80%;
+	width: 80%;
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1 {
+    color: #F4F3F3;
+    font-family: 'Bungee Shade', cursive;
+    font-size: 40px;
+    margin-left: 380px;
+	margin-top: -10px;
+}
+
+h1:hover {
+    color: #FA2BDA;
+}
+
+p {
+    color:  #AB23E0;
+    font-family: 'Bungee Shade', cursive;
+    font-size: 25px;
+    position: absolute;
+    margin-left: 620px;
+    bottom: 150px;
+}

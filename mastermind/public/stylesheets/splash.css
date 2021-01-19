@@ -39,7 +39,7 @@ h1:hover {
 }
 
 #play {
-	color: #ab23e0;
+	color: #AB23E0;
 	font-family: 'Bungee Shade', cursive;
 	font-size: 50px;
 	position: absolute;
@@ -86,7 +86,7 @@ h1:hover {
   
 @keyframes fadeIn {
 	from {opacity: 0;}
-	to {opacity:1 ;}
+	to {opacity: 1;}
 }
 
 .howto .popuptext {
@@ -221,7 +221,7 @@ h1:hover {
   
 @keyframes fadeIn {
 	from {opacity: 0;}
-	to {opacity:1 ;}
+	to {opacity: 1;}
 }
 
 .statistics .show {
