@@ -8,7 +8,13 @@ const messages = {
 	OPPONENT_CREATED_CODE: { code: "OPPONENT_CREATED_CODE", message: "Your opponent created the code. Time to make a guess!" },
 	OPPONENT_MADE_GUESS: { code: "OPPONENT_MADE_GUESS", message: "Your opponent made a guess. Let's see how they did!" },
 	OPPONENT_CORRECTED: { code: "OPPONENT_CORRECTED", message: "Your opponent corrected your guess. Make another guess!" },
-	CORRECTED_ORDER: { code: "CORRECTED_ORDER", message: "Your opponent corrected your guess. Make another guess!" },
+	CORRECTED_ORDER: { code: "CORRECTED_ORDER", message: "Your correction has been rearranged to match our conventions (red/white/nothing)." },
+
+	GUESSER_WINS: { code: "GUESSER_WINS", message: "Your guess was correct, well done!" },
+	GUESSER_LOSES: { code: "GUESSER_LOSES", message: "The code maker managed to fool you... Let's teach them a lesson and try again!" },
+	MAKER_WINS: { code: "MAKER_WINS", message: "Your code was so strong that they couldn't guess it. Well done!" },
+	MAKER_LOSES: { code: "MAKER_LOSES", message: "The guesser got the code... Let's try that again, I'm sure you can fool them!" },
+
 
 	ERRORS: {
 		INVALID_CODE: { code: "INVALID_CODE", message: "Your code is invalid, please try again." },

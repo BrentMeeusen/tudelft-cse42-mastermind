@@ -192,11 +192,18 @@ socket.onmessage = function(event) {
 
 	action = MSG.message.code;
 	
-
+	
 	// ----------------------------------------------------------------
 	// If it's the first message we receive, set global variable messages to the data
 	if(MSG.message.code === "MESSAGES") {
 		messages = MSG.data;
+	}
+	
+	// ----------------------------------------------------------------
+	// If the other player disconnected, disable input 
+	if(MSG.message.code === "OPPONENT_DISCONNECTED") {
+		canHandleInput = false;
+		clearInterval(timeInterval);
 	}
 
 	// ----------------------------------------------------------------
@@ -210,6 +217,8 @@ socket.onmessage = function(event) {
 			timeInterval = setInterval(function() {
 				updateTime();
 			}, 1000);
+
+			document.getElementById("waiting-overlay").style.display = "none";
 
 		}
 
@@ -234,6 +243,8 @@ socket.onmessage = function(event) {
 		timeInterval = setInterval(function() {
 			updateTime();
 		}, 1000);
+		
+		document.getElementById("waiting-overlay").style.display = "none";
 
 	}
 

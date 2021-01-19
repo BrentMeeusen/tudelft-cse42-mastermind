@@ -10,6 +10,13 @@
 
 	<body>
 
+		
+		<div class="waiting-for-player-overlay" id="waiting-overlay">
+            <h1> <strong> FINDING ANOTHER PLAYER... </strong></h1>
+            <p> MASTERMIND </p>
+        </div>
+
+
 		<div class="main-wrapper">
 
 			<aside class="left-side">
@@ -31,7 +38,7 @@
 					<div class="code-circle"></div>
 					<div class="code-circle"></div>
 
-					<div id="remove-last" class="code-circle">&times;</div>
+					<div id="remove-last" class="code-circle btn">&times;</div>
 				</div>
 
 				<!-- 10 game rows; the guessed codes and its results -->
@@ -165,7 +172,7 @@
 					<div data-color="red" class="code-circle red-circle"></div>
 					<div data-color="white" class="code-circle white-circle"></div>
 					
-					<div id="send-checks" class="code-circle-disabled">&check;</div>
+					<div id="send-checks" class="code-circle-disabled btn">&check;</div>
 				</div>
 
 			</main>

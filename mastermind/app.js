@@ -205,12 +205,27 @@ wss.on("connection", function(ws) {
 				m = JSON.stringify(m);
 				ws.send(m);
 
-				// Update other player
 				var playerID = (game.players[0] === thisID ? game.players[1] : game.players[0]);
 
-				var m = { message: messages.OPPONENT_CORRECTED, data: game, ID: playerID };
-				m = JSON.stringify(m);
-				players[playerID - 1].send(m);
+				// Check whether the code is correct (if last item of latest result is red)
+				if(game.results[game.results.length - 1][3] === "red") {
+					
+					var m = { message: messages.GUESSER_WINS, data: game };
+					m = JSON.stringify(m);
+					players[playerID - 1].send(m);
+
+					var m = { message: messages.MAKER_LOSES, data: game };
+					m = JSON.stringify(m);
+					ws.send(m);
+
+
+				}
+				// Else (if the code is not guessed), update other player
+				else {
+					var m = { message: messages.OPPONENT_CORRECTED, data: game, ID: playerID };
+					m = JSON.stringify(m);
+					players[playerID - 1].send(m);
+				}
 
 			}
 
