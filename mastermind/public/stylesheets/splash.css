@@ -1,18 +1,16 @@
 html, body {
-	height: 100%;
-	width: 100%;
 	display: grid;
 	grid-gap: 10px 10px;
+
 }
 
 body {
-	background-image: url(../../public/images/background.png);
-	height: 80%;
-	width: 80%;
-	background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+	background-image: url('../../public/images/Web\ 1920\ –\ 1.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: right left;
 }
+
 
 div > a { 
 	color:  #F4F3F3;
