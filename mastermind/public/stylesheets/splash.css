@@ -28,6 +28,8 @@
 html, body {
 	display: grid;
 	grid-gap: 10px 10px;
+	width: 100vw;
+	height: 100vh;
 
 }
 
@@ -60,10 +62,11 @@ div > a:active {
 
 h1 {
 	color: #F4F3F3;
-    font-family: 'Bungee Shade', cursive;
+	font-family: 'Bungee Shade', cursive;
+	position: absolute;
 	font-size: 75px !important;
-	margin-left: 450px !important;
-	margin-top: -70px !important;
+	margin-left: 29vw !important;
+	margin-top: -9vh !important;
 }
 
 h1:hover {
@@ -75,8 +78,8 @@ h1:hover {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 50px;
 	position: absolute;
-	left: 677px;
-	bottom: 160px;
+	left: 44vw;
+	bottom: 21vh;
 }
 
 #play:hover {
@@ -88,8 +91,8 @@ h1:hover {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 17px;
 	position: absolute;
-    bottom: 38px;
-	right: 57px;
+    bottom: 5vh;
+	right: 4vw;
 	grid-row: 3;
 	grid-column: 3;
 	text-align: center;
