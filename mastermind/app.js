@@ -125,7 +125,7 @@ wss.on("connection", function(ws) {
 		// If user inputs a guess
 		else if(MSG.message.code === "INPUT_GUESS") {
 
-			// If the code is invalid, send that to the user
+			// If the guess is invalid, send that to the user
 			if(!Game.isValidCode(MSG.data)) {
 
 				var m = { message: messages.ERRORS.INVALID_GUESS, data: MSG.data };
@@ -133,7 +133,7 @@ wss.on("connection", function(ws) {
 				ws.send(m);
 
 			}
-			// Else (if code is valid)
+			// Else (if guess is valid)
 			else {
 				
 				// Place the guess in the game object and update the other player
