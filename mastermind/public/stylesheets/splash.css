@@ -47,7 +47,6 @@ body {
 	height: 100vh;
 }
 
-
 div > a { 
 	color:  #F4F3F3;
 }
@@ -64,9 +63,9 @@ h1 {
 	color: #F4F3F3;
 	font-family: 'Bungee Shade', cursive;
 	position: absolute;
-	font-size: 75px !important;
-	margin-left: 29vw !important;
-	margin-top: -9vh !important;
+	font-size: 75px;
+	margin-left: 29vw;
+	margin-top: -9vh;
 }
 
 h1:hover {
@@ -91,7 +90,7 @@ h1:hover {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 17px;
 	position: absolute;
-    bottom: 5vh;
+    bottom: 5.3vh;
 	right: 4vw;
 	grid-row: 3;
 	grid-column: 3;
@@ -105,8 +104,8 @@ h1:hover {
 	position: absolute;
 	grid-column: 3;
 	grid-row: 1;
-	top: 124px;
-	right: 100px;
+	top: 16vh;
+	right: 6.5vw;
 	color: #F4F3F3;
 }
 
@@ -152,25 +151,23 @@ h1:hover {
 	color: #FA2BDA;
 }
 
-
 .more {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 20px;
 	position: absolute;
-    bottom: 60px;
-	left: 46px;
+	bottom: 8vh;
+	left: 3vw;
 	grid-row: 3;
 	grid-column: 1;
 }
-
 
 .vs {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 15px;
 	color: #C446F5;
 	position: absolute;
-	margin-left: 620px;
-	bottom: 50px;
+	bottom: 8vh;
+	left: 40.5vw;
 }
 
 .vs::before {
@@ -187,8 +184,8 @@ h1:hover {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 20px;
 	position: absolute;
-    top: 124px;
-	left: 80px;
+    top: 16vh;
+	left: 5.3vw;
 	grid-row: 1;
 	grid-column: 1;
 	color: #F4F3F3;
@@ -242,7 +239,6 @@ h1:hover {
 	color: #F4F3F3;
 }
 
-
 @-webkit-keyframes fadeIn {
 	from {opacity: 0;}
 	to {opacity: 1;}
@@ -275,7 +271,6 @@ h1:hover {
 	border: #AB23E0 solid 10px;
 	border-radius: 50%;
 }
-
 
 .stats-popup.active {
 	visibility: visible;
