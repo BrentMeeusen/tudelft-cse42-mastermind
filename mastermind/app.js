@@ -63,6 +63,7 @@ wss.on("connection", function(ws) {
 	// Give this user an ID and push it to the players array
 	let thisID = userID++;
 	let thisGameIndex = games.length;
+	let isInSplash = false;
 	players.push(ws);
 
 	// Send the user a message with all the messages they can send back to the server
@@ -118,6 +119,17 @@ wss.on("connection", function(ws) {
 		// DEBUGGING PURPOSES
 		console.log("[MSG] ", MSG);
 
+
+
+		// ----------------------------------------------------------------
+		// If user enters splash screen
+		if(MSG.message.code === "USER_ENTERS_SPLASH") {
+			
+			console.log("User entered splash screen", thisID);
+			isInSplash = true;
+			STATS.addOnlinePlayer();
+			
+		}
 		
 		// ----------------------------------------------------------------
 		// If user inputs a code
@@ -258,6 +270,16 @@ wss.on("connection", function(ws) {
 	// ================================================================
 	// When the user disconnects
 	ws.on("close", function() {
+
+
+		if(isInSplash) {
+			
+			console.log("User left splash");
+			STATS.removeOnlinePlayer();
+			return;
+
+		}
+
 
 		var game = games[thisGameIndex];
 
