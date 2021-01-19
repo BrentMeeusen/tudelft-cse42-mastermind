@@ -182,17 +182,10 @@ document.getElementById("send-checks").addEventListener("click", function() {
 socket.onmessage = function(event) {
 
 	let MSG = JSON.parse(event.data);
-
-	// DEBUGGING PURPOSES
-	// MSG contains data and {code: "", message: ""}
-	console.log(MSG.message.code, "-", MSG.message.message);
-	console.log(MSG);
-
 	document.getElementById("status").innerHTML = MSG.message.message;
-
 	action = MSG.message.code;
 	
-	
+
 	// ----------------------------------------------------------------
 	// If it's the first message we receive, set global variable messages to the data
 	if(MSG.message.code === "MESSAGES") {
@@ -344,7 +337,37 @@ socket.onmessage = function(event) {
 
 
 
-}
+	// ----------------------------------------------------------------
+	// WIN CONDITIONS
+	// ----------------------------------------------------------------
+	// If the message contains a win/lose message
+	else if(MSG.message.code.includes("_WINS") || MSG.message.code.includes("_LOSES")) {
+
+		canHandleInput = false;
+		clearInterval(timeInterval);
+
+		// If guesser wins or loses
+		if(MSG.message.code.includes("GUESSER")) {
+
+			// Update the result circles
+			let thisRow = rows[10 - currentRow];
+			let circles = thisRow.getElementsByClassName("result-circle");
+			let correction = MSG.data.results[MSG.data.results.length - 1];
+			for(let i = 0; i < 4; i++) {
+				circles[i].classList.remove("red-circle");
+				circles[i].classList.remove("white-circle");
+				if(correction[i]) { circles[i].classList.add(correction[i] + "-circle"); }
+			}
+
+			// Show code at the top
+			for(i = 0; i < 4; i++) {
+				codeCircles[i].classList.add(MSG.data.code[i] + "-circle");
+			}
+
+		} // if guesser wins
+
+	} // win condition
+} // onmessage
 
 // ================================================================
 // When the socket closes
