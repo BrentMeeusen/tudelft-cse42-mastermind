@@ -55,9 +55,9 @@ div > a:active {
 h1 {
 	color: #F4F3F3;
     font-family: 'Bungee Shade', cursive;
-	font-size: 75px;
-	margin-left: 450px;
-	margin-top: -70px;
+	font-size: 75px !important;
+	margin-left: 450px !important;
+	margin-top: -70px !important;
 }
 
 h1:hover {
