@@ -5,9 +5,25 @@ let canHandleInput = false;
 let currentInput = [];
 let action = null;
 let currentRow = 1;
+let startingTime = null;
+let timeInterval = null;
 const rows = document.getElementsByClassName("game-row");
 const codeCircles = document.getElementById("answer-row").getElementsByClassName("code-circle");
 const COLORS = ["red", "orange", "yellow", "blue", "cyan", "green", "purple", "pink"];
+
+
+
+
+function updateTime() {
+
+	currentTime = Math.floor(new Date().getTime() / 1000);
+	minutesPassed = Math.floor((currentTime - startingTime) / 60);
+	secondsPassed = Math.floor((currentTime - startingTime) % 60);
+
+	format = minutesPassed + ":" + (secondsPassed <= 9 ? "0" : "") + secondsPassed;
+	document.getElementById("game-dur").innerHTML = format;
+
+}
 
 
 // ================================================================
@@ -187,10 +203,20 @@ socket.onmessage = function(event) {
 	// If the game starts or the previous code was incorrect, show the correct input row
 	else if(MSG.message.code === "GAME_STARTS_MAKECODE" || MSG.message.code === "INVALID_CODE") {
 		
+		// Set starting time and interval
+		if(MSG.message.code === "GAME_STARTS_MAKECODE") {
+
+			startingTime = Math.floor(new Date().getTime() / 1000);
+			timeInterval = setInterval(function() {
+				updateTime();
+			}, 1000);
+
+		}
+
 		canHandleInput = true;		// Enable input
 		document.getElementById("color-input").style.display = "block";
 		document.getElementById("redwhite-input").style.display = "none";
-
+		
 		// Clear code row
 		for(let i = 0; i < 4; i++) {
 			for(let j = 0; j < COLORS.length; j++) {
@@ -199,6 +225,18 @@ socket.onmessage = function(event) {
 		}
 
 	}
+
+	// ----------------------------------------------------------------
+	// If it's the beginning of the game as guesser
+	else if(MSG.message.code === "GAME_STARTS_GUESSCODE") {
+
+		startingTime = Math.floor(new Date().getTime() / 1000);
+		timeInterval = setInterval(function() {
+			updateTime();
+		}, 1000);
+
+	}
+
 
 	// ----------------------------------------------------------------
 	// If it's time to make a guess as code guesser or if the previous guess was invalid
