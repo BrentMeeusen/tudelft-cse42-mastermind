@@ -344,7 +344,39 @@ socket.onmessage = function(event) {
 
 
 
-}
+	// ----------------------------------------------------------------
+	// WIN CONDITIONS
+	// ----------------------------------------------------------------
+	// If the message contains a win/lose message
+	else if(MSG.message.code.includes("_WINS") || MSG.message.code.includes("_LOSES")) {
+
+		canHandleInput = false;
+		clearInterval(timeInterval);
+
+		// If guesser wins
+		if(MSG.message.code === "GUESSER_WINS") {
+
+			// Update the result circles
+			let thisRow = rows[10 - currentRow];
+			let circles = thisRow.getElementsByClassName("result-circle");
+			let correction = MSG.data.results[MSG.data.results.length - 1];
+			for(let i = 0; i < 4; i++) {
+				circles[i].classList.remove("red-circle");
+				circles[i].classList.remove("white-circle");
+				if(correction[i]) { circles[i].classList.add(correction[i] + "-circle"); }
+			}
+
+			// Show code at the top
+			for(i = 0; i < 4; i++) {
+				codeCircles[i].classList.add(MSG.data.code[i] + "-circle");
+			}
+
+		} // if guesser wins
+
+
+
+	} // win condition
+} // onmessage
 
 // ================================================================
 // When the socket closes
