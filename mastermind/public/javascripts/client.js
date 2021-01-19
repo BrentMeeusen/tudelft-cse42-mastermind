@@ -187,9 +187,17 @@ socket.onmessage = function(event) {
 	
 
 	// ----------------------------------------------------------------
-	// If it's the first message we receive, set global variable messages to the data
+	// If it's the first message we receive
 	if(MSG.message.code === "MESSAGES") {
+
+		// Set global variable messages to the data
 		messages = MSG.data;
+
+		// Tell the server we entered the game screen
+		var m = { message: messages.USER_ENTERS_GAME };
+		m = JSON.stringify(m);
+		socket.send(m);
+
 	}
 	
 	// ----------------------------------------------------------------

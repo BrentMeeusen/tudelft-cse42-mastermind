@@ -45,7 +45,6 @@ var STATS = new Stats.stats();
 // Keep track of players
 let userID = 1;
 const players = [];
-let playerArrayOffset = 1;
 
 
 // Websocket
@@ -55,6 +54,18 @@ const wss = new ws.Server({ server });
 server.listen(port);
 
 
+
+
+// Additional methods
+function findPlayerIndexOnID(ID) {
+	for(let i = 0; i < players.length; i++) {
+		if(players[i].ID === ID) { return i; }
+	}
+	return -1;
+}
+
+
+
 // ================================================================
 // When a user connects
 wss.on("connection", function(ws) {
@@ -62,61 +73,17 @@ wss.on("connection", function(ws) {
 	// ================================================================
 	// Give this user an ID and push it to the players array
 	let thisID = userID++;
-	let thisGameIndex = games.length;
 	let isInSplash = false;
-	players.push(ws);
+	let thisGameIndex;
 
 	// Send the user a message with all the messages they can send back to the server
 	var m = { message: { code: "MESSAGES" }, data: Message.clientMessages };
 	m = JSON.stringify(m);
 	ws.send(m);
 
+	// Add a player online
 	STATS.addOnlinePlayer();
 
-
-	
-	// ================================================================
-	// Check whether there's a game waiting for a user
-	let game = games[games.length - 1];
-
-	// If there's no games at all, or if the last game is full
-	if(game == null || game.players.length === 2) {
-
-		// Create a game
-		games.push(new Game([thisID]));
-
-		// Tell the user we're waiting for players
-		var m = { message: messages.WAITING_FOR_PLAYERS, data: games[games.length - 1] };
-		m = JSON.stringify(m);
-		ws.send(m);
-
-	}
-
-	// Else (so if there is a game waiting for a user)
-	else {
-
-		// Update thisGameIndex to match the actual index
-		thisGameIndex--;
-
-		game.players.push(thisID);		// Join the game
-		game.assignRoles();				// Assign the roles
-
-		// Send a message to both players indicating the game has started and which role they have
-		var m = { message: messages.GAME_STARTS_MAKECODE, data: game }
-		m = JSON.stringify(m);
-		players[game.PLAYER_1 - playerArrayOffset].send(m);
-
-		var m = { message: messages.GAME_STARTS_GUESSCODE, data: game }
-		m = JSON.stringify(m);
-		players[game.PLAYER_2 - playerArrayOffset].send(m);
-		
-		// Add players and game to statistics
-		STATS.addPlayerInGame();
-		STATS.addPlayerInGame();
-		STATS.addGamesInProgress();
-		STATS.addTotalGamesPlayed();
-
-	}
 
 
 	// ================================================================
@@ -130,14 +97,19 @@ wss.on("connection", function(ws) {
 
 
 
-
-
-		// ----------------------------------------------------------------
+		// ================================================================
+		// SPLASH SCREEN MESSAGES
+		// ================================================================
 		// If user enters splash screen
 		if(MSG.message.code === "USER_ENTERS_SPLASH") {
 			
 			console.log("User entered splash screen", thisID);
 			isInSplash = true;
+
+			// Send current statistics so they don't have to wait for 15 seconds
+			var m = { message: messages.STATS, data: STATS };
+			m = JSON.stringify(m);
+			ws.send(m);
 			
 		}
 
@@ -158,6 +130,62 @@ wss.on("connection", function(ws) {
 		// ================================================================
 		// GAME MESSAGES
 		// ================================================================
+		// If user joins a game
+		if(MSG.message.code === "USER_ENTERS_GAME") {
+			
+			thisGameIndex = games.length;
+			players.push( { ID: thisID, socket: ws } );
+
+			console.log("After adding: " + players);
+
+			// Check whether there's a game waiting for a user
+			let game = games[games.length - 1];
+
+			// If there's no games at all, or if the last game is full
+			if(game == null || game.players.length === 2) {
+
+				// Create a game
+				games.push(new Game([thisID]));
+
+				// Tell the user we're waiting for players
+				var m = { message: messages.WAITING_FOR_PLAYERS, data: games[games.length - 1] };
+				m = JSON.stringify(m);
+				ws.send(m);
+
+			}
+
+			// Else (so if there is a game waiting for a user)
+			else {
+
+				// Update thisGameIndex to match the actual index
+				thisGameIndex--;
+
+				game.players.push(thisID);		// Join the game
+				game.assignRoles();				// Assign the roles
+
+				console.log(game.PLAYER_1, game.PLAYER_2);
+
+				// Send a message to both players indicating the game has started and which role they have
+				var m = { message: messages.GAME_STARTS_MAKECODE, data: game }
+				m = JSON.stringify(m);
+				players[findPlayerIndexOnID(game.PLAYER_1)].socket.send(m);
+
+				var m = { message: messages.GAME_STARTS_GUESSCODE, data: game }
+				m = JSON.stringify(m);
+				players[findPlayerIndexOnID(game.PLAYER_2)].socket.send(m);
+		
+				// Add players and game to statistics
+				STATS.addPlayerInGame();
+				STATS.addPlayerInGame();
+				STATS.addGameInProgress();
+				STATS.addTotalGamesPlayed();
+
+			}
+
+		}
+
+		
+		// ----------------------------------------------------------------
 		// If user inputs a code
 		if(MSG.message.code === "INPUT_CREATED_CODE") {
 			
@@ -181,7 +209,7 @@ wss.on("connection", function(ws) {
 
 				var m = { message: messages.OPPONENT_CREATED_CODE, data: game, ID: playerID };
 				m = JSON.stringify(m);
-				players[playerID - playerArrayOffset].send(m);
+				players[findPlayerIndexOnID(playerID)].socket.send(m);
 
 			}
 
@@ -211,7 +239,7 @@ wss.on("connection", function(ws) {
 
 				var m = { message: messages.OPPONENT_MADE_GUESS, data: game, ID: playerID };
 				m = JSON.stringify(m);
-				players[playerID - playerArrayOffset].send(m);
+				players[findPlayerIndexOnID(playerID)].socket.send(m);
 
 			}
 
@@ -253,7 +281,7 @@ wss.on("connection", function(ws) {
 					
 					var m = { message: messages.GUESSER_WINS, data: game };
 					m = JSON.stringify(m);
-					players[playerID - playerArrayOffset].send(m);
+					players[findPlayerIndexOnID(playerID)].socket.send(m);
 
 					var m = { message: messages.MAKER_LOSES, data: game };
 					m = JSON.stringify(m);
@@ -267,7 +295,7 @@ wss.on("connection", function(ws) {
 
 					var m = { message: messages.GUESSER_LOSES, data: game };
 					m = JSON.stringify(m);
-					players[playerID - playerArrayOffset].send(m);
+					players[findPlayerIndexOnID(playerID)].socket.send(m);
 
 					var m = { message: messages.MAKER_WINS, data: game };
 					m = JSON.stringify(m);
@@ -279,7 +307,7 @@ wss.on("connection", function(ws) {
 				else {
 					var m = { message: messages.OPPONENT_CORRECTED, data: game, ID: playerID };
 					m = JSON.stringify(m);
-					players[playerID - playerArrayOffset].send(m);
+					players[findPlayerIndexOnID(playerID)].socket.send(m);
 				}
 
 			}
@@ -300,10 +328,8 @@ wss.on("connection", function(ws) {
 		STATS.removeOnlinePlayer();
 
 		if(isInSplash) {
-			
 			console.log("User left splash");
 			return;
-
 		}
 
 
@@ -318,8 +344,8 @@ wss.on("connection", function(ws) {
 			// Send message and close the socket
 			var m = { message: messages.OPPONENT_DISCONNECTED, data: game };
 			m = JSON.stringify(m);
-			players[toInform - playerArrayOffset].send(m);
-			players[toInform - playerArrayOffset].close();
+			players[findPlayerIndexOnID(playerID)].socket.send(m);
+			players[findPlayerIndexOnID(playerID)].socket.close();
 
 			// Update statistics (do it here so it only runs once)
 			STATS.removePlayerInGame();
@@ -331,12 +357,12 @@ wss.on("connection", function(ws) {
 		// Remove game from array
 		games.splice(thisGameIndex, 1);
 
-		// Remove player from array
-		console.log(players.length);
-		players.splice(thisID - playerArrayOffset, 1);
-		console.log(players.length);
-		playerArrayOffset++;
-
+		// Remove player from array if it was in a game
+		if(!isInSplash) {
+			console.log(players.length);
+			players.splice(findPlayerIndexOnID(thisID), 1);
+			console.log(players.length);
+		}
 
 	});	// On close
 });	// WSServer
