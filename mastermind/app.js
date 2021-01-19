@@ -3,22 +3,22 @@
 TODO
 =========
 - Fix winning/losing conditions
-- Clean up console.logs on client side
-- Make minimum screen size requirements
-- Keep track of statistics
+- Clean up console.logs on client side		(1m)
+- Make minimum screen size requirements		(1m)
+- Keep track of statistics					(30m)
 	- Games playing right now
 	- Players online
 	- Players in-game
 
-- Clean up code
+- Clean up code								(2h)
 	- Add comments
 	- Split over files
 		- Redirects
 		- WebSocket
 	- Find and resolve code duplication
 
-- Fix front-end
-- Test in multiple browsers
+- Fix front-end								(???m)
+- Test in multiple browsers					(\infinity)
 
 */
 
@@ -200,6 +200,8 @@ wss.on("connection", function(ws) {
 				game.addResult(Game.sortCheck(MSG.data));
 				game.incrementRow();
 
+				console.log("Game ", game);
+
 				// Update this player on the new order
 				var m = { message: messages.CORRECTED_ORDER, data: game }
 				m = JSON.stringify(m);
@@ -220,6 +222,20 @@ wss.on("connection", function(ws) {
 
 
 				}
+
+				// Else, if the guessing player has no guesses left
+				else if(game.currentRow === 11) {
+
+					var m = { message: messages.GUESSER_LOSES, data: game };
+					m = JSON.stringify(m);
+					players[playerID - 1].send(m);
+
+					var m = { message: messages.MAKER_WINS, data: game };
+					m = JSON.stringify(m);
+					ws.send(m);
+
+				}
+
 				// Else (if the code is not guessed), update other player
 				else {
 					var m = { message: messages.OPPONENT_CORRECTED, data: game, ID: playerID };
