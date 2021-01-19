@@ -115,6 +115,11 @@ p {
 
 
 
+/* Code circle buttons */
+.btn {
+	user-select: none;
+	cursor: pointer;
+}
 
 /* Set background */
 .main-wrapper {
