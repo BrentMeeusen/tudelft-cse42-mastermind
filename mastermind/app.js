@@ -1,25 +1,7 @@
-/*
-
-TODO
-=========
-- Clean up code								(2h)
-	- Add comments
-	- Split over files
-		- Redirects
-		- WebSocket
-	- Find and resolve code duplication
-
-*/
-
-
-
-
-// Node requires
+// Server must-haves
 var express = require("express");
 var http = require("http");
 var ws = require("ws");
-
-// Server requires
 var port = process.argv[2] || 3000;
 var app = express();
 
@@ -39,16 +21,15 @@ let userID = 1;
 const players = [];
 
 
-// Websocket
+// Start server and create WebSocket
 app.use(express.static(__dirname + "/public"));
 const server = http.createServer(app);
 const wss = new ws.Server({ server });
 server.listen(port);
 
 
-
-
-// Additional methods
+// ================================================================
+// ADDITIONAL METHODS
 function findPlayerIndexOnID(ID) {
 	for(let i = 0; i < players.length; i++) {
 		if(players[i].ID === ID) { return i; }
@@ -63,7 +44,7 @@ function findPlayerIndexOnID(ID) {
 wss.on("connection", function(ws) {
 
 	// ================================================================
-	// Give this user an ID and push it to the players array
+	// Give this user an ID and assume it's in the game screen
 	let thisID = userID++;
 	let isInSplash = false;
 	let thisGameIndex;
@@ -83,11 +64,6 @@ wss.on("connection", function(ws) {
 	ws.on("message", function incoming(message) {
 
 		MSG = JSON.parse(message);
-		
-		// DEBUGGING PURPOSES
-		console.log("[MSG] ", MSG);
-
-
 
 		// ================================================================
 		// SPLASH SCREEN MESSAGES
@@ -95,7 +71,7 @@ wss.on("connection", function(ws) {
 		// If user enters splash screen
 		if(MSG.message.code === "USER_ENTERS_SPLASH") {
 			
-			console.log("User entered splash screen", thisID);
+			// Set isInSplash to true
 			isInSplash = true;
 
 			// Send current statistics so they don't have to wait for 15 seconds
@@ -109,13 +85,12 @@ wss.on("connection", function(ws) {
 		// If user requests the statistics
 		if(MSG.message.code === "REQUEST_STATS") {
 
+			// Send the statistics
 			var m = { message: messages.STATS, data: STATS };
 			m = JSON.stringify(m);
 			ws.send(m);
 
 		}
-
-
 
 
 
@@ -125,13 +100,12 @@ wss.on("connection", function(ws) {
 		// If user joins a game
 		if(MSG.message.code === "USER_ENTERS_GAME") {
 			
+			// Assume the game index and push the player to the array
 			thisGameIndex = games.length;
 			players.push( { ID: thisID, socket: ws } );
 
-			// Check whether there's a game waiting for a user
-			let game = games[games.length - 1];
-
 			// If there's no games at all, or if the last game is full
+			let game = games[games.length - 1];
 			if(game == null || game.players.length === 2) {
 
 				// Create a game
@@ -144,7 +118,7 @@ wss.on("connection", function(ws) {
 
 			}
 
-			// Else (so if there is a game waiting for a user)
+			// Else (so if there is a game waiting for a player)
 			else {
 
 				// Update thisGameIndex to match the actual index
@@ -194,7 +168,6 @@ wss.on("connection", function(ws) {
 				
 				// Update other player
 				var playerID = (game.players[0] === thisID ? game.players[1] : game.players[0]);
-
 				var m = { message: messages.OPPONENT_CREATED_CODE, data: game, ID: playerID };
 				m = JSON.stringify(m);
 				players[findPlayerIndexOnID(playerID)].socket.send(m);
@@ -224,7 +197,6 @@ wss.on("connection", function(ws) {
 				
 				// Update other player
 				var playerID = (game.players[0] === thisID ? game.players[1] : game.players[0]);
-
 				var m = { message: messages.OPPONENT_MADE_GUESS, data: game, ID: playerID };
 				m = JSON.stringify(m);
 				players[findPlayerIndexOnID(playerID)].socket.send(m);
@@ -255,8 +227,6 @@ wss.on("connection", function(ws) {
 				game.addResult(Game.sortCheck(MSG.data));
 				game.incrementRow();
 
-				console.log("Game ", game);
-
 				// Update this player on the new order
 				var m = { message: messages.CORRECTED_ORDER, data: game }
 				m = JSON.stringify(m);
@@ -267,6 +237,7 @@ wss.on("connection", function(ws) {
 				// Check whether the code is correct (if last item of latest result is red)
 				if(game.results[game.results.length - 1][3] === "red") {
 					
+					// If so, tell both players who won the game
 					var m = { message: messages.GUESSER_WINS, data: game };
 					m = JSON.stringify(m);
 					players[findPlayerIndexOnID(playerID)].socket.send(m);
@@ -275,12 +246,12 @@ wss.on("connection", function(ws) {
 					m = JSON.stringify(m);
 					ws.send(m);
 
-
 				}
 
 				// Else, if the guessing player has no guesses left
 				else if(game.currentRow === 11) {
 
+					// If so, tell both players who won the game
 					var m = { message: messages.GUESSER_LOSES, data: game };
 					m = JSON.stringify(m);
 					players[findPlayerIndexOnID(playerID)].socket.send(m);
@@ -297,39 +268,33 @@ wss.on("connection", function(ws) {
 					m = JSON.stringify(m);
 					players[findPlayerIndexOnID(playerID)].socket.send(m);
 				}
-
-			}
-
-
-
-		}
-
-
-
-	});
+			}		// else (if check is valid)
+		}		// else if MESSAGE === "INPUT_CHECKS"
+	});		// ws.onmessage
 	
 
 	// ================================================================
 	// When the user disconnects
 	ws.on("close", function() {
 	
+		// Remove one player from shown as online
 		STATS.removeOnlinePlayer();
 
+		// If the user is in splash screen, end the method here
 		if(isInSplash) {
-			console.log("User left splash");
 			return;
 		}
 
-
+		// Otherwise, find the game the user participated in
 		var game = games[thisGameIndex];
 
-		// If it exists and has 2 players
+		// If the game found exists, has 2 players, and this player is one of them
 		if(game && game.players.length === 2 && game.players.includes(thisID)) {
 				
 			// Check which player we need to inform
 			var toInform = (game.PLAYER_1 === thisID ? game.PLAYER_2 : game.PLAYER_1);
 				
-			// Send message and close the socket
+			// Send message and close the socket with that player
 			var m = { message: messages.OPPONENT_DISCONNECTED, data: game };
 			m = JSON.stringify(m);
 			players[findPlayerIndexOnID(toInform)].socket.send(m);
@@ -339,12 +304,14 @@ wss.on("connection", function(ws) {
 			STATS.removePlayerInGame();
 			STATS.removePlayerInGame();
 			STATS.removeGameInProgress();
+			
+			// Remove game from array (here so it only runs once)
+			games.splice(thisGameIndex, 1);
+
 
 		} // Game has two players
 
-		// Remove game from array
-		games.splice(thisGameIndex, 1);
-
+		// Else (if the game the player participated in was not found)
 		// Remove player from array if it was in a game
 		if(!isInSplash) {
 			players.splice(findPlayerIndexOnID(thisID), 1);
