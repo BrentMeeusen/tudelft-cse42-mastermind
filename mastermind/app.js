@@ -2,20 +2,12 @@
 
 TODO
 =========
-- Keep track of statistics					(30m)
-	- Games playing right now
-	- Players online
-	- Players in-game
-
 - Clean up code								(2h)
 	- Add comments
 	- Split over files
 		- Redirects
 		- WebSocket
 	- Find and resolve code duplication
-
-- Fix front-end								(???m)
-- Test in multiple browsers					(\infinity)
 
 */
 
