@@ -136,8 +136,6 @@ wss.on("connection", function(ws) {
 			thisGameIndex = games.length;
 			players.push( { ID: thisID, socket: ws } );
 
-			console.log("After adding: " + players);
-
 			// Check whether there's a game waiting for a user
 			let game = games[games.length - 1];
 
@@ -162,8 +160,6 @@ wss.on("connection", function(ws) {
 
 				game.players.push(thisID);		// Join the game
 				game.assignRoles();				// Assign the roles
-
-				console.log(game.PLAYER_1, game.PLAYER_2);
 
 				// Send a message to both players indicating the game has started and which role they have
 				var m = { message: messages.GAME_STARTS_MAKECODE, data: game }
@@ -350,7 +346,7 @@ wss.on("connection", function(ws) {
 			// Update statistics (do it here so it only runs once)
 			STATS.removePlayerInGame();
 			STATS.removePlayerInGame();
-			STATS.removeGamesInProgress();
+			STATS.removeGameInProgress();
 
 		} // Game has two players
 
@@ -359,9 +355,7 @@ wss.on("connection", function(ws) {
 
 		// Remove player from array if it was in a game
 		if(!isInSplash) {
-			console.log(players.length);
 			players.splice(findPlayerIndexOnID(thisID), 1);
-			console.log(players.length);
 		}
 
 	});	// On close
