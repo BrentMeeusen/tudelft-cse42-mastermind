@@ -332,7 +332,7 @@ wss.on("connection", function(ws) {
 		var game = games[thisGameIndex];
 
 		// If it exists and has 2 players
-		if(game && game.players.length === 2) {
+		if(game && game.players.length === 2 && game.players.includes(thisID)) {
 				
 			// Check which player we need to inform
 			var toInform = (game.PLAYER_1 === thisID ? game.PLAYER_2 : game.PLAYER_1);
