@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\public",
-    "\\public\\javascripts"
+    "\\public\\images",
+    "\\public\\javascripts",
+    "\\public\\stylesheets"
   ],
-  "SelectedNode": "\\game.js",
+  "SelectedNode": "\\public\\stylesheets\\splash.css",
   "PreviewInSolutionExplorer": false
 }

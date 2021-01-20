@@ -1,21 +1,16 @@
-class Stats {
+function Stats() {
+	this.playersOnline = 0;
+	this.playersInGame = 0;
+	this.gamesInProgress = 0;
+	this.totalGamesPlayed = 0;
 
-	constructor() {
-		this.playersOnline = 0;
-		this.playersInGame = 0;
-		this.gamesInProgress = 0;
-		this.totalGamesPlayed = 0;
-	}
-
-	addOnlinePlayer() { this.playersOnline++; }
-	removeOnlinePlayer() { this.playersOnline--; }
-	addPlayerInGame() { this.playersInGame++; }
-	removePlayerInGame() { this.playersInGame--; }
-	addGameInProgress() { this.gamesInProgress++; }
-	removeGameInProgress() { this.gamesInProgress--; }
-	addTotalGamesPlayed() { this.totalGamesPlayed++; }
-	removeTotalGamesPlayed() { this.totalGamesPlayed--; }
-
+	this.addOnlinePlayer = function() { this.playersOnline++; }
+	this.removeOnlinePlayer = function() { this.playersOnline--; }
+	this.addPlayerInGame = function() { this.playersInGame++; }
+	this.removePlayerInGame = function() { this.playersInGame--; }
+	this.addGameInProgress = function() { this.gamesInProgress++; }
+	this.removeGameInProgress = function() { this.gamesInProgress--; }
+	this.addTotalGamesPlayed = function() { this.totalGamesPlayed++; }
 }
 
 
