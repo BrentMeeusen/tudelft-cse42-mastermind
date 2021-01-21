@@ -341,3 +341,28 @@ app.get("/*.png", function(req, res) {
 app.get("/*", function(req, res) {
 	res.sendFile("public/splash_screen.html", { root: "./" });
 });
+
+
+// TEMPLATING STUFF
+
+// app.set('views', __dirname + '/views');
+// app.set('view engine', 'ejs');
+
+// app.get("/", (req, res) => {
+//    res.render("splash.ejs", {
+//      playersOnline: stats.playersOnline,
+//      playersInGame: stats.playersInGame,
+//     gamesOngoing: stats.gamesOngoing,
+//      gamesPlayedTotal: stats.gamesPlayedTotal
+//    });
+//  });
+  
+//  app.get("/", function(req, res){
+//    res.sendFile("game_guesser.html", {root: "./public"});
+//  });
+
+// var stats = new Object();
+// stats.playersOnline = 0;
+// stats.playersInGame = 0;
+// stats.gamesOngoing = 0;
+// stats.gamesPlayedTotal = 0;
