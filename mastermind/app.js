@@ -2,6 +2,7 @@
 var express = require("express");
 var http = require("http");
 var ws = require("ws");
+var ejs = require("ejs");
 var port = process.argv[2] || 3000;
 var app = express();
 
