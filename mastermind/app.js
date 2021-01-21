@@ -57,6 +57,8 @@ wss.on("connection", function(ws) {
 
 	// Add a player online
 	STATS.addOnlinePlayer();
+	// TEMPLATING
+	// stats.playersOnline++;
 
 
 
@@ -142,6 +144,11 @@ wss.on("connection", function(ws) {
 				STATS.addPlayerInGame();
 				STATS.addGameInProgress();
 				STATS.addTotalGamesPlayed();
+				// TEMPLATING
+				// stats.playersInGame++;
+				// stats.playersInGame++;
+				// stats.gamesOngoing++;
+				// stats.gamesPlayedTotal++;
 
 			}
 
@@ -280,6 +287,8 @@ wss.on("connection", function(ws) {
 	
 		// Remove one player from shown as online
 		STATS.removeOnlinePlayer();
+		// TEMPLATING
+		// stats.playersOnline--;
 
 		// If the user is in splash screen, end the method here
 		if(isInSplash) {
@@ -305,6 +314,10 @@ wss.on("connection", function(ws) {
 			STATS.removePlayerInGame();
 			STATS.removePlayerInGame();
 			STATS.removeGameInProgress();
+			// TEMPLATING
+			// stats.playersInGame--;
+			// stats.playersInGame--;
+			// stats.gamesOngoing--;
 			
 			// Remove game from array (here so it only runs once)
 			games.splice(thisGameIndex, 1);
@@ -345,21 +358,54 @@ app.get("/*", function(req, res) {
 
 // TEMPLATING STUFF
 
+// // Server must-haves
+// var express = require("express");
+// var http = require("http");
+// var ws = require("ws");
+// var port = process.argv[2] || 3000;
+// var app = express();
+
+// // My requires
+// var Game = require("./game").game;
+// const games = [];
+
+// var Message = require("./messages");
+// var messages = Message.messages;
+
+// var Stats = require("./stats");
+// var STATS = new Stats.stats();
+
+// // Keep track of players
+// let userID = 1;
+// const players = [];
+
+// // Start server and create WebSocket
+// app.use(express.static(__dirname + "/public"));
+
 // app.set('views', __dirname + '/views');
 // app.set('view engine', 'ejs');
 
 // app.get("/", (req, res) => {
-//    res.render("splash.ejs", {
-//      playersOnline: stats.playersOnline,
-//      playersInGame: stats.playersInGame,
-//     gamesOngoing: stats.gamesOngoing,
-//      gamesPlayedTotal: stats.gamesPlayedTotal
-//    });
-//  });
+//     res.render("splash.ejs", {
+//       playersOnline: stats.playersOnline,
+//       playersInGame: stats.playersInGame,
+//       gamesOngoing: stats.gamesOngoing,
+//       gamesPlayedTotal: stats.gamesPlayedTotal
+//     });
+//   });
+
+// app.get("/", function(req, res){
+//   res.sendFile("splash_screen.html", {root: "./public"});
+// });
+
   
-//  app.get("/", function(req, res){
-//    res.sendFile("game_guesser.html", {root: "./public"});
-//  });
+//   app.get("/game_guesser", function(req, res){
+//     res.sendFile("game_guesser.html", {root: "./public"});
+//   });
+
+// const server = http.createServer(app);
+// const wss = new ws.Server({ server });
+// server.listen(port);
 
 // var stats = new Object();
 // stats.playersOnline = 0;
