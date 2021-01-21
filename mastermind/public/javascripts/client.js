@@ -101,6 +101,10 @@ for(c of colorInputs) {
 					var type = ((action === "GAME_STARTS_MAKECODE" || action === "INVALID_CODE") ? "code" : "guess");
 					document.getElementById("status").innerHTML = "Your " + type + " has been saved. Now wait for the other player to guess!";
 
+					// Then, play a sound effect
+					var sound = document.getElementById("sound");
+					sound.play();
+
 				}
 
 			}
@@ -168,9 +172,11 @@ document.getElementById("send-checks").addEventListener("click", function() {
 	// ...clear the input array, disable input, and display message
 	currentInput = [];
 	canHandleInput = false;
-
 	document.getElementById("status").innerHTML = "Your correction has been saved. Now wait for the other player to guess!";
 
+	// Then, play a sound effect
+	var sound = document.getElementById("sound");
+	sound.play();
 
 });
 
