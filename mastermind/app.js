@@ -75,6 +75,9 @@ function findPlayerIndexOnID(ID) {
 // When a user connects
 wss.on("connection", function(ws) {
 
+	// TEMPLATING
+	stats.playersOnline++;
+
 	// ================================================================
 	// Give this user an ID and assume it's in the game screen
 	let thisID = userID++;
@@ -88,8 +91,7 @@ wss.on("connection", function(ws) {
 
 	// Add a player online
 	STATS.addOnlinePlayer();
-	// TEMPLATING
-	stats.playersOnline++;
+	
 
 
 
