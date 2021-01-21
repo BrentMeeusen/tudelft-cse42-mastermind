@@ -2,9 +2,10 @@
 var express = require("express");
 var http = require("http");
 var ws = require("ws");
-var ejs = require("ejs");
+
 var port = process.argv[2] || 3000;
 var app = express();
+
 
 // My requires
 var Game = require("./game").game;
@@ -24,9 +25,39 @@ const players = [];
 
 // Start server and create WebSocket
 app.use(express.static(__dirname + "/public"));
+
+// Set up the views directory
+app.set('views', __dirname + '/views');
+// Define the engine
+app.set('view engine', 'ejs');
+
+app.get("/", (req, res) => {
+	// Render the view and send the rendered HTML
+    res.render("splash.ejs", {
+      playersOnline: stats.playersOnline,
+      playersInGame: stats.playersInGame,
+      gamesPlayedTotal: stats.gamesPlayedTotal
+    });
+});
+
+app.get("/", function(req, res) {
+  res.sendFile("splash_screen.html", {root: "./public"});
+});
+
+  
+app.get("/game_guesser", function(req, res) {
+    res.sendFile("game_guesser.html", {root: "./public"});
+});
+
 const server = http.createServer(app);
 const wss = new ws.Server({ server });
 server.listen(port);
+
+// Set the statistics to 0
+var stats = new Object();
+stats.playersOnline = 0;
+stats.playersInGame = 0;
+stats.gamesPlayedTotal = 0;
 
 
 // ================================================================
@@ -58,12 +89,12 @@ wss.on("connection", function(ws) {
 	// Add a player online
 	STATS.addOnlinePlayer();
 	// TEMPLATING
-	// stats.playersOnline++;
+	stats.playersOnline++;
 
 
 
 	// ================================================================
-	// When the server reveices a message
+	// When the server receives a message
 	ws.on("message", function incoming(message) {
 
 		MSG = JSON.parse(message);
@@ -145,10 +176,9 @@ wss.on("connection", function(ws) {
 				STATS.addGameInProgress();
 				STATS.addTotalGamesPlayed();
 				// TEMPLATING
-				// stats.playersInGame++;
-				// stats.playersInGame++;
-				// stats.gamesOngoing++;
-				// stats.gamesPlayedTotal++;
+				stats.playersInGame++;
+				stats.playersInGame++;
+				stats.gamesPlayedTotal++;
 
 			}
 
@@ -288,7 +318,7 @@ wss.on("connection", function(ws) {
 		// Remove one player from shown as online
 		STATS.removeOnlinePlayer();
 		// TEMPLATING
-		// stats.playersOnline--;
+		stats.playersOnline--;
 
 		// If the user is in splash screen, end the method here
 		if(isInSplash) {
@@ -315,9 +345,8 @@ wss.on("connection", function(ws) {
 			STATS.removePlayerInGame();
 			STATS.removeGameInProgress();
 			// TEMPLATING
-			// stats.playersInGame--;
-			// stats.playersInGame--;
-			// stats.gamesOngoing--;
+			stats.playersInGame--;
+			stats.playersInGame--;
 			
 			// Remove game from array (here so it only runs once)
 			games.splice(thisGameIndex, 1);
@@ -356,12 +385,13 @@ app.get("/*", function(req, res) {
 });
 
 
-// TEMPLATING STUFF
+// INITIAL - without EJS 
 
 // // Server must-haves
 // var express = require("express");
 // var http = require("http");
 // var ws = require("ws");
+// var ejs = require("ejs");
 // var port = process.argv[2] || 3000;
 // var app = express();
 
@@ -375,40 +405,14 @@ app.get("/*", function(req, res) {
 // var Stats = require("./stats");
 // var STATS = new Stats.stats();
 
+
 // // Keep track of players
 // let userID = 1;
 // const players = [];
 
+
 // // Start server and create WebSocket
 // app.use(express.static(__dirname + "/public"));
-
-// app.set('views', __dirname + '/views');
-// app.set('view engine', 'ejs');
-
-// app.get("/", (req, res) => {
-//     res.render("splash.ejs", {
-//       playersOnline: stats.playersOnline,
-//       playersInGame: stats.playersInGame,
-//       gamesOngoing: stats.gamesOngoing,
-//       gamesPlayedTotal: stats.gamesPlayedTotal
-//     });
-//   });
-
-// app.get("/", function(req, res){
-//   res.sendFile("splash_screen.html", {root: "./public"});
-// });
-
-  
-//   app.get("/game_guesser", function(req, res){
-//     res.sendFile("game_guesser.html", {root: "./public"});
-//   });
-
 // const server = http.createServer(app);
 // const wss = new ws.Server({ server });
 // server.listen(port);
-
-// var stats = new Object();
-// stats.playersOnline = 0;
-// stats.playersInGame = 0;
-// stats.gamesOngoing = 0;
-// stats.gamesPlayedTotal = 0;
