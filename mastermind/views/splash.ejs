@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<!-- WORKS BEST ZOOMED AT 100% ON A BROWSER: CHROME, FIREFOX, EDGE -->
+<!-- WORKS BEST ZOOMED AT 100% ON BROWSER: CHROME AND FIREFOX -->
 
 <html>
 
@@ -8,52 +8,78 @@
 
     <meta charset="utf-8">
     <title> The Mastermind Game </title>
+    <!-- the CSS StyleSheet used to style the splash screen -->
     <link rel="stylesheet" type="text/css" href="stylesheets/splash.css"> 
+    <!-- the import of a writing font -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
     </style>
+    <!-- setting the viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   </head>
 
   <body>
+
+  	<div class="too-small-overlay">
+      <h1> Your screen should be at least 1350px wide to play this game! </h1>
+  	</div>
 
     <header>
         <h1> <strong> MASTERMIND </strong> </h1>
     </header>
 
     <aside class="left-side">
-
-      <div class="statistics" onclick="myFunctionFirst()"> STATISTICS
-        <span class="popuptextFirst" id="myPopupFirst"> 
+   
+      <!-- the statistics button -->
+      <div class="statistics"><span onclick="toggleStats(true);"> STATISTICS</span>
+        <!-- statistics are shown in a popup -->
+        <div class="popuptextFirst stats-popup" id="stats"> 
           <p class="titleFirst"> STATISTICS </p>
           <p id="id1"> PLAYERS ONLINE: <%= playersOnline %> </p>
           <p id="id2"> PLAYERS IN GAME: <%= playersIngame %> </p>
           <p id="id3"> GAMES ONGOING: <%= gamesOngoing %> </p>
           <p id="id4"> GAMES PLAYED IN TOTAL: <%= gamesPlayedTotal %> </p>
-        </span>
+          <!-- the close button of the popup -->
+          <div class="close-btn" id="close-stats-popup">&times;</div>
+        </div>
       </div>
 
+      <!-- the link for more games -> takes the user to a website with more games -->
       <div class="more">
         <a href="https://www.funnygames.org/game/mastermind_online.html"> MORE GAMES </a>
       </div>
 
-      <div class="howto" onclick="myFunction()"> HOW TO PLAY
-        <span class="popuptext" id="myPopup"> 
+      <!-- the button to access the instructions of Mastermind -->
+      <div class="howto"><span onclick="toggleStats2(true);"> HOW TO PLAY </span>
+        <!-- the instructions are displayed in a popup-->
+        <div class="popuptext howto-popup" id="rules"> 
           <p class="title"> HOW TO PLAY </p>
-          One player becomes the codemaker, the other the codebreaker. The codemaker chooses a pattern of four code pegs. Duplicates are allowed. Blank spaces are not allowed. The codebreaker tries to guess the pattern, in both order and color, within 10 turns. Each guess is made by placing a row of code pegs on the decoding board. Once placed, the codemaker provides feedback by placing from zero to four key pegs in the small holes of the row with the guess. A red key peg is placed for each code peg from the guess which is correct in both color and position. A white key peg indicates the existence of a correct color code peg placed in the wrong position. Once feedback is provided, another guess is made; guesses and feedback continue to alternate until either the codebreaker guesses correctly, or all rows of the decoding boards are full. 
-        </span>
+          <p class="text">There are 2 players. One player becomes the codemaker, the other the codebreaker. 
+          The codemaker chooses a code made of four colors. 
+          Duplicates and blank spaces are not allowed. 
+          The codebreaker tries to guess the pattern, in both order and color, within 10 turns. 
+          Each guess is made by placing a row of colored circles on the decoding board. 
+          Once placed, the codemaker provides feedback by placing from zero to four key circles in the small holes of the row with the guess. 
+          A red key is placed for each color circle from the guess which is correct in both color and position. 
+          A white key indicates the existence of a correct color circle placed in the wrong position. 
+          Once feedback is provided, another guess is made; guesses and feedback continue to alternate until either the codebreaker guesses correctly, or all rows of the decoding boards are full. 
+          </p>
+          <!-- the close button of the popup -->
+          <div class="close-btn" id="close-howto-popup">&times;</div>
+        </div>
       </div>
                
     </aside>
       
     <main>
-
-      <a href="game_guesser.html" id="play"> PLAY </a>
+      <!-- the play button -->
+      <a href="/game" id="play"> PLAY </a>
          
     </main>
        
     <aside>
-            
+        <!-- the creators' names -->
         <div class="creators"> Florena Buse<br>
                                Brent Meeusen<br>
         </div>
@@ -65,7 +91,8 @@
       </div>
     </aside>
 
-  <script language="javascript" src="javascripts/splash.js"></script>  
+    <!-- the javascript file used -->
+    <script language="javascript" src="javascripts/splash.js"></script>  
 
   </body>
 
