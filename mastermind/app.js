@@ -23,7 +23,6 @@ let userID = 1;
 const players = [];
 
 
-// Start server and create WebSocket
 app.use(express.static(__dirname + "/public"));
 
 // Set up the views directory
@@ -40,15 +39,18 @@ app.get("/", (req, res) => {
     });
 });
 
-app.get("/", function(req, res) {
+
+// Routes
+app.get("/splash", function(req, res) {
   res.sendFile("splash_screen.html", {root: "./public"});
 });
 
   
-app.get("/game_guesser", function(req, res) {
+app.get("/game", function(req, res) {
     res.sendFile("game_guesser.html", {root: "./public"});
 });
 
+// Start server and create WebSocket
 const server = http.createServer(app);
 const wss = new ws.Server({ server });
 server.listen(port);

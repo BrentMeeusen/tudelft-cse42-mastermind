@@ -2,7 +2,6 @@ const socket = new WebSocket("ws://localhost:3000");
 let messages = {};
 let statsInterval;
 
-
 // Request statistics every 15 seconds
 statsInterval = setInterval(function() {
 	
@@ -51,14 +50,7 @@ socket.onmessage = function(event) {
 
 }
 
-
-
-
-
-
-
-
-
+/* Clicking the close button closes the pop-ups */
 document.getElementById("close-stats-popup").addEventListener("click", function() {
 	toggleStats(false);
 });

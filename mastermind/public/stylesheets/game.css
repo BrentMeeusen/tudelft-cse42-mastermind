@@ -21,7 +21,7 @@ p {
 
 
 
-/* Fix overlay for too small screens */
+/* Fix overlay for screens that are too small */
 @media screen and (max-width: 1350px) {
 	.too-small-overlay {
 		display: block !important;

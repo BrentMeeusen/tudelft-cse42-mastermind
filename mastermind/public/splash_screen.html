@@ -8,19 +8,20 @@
 
     <meta charset="utf-8">
     <title> The Mastermind Game </title>
-    <!-- the CSS StyleSheet used to style the splash screen -->
+    <!-- The CSS StyleSheet used to style the splash screen -->
     <link rel="stylesheet" type="text/css" href="stylesheets/splash.css"> 
-    <!-- the import of a writing font -->
+    <!-- The import of a writing font -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
     </style>
-    <!-- setting the viewport -->
+    <!-- Set the viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   </head>
 
   <body>
 
+    <!-- Screen size limitations -->
   	<div class="too-small-overlay">
       <h1> Your screen should be at least 1350px wide to play this game! </h1>
   	</div>
@@ -31,28 +32,28 @@
 
     <aside class="left-side">
    
-      <!-- the statistics button -->
+      <!-- The statistics button -->
       <div class="statistics"><span onclick="toggleStats(true);"> STATISTICS</span>
-        <!-- statistics are shown in a popup -->
+        <!-- Statistics are shown in a popup -->
         <div class="popuptextFirst stats-popup" id="stats"> 
           <p class="titleFirst"> STATISTICS </p>
           <p id="id1"> PLAYERS ONLINE: <span id="players-online">0</span> </p>
           <p id="id2"> PLAYERS IN GAME: <span id="players-ingame">0</span> </p>
           <p id="id3"> GAMES ONGOING: <span id="games-in-progress">0</span> </p>
           <p id="id4"> GAMES PLAYED IN TOTAL: <span id="total-games-played">0</span> </p>
-          <!-- the close button of the popup -->
+          <!-- The close button of the popup -->
           <div class="close-btn" id="close-stats-popup">&times;</div>
         </div>
       </div>
 
-      <!-- the link for more games -> takes the user to a website with more games -->
+      <!-- The link for more games -> takes the user to a website with more games -->
       <div class="more">
         <a href="https://www.funnygames.org/game/mastermind_online.html"> MORE GAMES </a>
       </div>
 
-      <!-- the button to access the instructions of Mastermind -->
+      <!-- The button to access the instructions of Mastermind -->
       <div class="howto"><span onclick="toggleStats2(true);"> HOW TO PLAY </span>
-        <!-- the instructions are displayed in a popup-->
+        <!-- The instructions are displayed in a popup-->
         <div class="popuptext howto-popup" id="rules"> 
           <p class="title"> HOW TO PLAY </p>
           <p class="text">There are 2 players. One player becomes the codemaker, the other the codebreaker. 
@@ -65,7 +66,7 @@
           A white key indicates the existence of a correct color circle placed in the wrong position. 
           Once feedback is provided, another guess is made; guesses and feedback continue to alternate until either the codebreaker guesses correctly, or all rows of the decoding boards are full. 
           </p>
-          <!-- the close button of the popup -->
+          <!-- The close button of the popup -->
           <div class="close-btn" id="close-howto-popup">&times;</div>
         </div>
       </div>
@@ -73,13 +74,13 @@
     </aside>
       
     <main>
-      <!-- the play button -->
+      <!-- The play button -->
       <a href="/game" id="play"> PLAY </a>
          
     </main>
        
     <aside>
-        <!-- the creators' names -->
+        <!-- The creators' names -->
         <div class="creators"> Florena Buse<br>
                                Brent Meeusen<br>
         </div>
@@ -91,7 +92,7 @@
       </div>
     </aside>
 
-    <!-- the javascript file used -->
+    <!-- The javascript file used -->
     <script language="javascript" src="javascripts/splash.js"></script>  
 
   </body>

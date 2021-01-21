@@ -1,3 +1,4 @@
+/* Fix overlay for screens that are too small */
 @media screen and (max-width: 1350px) {
 	.too-small-overlay {
 		display: block !important;
@@ -24,6 +25,7 @@
 	line-height: 38px;
 }
 
+/* Give the page grid layout */
 html, body {
 	display: grid;
 	grid-gap: 10vw 10vh;
@@ -32,6 +34,7 @@ html, body {
 
 }
 
+/* Set background image and make it fit the screen perfectly */
 body {
 	background-image: url('../../public/images/background.png');
 	background-repeat: no-repeat;
@@ -46,18 +49,22 @@ body {
 	height: 100vh;
 }
 
+/* All references to other pages are written in white */
 div > a { 
 	color:  #F4F3F3;
 }
 
+/* Going over them makes them pink */
 div > a:hover { 
 	color: #FA2BDA;
 }
 
+/* Clicking a link makes it pink */
 div > a:active {
 	color: #FA2BDA;
 }
 
+/* Style the title */
 h1 {
 	color: #F4F3F3;
 	font-family: 'Bungee Shade', cursive;
@@ -67,10 +74,12 @@ h1 {
 	margin-top: -9vh;
 }
 
+/* Going over the title makes it pink */
 h1:hover {
 	color: #FA2BDA;
 }
 
+/* Styling of the PLAY button */
 #play {
 	color: #AB23E0;
 	font-family: 'Bungee Shade', cursive;
@@ -80,10 +89,12 @@ h1:hover {
 	bottom: 21vh;
 }
 
+/* Going over the PLAY button makes it pink */ 
 #play:hover {
 	color: #FA2BDA;
 }
 
+/* Styling of the creators' names */
 .creators {
 	color: #F4F3F3 !important;
 	font-family: 'Bungee Shade', cursive;
@@ -96,7 +107,7 @@ h1:hover {
 	text-align: center;
 }
 
-
+/* Styling of the HOW TO PLAY button */
 .howto {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 20px;
@@ -108,20 +119,24 @@ h1:hover {
 	color: #F4F3F3;
 }
 
+/* Going over the HOW TO PLAY button makes it pink */ 
 .howto:hover {
 	color: #FA2BDA;
 }
 
+/* Animation for gradually fading */
 @-webkit-keyframes fadeIn {
 	from {opacity: 0;}
 	to {opacity: 1;}
 }
-  
+
+/* Animation */
 @keyframes fadeIn {
 	from {opacity: 0;}
 	to {opacity: 1;}
 }
 
+/* Styling of the pop-up containing the rules of the game */
 .howto .popuptext {
 	visibility: hidden;
 	width: 900px;
@@ -137,6 +152,7 @@ h1:hover {
     overflow: auto;
 }
 
+/* Styling the title of the pop-up */
 .howto .title {
 	color: #AB23E0;
 	font-size: 40px;
@@ -146,6 +162,7 @@ h1:hover {
 	box-sizing: border-box;
 }
 
+/* Styling of the text in the pop-up*/
 .howto .text {
 	font-size: 22px;
 	line-height: 28px;
@@ -154,10 +171,12 @@ h1:hover {
 	box-sizing: border-box;
 }
 
+/* Going over the title in the pop-up makes it pink */
 .howto .title:hover {
 	color: #FA2BDA;
 }
 
+/* Styling of the MORE GAMES button */
 .more {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 20px;
@@ -168,6 +187,7 @@ h1:hover {
 	grid-column: 1;
 }
 
+/* Styling of CODEMAKER VS CODEBREAKER */
 .vs {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 15px;
@@ -177,16 +197,19 @@ h1:hover {
 	left: 40.5vw;
 }
 
+/* Adding content before */
 .vs::before {
 	content: "Codemaker";
 	color: #FA2BDA;
 }
 
+/* Adding content after */
 .vs::after {
 	content: "Codebreaker";
 	color: #FA2BDA;
 }
 
+/* Styling of the STATISTICS button */
 .statistics {
 	font-family: 'Bungee Shade', cursive;
 	font-size: 20px;
@@ -198,10 +221,12 @@ h1:hover {
 	color: #F4F3F3;
 }
 
+/* Going of the STATISTICS button makes it pink */
 .statistics:hover {
 	color: #FA2BDA;
 }
 
+/* Styling of the pop-up with the statistics */
 .statistics .popuptextFirst {
 	visibility: hidden;
 	width: 900px;
@@ -220,16 +245,19 @@ h1:hover {
     overflow: auto; 
 }
 
+/* Styling of the title in the pop-up */
 .statistics .titleFirst {
 	color: #ab23e0;
 	font-size: 35px;
 	text-align: center;
 }
 
+/* Going over the title in the pop-up makes it pink */
 .statistics .titleFirst:hover {
 	color: #FA2BDA;
 }
 
+/* Color of the statistics */
 #id1 {
 	color: #F4F3F3;
 }
@@ -246,16 +274,19 @@ h1:hover {
 	color: #F4F3F3;
 }
 
+/* Animation for gradually fading */
 @-webkit-keyframes fadeIn {
 	from {opacity: 0;}
 	to {opacity: 1;}
 }
-  
+
+/* Animation */
 @keyframes fadeIn {
 	from {opacity: 0;}
 	to {opacity: 1;}
 }
 
+/* Styling of the STATISTICS pop-up */
 .stats-popup {
 	position: absolute;
 	top: 45px;
@@ -265,6 +296,7 @@ h1:hover {
 	animation: fadeIn 1s;
 }
 
+/* Styling of the close button in the pop-ups */
 .close-btn {
 	display: none;
 	position: absolute;
@@ -280,19 +312,24 @@ h1:hover {
 	text-align: center;
 }
 
+/* Make the pop-up visibile */
 .stats-popup.active {
 	visibility: visible;
 }
+
+/* Display the close button in the pop-up */
 .stats-popup.active .close-btn {
 	display: block;
 }
 
+/* Show the pop-up */
 .statistics .show {
 	visibility: visible;
 	-webkit-animation: fadeIn 1s;
 	animation: fadeIn 1s;
 }
 
+/* Styling of the HOW TO pop-up */
 .howto-popup {
 	position: absolute;
 	top: 45px;
@@ -302,14 +339,17 @@ h1:hover {
 	animation: fadeIn 1s;
 }
 
-
+/* Make the pop-up visible */
 .howto-popup.active {
 	visibility: visible;
 }
+
+/* Display the close button in the pop-up */
 .howto-popup.active .close-btn {
 	display: block;
 }
 
+/* Show the pop-up */
 .howto .show {
 	visibility: visible;
 	-webkit-animation: fadeIn 1s;
