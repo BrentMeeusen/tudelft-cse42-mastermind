@@ -1,4 +1,3 @@
-//@ts-check
 const socket = new WebSocket("ws://localhost:3000");
 let messages = {};
 let statsInterval;
@@ -11,7 +10,7 @@ statsInterval = setInterval(function() {
 	m = JSON.stringify(m);
 	socket.send(m);
 
-}, 15 * 1000);
+}, 5 * 1000);
 
 
 // ================================================================
