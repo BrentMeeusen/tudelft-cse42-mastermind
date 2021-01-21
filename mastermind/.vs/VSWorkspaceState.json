@@ -4,8 +4,9 @@
     "\\public",
     "\\public\\images",
     "\\public\\javascripts",
-    "\\public\\stylesheets"
+    "\\public\\stylesheets",
+    "\\routes"
   ],
-  "SelectedNode": "\\public\\stylesheets\\splash.css",
+  "SelectedNode": "\\routes\\index.js",
   "PreviewInSolutionExplorer": false
 }
