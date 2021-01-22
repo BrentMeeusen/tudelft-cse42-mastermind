@@ -40,16 +40,6 @@ app.get("/", (req, res) => {
 });
 
 
-// Routes
-app.get("/splash", function(req, res) {
-  res.sendFile("splash_screen.html", {root: "./public"});
-});
-
-  
-app.get("/game", function(req, res) {
-    res.sendFile("game_guesser.html", {root: "./public"});
-});
-
 // Start server and create WebSocket
 const server = http.createServer(app);
 const wss = new ws.Server({ server });
